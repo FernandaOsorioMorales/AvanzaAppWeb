@@ -4,9 +4,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type Trainer struct {
+	gorm.Model
 	idTrainer   uuid.UUID
 	birthDate   time.Time
 	alias       string

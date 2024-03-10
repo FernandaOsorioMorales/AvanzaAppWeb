@@ -6,9 +6,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type Message struct {
+	gorm.Model
 	idUser      uuid.UUID
 	idTrainer   uuid.UUID
 	sentTime    time.Time
