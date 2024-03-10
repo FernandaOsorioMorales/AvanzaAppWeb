@@ -3,21 +3,19 @@ package models
 import (
 	"testing"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 func TestGetIdTrainer(t *testing.T) {
-	id := uuid.New()
+	id := 123
 	trainer := Trainer{
-		idTrainer:   id,
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   id,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedId := trainer.getIdTrainer()
@@ -30,14 +28,14 @@ func TestGetIdTrainer(t *testing.T) {
 func TestGetTrainerBirthDate(t *testing.T) {
 	birth := time.Now()
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   birth,
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   birth,
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedDate := trainer.getBirthDate()
@@ -49,14 +47,14 @@ func TestGetTrainerBirthDate(t *testing.T) {
 
 func TestGetTrainerName(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedName := trainer.getName()
@@ -68,14 +66,14 @@ func TestGetTrainerName(t *testing.T) {
 
 func TestGetTrainerAlias(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedAlias := trainer.getAlias()
@@ -87,14 +85,14 @@ func TestGetTrainerAlias(t *testing.T) {
 
 func TestGetTrainerPhoneNumber(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedPhoneNumber := trainer.getPhoneNumber()
@@ -106,14 +104,14 @@ func TestGetTrainerPhoneNumber(t *testing.T) {
 
 func TestGetTrainerPassword(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedPassword := trainer.getPassword()
@@ -125,14 +123,14 @@ func TestGetTrainerPassword(t *testing.T) {
 
 func TestGetTrainerDescription(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedDescription := trainer.getDescription()
@@ -144,14 +142,14 @@ func TestGetTrainerDescription(t *testing.T) {
 
 func TestGetTrainerSpecialty(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	receivedSpecialty := trainer.getSpecialty()
@@ -163,17 +161,17 @@ func TestGetTrainerSpecialty(t *testing.T) {
 
 func TestSetIdTrainer(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
-	id := uuid.New()
+	id := 1234
 
 	trainer.setIdTrainer(id)
 
@@ -186,14 +184,14 @@ func TestSetIdTrainer(t *testing.T) {
 
 func TestSetTrainerBirthDate(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	birth := time.Now()
@@ -209,14 +207,14 @@ func TestSetTrainerBirthDate(t *testing.T) {
 
 func TestSetTrainerName(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "user",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "user",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	trainer.setName("usuario")
@@ -230,14 +228,14 @@ func TestSetTrainerName(t *testing.T) {
 
 func TestSetTrainerAlias(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "u",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "u",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	trainer.setAlias("usr")
@@ -251,14 +249,14 @@ func TestSetTrainerAlias(t *testing.T) {
 
 func TestSetTrainerPhoneNumber(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	trainer.setPhoneNumber("5555555555")
@@ -272,14 +270,14 @@ func TestSetTrainerPhoneNumber(t *testing.T) {
 
 func TestSetTrainerPassword(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "p",
-		description: "descripcion",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pass",
+		Description: "descripcion",
+		Specialty:   "especialidad",
 	}
 
 	trainer.setPassword("pwd")
@@ -293,14 +291,14 @@ func TestSetTrainerPassword(t *testing.T) {
 
 func TestSetTrainerDescription(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "d",
-		specialty:   "especialidad",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "d",
+		Specialty:   "especialidad",
 	}
 
 	trainer.setDescription("descripcion")
@@ -314,14 +312,14 @@ func TestSetTrainerDescription(t *testing.T) {
 
 func TestSetTrainerSpecialty(t *testing.T) {
 	trainer := Trainer{
-		idTrainer:   uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
-		description: "descripcion",
-		specialty:   "e",
+		IdTrainer:   123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
+		Description: "descripcion",
+		Specialty:   "e",
 	}
 
 	trainer.setSpecialty("especialidad")

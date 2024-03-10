@@ -3,18 +3,16 @@ package models
 import (
 	"testing"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 func TestGetMessageIdUser(t *testing.T) {
-	id := uuid.New()
+	id := 123
 	message := Message{
-		idUser:      id,
-		idTrainer:   id,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      id,
+		IdTrainer:   id,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	receivedId := message.getIdUser()
@@ -25,13 +23,13 @@ func TestGetMessageIdUser(t *testing.T) {
 }
 
 func TestGetMessageIdTrainer(t *testing.T) {
-	id := uuid.New()
+	id := 123
 	message := Message{
-		idUser:      id,
-		idTrainer:   id,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      id,
+		IdTrainer:   id,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	receivedId := message.getIdTrainer()
@@ -44,11 +42,11 @@ func TestGetMessageIdTrainer(t *testing.T) {
 func TestGetMessageSentTime(t *testing.T) {
 	sentAt := time.Now()
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    sentAt,
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    sentAt,
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	receivedDate := message.getSentTime()
@@ -60,11 +58,11 @@ func TestGetMessageSentTime(t *testing.T) {
 
 func TestGetMessageContent(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	receivedContent := message.getContent()
@@ -76,11 +74,11 @@ func TestGetMessageContent(t *testing.T) {
 
 func TestGetMessageTransmitter(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	receivedTransmitter := message.getTransmitter()
@@ -92,14 +90,14 @@ func TestGetMessageTransmitter(t *testing.T) {
 
 func TestSetMessageIdUser(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
-	id := uuid.New()
+	id := 1234
 
 	message.setIdUser(id)
 
@@ -112,14 +110,14 @@ func TestSetMessageIdUser(t *testing.T) {
 
 func TestSetMessageIdTrainer(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
-	id := uuid.New()
+	id := 1234
 
 	message.setIdTrainer(id)
 
@@ -132,11 +130,11 @@ func TestSetMessageIdTrainer(t *testing.T) {
 
 func TestSetMessageSentTime(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	sentAt := time.Now()
@@ -152,11 +150,11 @@ func TestSetMessageSentTime(t *testing.T) {
 
 func TestSetMessageContent(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "m",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "m",
+		Transmitter: "user",
 	}
 
 	message.setContent("message")
@@ -170,11 +168,11 @@ func TestSetMessageContent(t *testing.T) {
 
 func TestSetMessageTransmitter(t *testing.T) {
 	message := Message{
-		idUser:      uuid.New(),
-		idTrainer:   uuid.New(),
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		IdUser:      123,
+		IdTrainer:   123,
+		SentTime:    time.Now(),
+		Content:     "message",
+		Transmitter: "user",
 	}
 
 	err := message.setTransmitter("u")

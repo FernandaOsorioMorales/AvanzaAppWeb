@@ -5,53 +5,52 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Message struct {
 	gorm.Model
-	idUser      uuid.UUID
-	idTrainer   uuid.UUID
-	sentTime    time.Time
-	content     string
-	transmitter string
+	IdUser      int
+	IdTrainer   int
+	SentTime    time.Time
+	Content     string
+	Transmitter string
 }
 
-func (m *Message) getIdUser() uuid.UUID {
-	return m.idUser
+func (m *Message) getIdUser() int {
+	return m.IdUser
 }
 
-func (m *Message) getIdTrainer() uuid.UUID {
-	return m.idTrainer
+func (m *Message) getIdTrainer() int {
+	return m.IdTrainer
 }
 
 func (m *Message) getSentTime() time.Time {
-	return m.sentTime
+	return m.SentTime
 }
 
 func (m *Message) getContent() string {
-	return m.content
+	return m.Content
 }
 
 func (m *Message) getTransmitter() string {
-	return m.transmitter
+	return m.Transmitter
 }
 
-func (m *Message) setIdUser(id uuid.UUID) {
-	m.idUser = id
+func (m *Message) setIdUser(id int) {
+	m.IdUser = id
 }
 
-func (m *Message) setIdTrainer(id uuid.UUID) {
-	m.idTrainer = id
+func (m *Message) setIdTrainer(id int) {
+	m.IdTrainer = id
 }
 
 func (m *Message) setSentTime(time time.Time) {
-	m.sentTime = time
+	m.SentTime = time
 }
 
 func (m *Message) setContent(c string) {
-	m.content = c
+	m.Content = c
 }
 
 func (m *Message) setTransmitter(tr string) error {
@@ -60,6 +59,6 @@ func (m *Message) setTransmitter(tr string) error {
 		return errors.New("Transmitter must be one of 'user' " +
 			"'trainer'. Received '" + tr + "'.")
 	}
-	m.transmitter = tr
+	m.Transmitter = tr
 	return nil
 }

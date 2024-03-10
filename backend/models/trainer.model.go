@@ -3,82 +3,81 @@ package models
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Trainer struct {
 	gorm.Model
-	idTrainer   uuid.UUID
-	birthDate   time.Time
-	alias       string
-	name        string
-	phoneNumber string
-	password    string
-	description string
-	specialty   string
+	IdTrainer   int
+	BirthDate   time.Time
+	Alias       string
+	Name        string
+	PhoneNumber string
+	Password    string
+	Description string
+	Specialty   string
 }
 
-func (t *Trainer) getIdTrainer() uuid.UUID {
-	return t.idTrainer
+func (t *Trainer) getIdTrainer() int {
+	return t.IdTrainer
 }
 
 func (t *Trainer) getBirthDate() time.Time {
-	return t.birthDate
+	return t.BirthDate
 }
 
 func (t *Trainer) getAlias() string {
-	return t.alias
+	return t.Alias
 }
 
 func (t *Trainer) getName() string {
-	return t.name
+	return t.Name
 }
 
 func (t *Trainer) getPhoneNumber() string {
-	return t.phoneNumber
+	return t.PhoneNumber
 }
 
 func (t *Trainer) getPassword() string {
-	return t.password
+	return t.Password
 }
 
 func (t *Trainer) getDescription() string {
-	return t.description
+	return t.Description
 }
 
 func (t *Trainer) getSpecialty() string {
-	return t.specialty
+	return t.Specialty
 }
 
-func (t *Trainer) setIdTrainer(id uuid.UUID) {
-	t.idTrainer = id
+func (t *Trainer) setIdTrainer(id int) {
+	t.IdTrainer = id
 }
 
 func (t *Trainer) setBirthDate(date time.Time) {
-	t.birthDate = date
+	t.BirthDate = date
 }
 
 func (t *Trainer) setAlias(alias string) {
-	t.alias = alias
+	t.Alias = alias
 }
 
 func (t *Trainer) setName(name string) {
-	t.name = name
+	t.Name = name
 }
 
 func (t *Trainer) setPhoneNumber(phone string) {
-	t.phoneNumber = phone
+	t.PhoneNumber = phone
 }
 
 func (t *Trainer) setPassword(password string) {
-	t.password = password
+	t.Password = password
 }
 
 func (t *Trainer) setDescription(description string) {
-	t.description = description
+	t.Description = description
 }
 
 func (t *Trainer) setSpecialty(specialty string) {
-	t.specialty = specialty
+	t.Specialty = specialty
 }

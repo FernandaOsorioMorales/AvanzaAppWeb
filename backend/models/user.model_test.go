@@ -3,37 +3,34 @@ package models
 import (
 	"testing"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 func TestGetIdUser(t *testing.T) {
-	id := uuid.New()
 	user := User{
-		idUser:      id,
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedId := user.getIdUser()
 
-	if receivedId != id {
-		t.Fatalf("Expected %q, received %q", id, receivedId)
+	if receivedId != 123 {
+		t.Fatalf("Expected %q, received %q", 123, receivedId)
 	}
 }
 
 func TestGetUserBirthDate(t *testing.T) {
 	birth := time.Now()
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   birth,
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   birth,
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedDate := user.getBirthDate()
@@ -45,12 +42,12 @@ func TestGetUserBirthDate(t *testing.T) {
 
 func TestGetUserName(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedName := user.getName()
@@ -62,12 +59,12 @@ func TestGetUserName(t *testing.T) {
 
 func TestGetUserAlias(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedAlias := user.getAlias()
@@ -79,12 +76,12 @@ func TestGetUserAlias(t *testing.T) {
 
 func TestGetUserPhoneNumber(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedPhoneNumber := user.getPhoneNumber()
@@ -96,12 +93,12 @@ func TestGetUserPhoneNumber(t *testing.T) {
 
 func TestGetUserPassword(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	receivedPassword := user.getPassword()
@@ -112,17 +109,16 @@ func TestGetUserPassword(t *testing.T) {
 }
 
 func TestSetIdUser(t *testing.T) {
-
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
-	id := uuid.New()
+	id := 1234
 
 	user.setIdUser(id)
 
@@ -135,12 +131,12 @@ func TestSetIdUser(t *testing.T) {
 
 func TestSetUserBirthDate(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	birth := time.Now()
@@ -156,12 +152,12 @@ func TestSetUserBirthDate(t *testing.T) {
 
 func TestSetUserName(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "user",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "user",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	user.setName("usuario")
@@ -175,12 +171,12 @@ func TestSetUserName(t *testing.T) {
 
 func TestSetUserAlias(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "u",
-		phoneNumber: "5555555555",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "u",
+		PhoneNumber: "5555555555",
+		Password:    "pwd",
 	}
 
 	user.setAlias("usr")
@@ -194,12 +190,12 @@ func TestSetUserAlias(t *testing.T) {
 
 func TestSetUserPhoneNumber(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "55",
-		password:    "pwd",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "55",
+		Password:    "pwd",
 	}
 
 	user.setPhoneNumber("5555555555")
@@ -213,12 +209,12 @@ func TestSetUserPhoneNumber(t *testing.T) {
 
 func TestSetUserPassword(t *testing.T) {
 	user := User{
-		idUser:      uuid.New(),
-		birthDate:   time.Now(),
-		name:        "usuario",
-		alias:       "usr",
-		phoneNumber: "5555555555",
-		password:    "p",
+		IdUser:      123,
+		BirthDate:   time.Now(),
+		Name:        "usuario",
+		Alias:       "usr",
+		PhoneNumber: "5555555555",
+		Password:    "p",
 	}
 
 	user.setPassword("pwd")

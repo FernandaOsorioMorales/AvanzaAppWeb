@@ -3,64 +3,63 @@ package models
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	idUser      uuid.UUID
-	birthDate   time.Time
-	alias       string
-	name        string
-	phoneNumber string
-	password    string
+	IdUser      int
+	BirthDate   time.Time
+	Alias       string
+	Name        string
+	PhoneNumber string
+	Password    string
 }
 
-func (u *User) getIdUser() uuid.UUID {
-	return u.idUser
+func (u *User) getIdUser() int {
+	return u.IdUser
 }
 
 func (u *User) getBirthDate() time.Time {
-	return u.birthDate
+	return u.BirthDate
 }
 
 func (u *User) getAlias() string {
-	return u.alias
+	return u.Alias
 }
 
 func (u *User) getName() string {
-	return u.name
+	return u.Name
 }
 
 func (u *User) getPhoneNumber() string {
-	return u.phoneNumber
+	return u.PhoneNumber
 }
 
 func (u *User) getPassword() string {
-	return u.password
+	return u.Password
 }
 
-func (u *User) setIdUser(id uuid.UUID) {
-	u.idUser = id
+func (u *User) setIdUser(id int) {
+	u.IdUser = id
 }
 
 func (u *User) setBirthDate(date time.Time) {
-	u.birthDate = date
+	u.BirthDate = date
 }
 
 func (u *User) setAlias(alias string) {
-	u.alias = alias
+	u.Alias = alias
 }
 
 func (u *User) setName(name string) {
-	u.name = name
+	u.Name = name
 }
 
 func (u *User) setPhoneNumber(phone string) {
-	u.phoneNumber = phone
+	u.PhoneNumber = phone
 }
 
 func (u *User) setPassword(password string) {
-	u.password = password
+	u.Password = password
 }
