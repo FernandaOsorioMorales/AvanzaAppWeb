@@ -10,9 +10,17 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
+func InitDB() (*gorm.DB, error) {
+	dsn := "user:password@tcp(localhost:9090)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	return gorm.Open(postgres.Open(dsn), &gorm.Config{})
+}
+
 func main() {
+
 	app := fiber.New()
 
 	app.Static("/static", "/app/static")
