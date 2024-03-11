@@ -1,4 +1,4 @@
-module angelalk.ciencias.unam.mx/m/v2
+module github.com/FernandaOsorioMorales/AvanzaAppWeb
 
 go 1.22.0
 
