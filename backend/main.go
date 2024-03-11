@@ -7,6 +7,9 @@ import (
 	//	"os"
 
 	"backend/routes"
+	"fmt"
+	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -24,6 +27,15 @@ func main() {
 	app := fiber.New()
 
 	app.Static("/static", "/app/static")
+	//kk
+	entries, e := os.ReadDir("/app/static")
+	if e != nil {
+		log.Fatal(e)
+	}
+	//t
+	for _, e := range entries {
+		fmt.Println(e.Name())
+	}
 
 	// *Middleware for logging
 	app.Use(logger.New())
