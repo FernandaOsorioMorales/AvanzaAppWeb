@@ -8,76 +8,96 @@ import (
 
 type Trainer struct {
 	gorm.Model
-	IdTrainer   int
-	BirthDate   time.Time
-	Alias       string
-	Name        string
-	PhoneNumber string
-	Password    string
-	Description string
-	Specialty   string
+	idTrainer   int
+	birthDate   time.Time
+	alias       string
+	name        string
+	phoneNumber string
+	password    string
+	description string
+	specialty   string
 }
 
-func (t *Trainer) getIdTrainer() int {
-	return t.IdTrainer
+func NewTrainer(idTrainer int,
+	birthDate time.Time,
+	alias string,
+	name string,
+	phoneNumber string,
+	password string,
+	description string,
+	specialty string) Trainer {
+	return Trainer{
+		idTrainer:   idTrainer,
+		birthDate:   birthDate,
+		alias:       alias,
+		name:        name,
+		phoneNumber: phoneNumber,
+		password:    password,
+		description: description,
+		specialty:   specialty,
+	}
 }
 
-func (t *Trainer) getBirthDate() time.Time {
-	return t.BirthDate
+func (t *Trainer) GetIdTrainer() int {
+	return t.idTrainer
 }
 
-func (t *Trainer) getAlias() string {
-	return t.Alias
+func (t *Trainer) GetBirthDate() time.Time {
+	return t.birthDate
 }
 
-func (t *Trainer) getName() string {
-	return t.Name
+func (t *Trainer) GetAlias() string {
+	return t.alias
 }
 
-func (t *Trainer) getPhoneNumber() string {
-	return t.PhoneNumber
+func (t *Trainer) GetName() string {
+	return t.name
 }
 
-func (t *Trainer) getPassword() string {
-	return t.Password
+func (t *Trainer) GetPhoneNumber() string {
+	return t.phoneNumber
 }
 
-func (t *Trainer) getDescription() string {
-	return t.Description
+func (t *Trainer) GetPassword() string {
+	return t.password
 }
 
-func (t *Trainer) getSpecialty() string {
-	return t.Specialty
+func (t *Trainer) GetDescription() string {
+	return t.description
 }
 
-func (t *Trainer) setIdTrainer(id int) {
-	t.IdTrainer = id
+func (t *Trainer) GetSpecialty() string {
+	return t.specialty
 }
 
-func (t *Trainer) setBirthDate(date time.Time) {
-	t.BirthDate = date
+func (t *Trainer) SetIdTrainer(id int) {
+	t.idTrainer = id
 }
 
-func (t *Trainer) setAlias(alias string) {
-	t.Alias = alias
+func (t *Trainer) SetBirthDate(date time.Time) {
+	t.birthDate = date
 }
 
-func (t *Trainer) setName(name string) {
-	t.Name = name
+func (t *Trainer) SetAlias(alias string) {
+	t.alias = alias
 }
 
-func (t *Trainer) setPhoneNumber(phone string) {
-	t.PhoneNumber = phone
+func (t *Trainer) SetName(name string) {
+	t.name = name
 }
 
-func (t *Trainer) setPassword(password string) {
-	t.Password = password
+func (t *Trainer) SetPhoneNumber(phone string) {
+	t.phoneNumber = phone
 }
 
-func (t *Trainer) setDescription(description string) {
-	t.Description = description
+func (t *Trainer) SetPassword(password string) {
+	t.password = password
 }
 
-func (t *Trainer) setSpecialty(specialty string) {
-	t.Specialty = specialty
+func (t *Trainer) SetDescription(description string) {
+	t.description = description
+}
+
+func (t *Trainer) SetSpecialty(specialty string) {
+	t.specialty = specialty
 }

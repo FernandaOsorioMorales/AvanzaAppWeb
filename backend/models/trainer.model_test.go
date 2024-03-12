@@ -8,17 +8,17 @@ import (
 func TestGetIdTrainer(t *testing.T) {
 	id := 123
 	trainer := Trainer{
-		IdTrainer:   id,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   id,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedId := trainer.getIdTrainer()
+	receivedId := trainer.GetIdTrainer()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -28,17 +28,17 @@ func TestGetIdTrainer(t *testing.T) {
 func TestGetTrainerBirthDate(t *testing.T) {
 	birth := time.Now()
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   birth,
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   birth,
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedDate := trainer.getBirthDate()
+	receivedDate := trainer.GetBirthDate()
 
 	if receivedDate != birth {
 		t.Fatalf("Expected %q, received %q", birth, receivedDate)
@@ -47,17 +47,17 @@ func TestGetTrainerBirthDate(t *testing.T) {
 
 func TestGetTrainerName(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedName := trainer.getName()
+	receivedName := trainer.GetName()
 
 	if receivedName != "usuario" {
 		t.Fatalf("Expected %q, received %q", "usuario", receivedName)
@@ -66,17 +66,17 @@ func TestGetTrainerName(t *testing.T) {
 
 func TestGetTrainerAlias(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedAlias := trainer.getAlias()
+	receivedAlias := trainer.GetAlias()
 
 	if receivedAlias != "usr" {
 		t.Fatalf("Expected %q, received %q", "usr", receivedAlias)
@@ -85,17 +85,17 @@ func TestGetTrainerAlias(t *testing.T) {
 
 func TestGetTrainerPhoneNumber(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedPhoneNumber := trainer.getPhoneNumber()
+	receivedPhoneNumber := trainer.GetPhoneNumber()
 
 	if receivedPhoneNumber != "5555555555" {
 		t.Fatalf("Expected %q, received %q", "5555555555", receivedPhoneNumber)
@@ -104,17 +104,17 @@ func TestGetTrainerPhoneNumber(t *testing.T) {
 
 func TestGetTrainerPassword(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedPassword := trainer.getPassword()
+	receivedPassword := trainer.GetPassword()
 
 	if receivedPassword != "pwd" {
 		t.Fatalf("Expected %q, received %q", "pwd", receivedPassword)
@@ -123,17 +123,17 @@ func TestGetTrainerPassword(t *testing.T) {
 
 func TestGetTrainerDescription(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedDescription := trainer.getDescription()
+	receivedDescription := trainer.GetDescription()
 
 	if receivedDescription != "descripcion" {
 		t.Fatalf("Expected %q, received %q", "descripcion", receivedDescription)
@@ -142,17 +142,17 @@ func TestGetTrainerDescription(t *testing.T) {
 
 func TestGetTrainerSpecialty(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	receivedSpecialty := trainer.getSpecialty()
+	receivedSpecialty := trainer.GetSpecialty()
 
 	if receivedSpecialty != "especialidad" {
 		t.Fatalf("Expected %q, received %q", "especialidad", receivedSpecialty)
@@ -161,21 +161,21 @@ func TestGetTrainerSpecialty(t *testing.T) {
 
 func TestSetIdTrainer(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
 	id := 1234
 
-	trainer.setIdTrainer(id)
+	trainer.SetIdTrainer(id)
 
-	receivedId := trainer.getIdTrainer()
+	receivedId := trainer.GetIdTrainer()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -184,21 +184,21 @@ func TestSetIdTrainer(t *testing.T) {
 
 func TestSetTrainerBirthDate(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
 	birth := time.Now()
 
-	trainer.setBirthDate(birth)
+	trainer.SetBirthDate(birth)
 
-	receivedDate := trainer.getBirthDate()
+	receivedDate := trainer.GetBirthDate()
 
 	if receivedDate != birth {
 		t.Fatalf("Expected %q, received %q", birth, receivedDate)
@@ -207,19 +207,19 @@ func TestSetTrainerBirthDate(t *testing.T) {
 
 func TestSetTrainerName(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "user",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "user",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	trainer.setName("usuario")
+	trainer.SetName("usuario")
 
-	receivedName := trainer.getName()
+	receivedName := trainer.GetName()
 
 	if receivedName != "usuario" {
 		t.Fatalf("Expected %q, received %q", "usuario", receivedName)
@@ -228,19 +228,19 @@ func TestSetTrainerName(t *testing.T) {
 
 func TestSetTrainerAlias(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "u",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "u",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	trainer.setAlias("usr")
+	trainer.SetAlias("usr")
 
-	receivedAlias := trainer.getAlias()
+	receivedAlias := trainer.GetAlias()
 
 	if receivedAlias != "usr" {
 		t.Fatalf("Expected %q, received %q", "usr", receivedAlias)
@@ -249,19 +249,19 @@ func TestSetTrainerAlias(t *testing.T) {
 
 func TestSetTrainerPhoneNumber(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	trainer.setPhoneNumber("5555555555")
+	trainer.SetPhoneNumber("5555555555")
 
-	receivedPhoneNumber := trainer.getPhoneNumber()
+	receivedPhoneNumber := trainer.GetPhoneNumber()
 
 	if receivedPhoneNumber != "5555555555" {
 		t.Fatalf("Expected %q, received %q", "5555555555", receivedPhoneNumber)
@@ -270,19 +270,19 @@ func TestSetTrainerPhoneNumber(t *testing.T) {
 
 func TestSetTrainerPassword(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pass",
-		Description: "descripcion",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pass",
+		description: "descripcion",
+		specialty:   "especialidad",
 	}
 
-	trainer.setPassword("pwd")
+	trainer.SetPassword("pwd")
 
-	receivedPassword := trainer.getPassword()
+	receivedPassword := trainer.GetPassword()
 
 	if receivedPassword != "pwd" {
 		t.Fatalf("Expected %q, received %q", "pwd", receivedPassword)
@@ -291,19 +291,19 @@ func TestSetTrainerPassword(t *testing.T) {
 
 func TestSetTrainerDescription(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "d",
-		Specialty:   "especialidad",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "d",
+		specialty:   "especialidad",
 	}
 
-	trainer.setDescription("descripcion")
+	trainer.SetDescription("descripcion")
 
-	receivedDescription := trainer.getDescription()
+	receivedDescription := trainer.GetDescription()
 
 	if receivedDescription != "descripcion" {
 		t.Fatalf("Expected %q, received %q", "descripcion", receivedDescription)
@@ -312,19 +312,19 @@ func TestSetTrainerDescription(t *testing.T) {
 
 func TestSetTrainerSpecialty(t *testing.T) {
 	trainer := Trainer{
-		IdTrainer:   123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
-		Description: "descripcion",
-		Specialty:   "e",
+		idTrainer:   123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
+		description: "descripcion",
+		specialty:   "e",
 	}
 
-	trainer.setSpecialty("especialidad")
+	trainer.SetSpecialty("especialidad")
 
-	receivedSpecialty := trainer.getSpecialty()
+	receivedSpecialty := trainer.GetSpecialty()
 
 	if receivedSpecialty != "especialidad" {
 		t.Fatalf("Expected %q, received %q", "especialidad", receivedSpecialty)

@@ -8,14 +8,14 @@ import (
 func TestGetMessageIdUser(t *testing.T) {
 	id := 123
 	message := Message{
-		IdUser:      id,
-		IdTrainer:   id,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      id,
+		idTrainer:   id,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
-	receivedId := message.getIdUser()
+	receivedId := message.GetIdUser()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -25,14 +25,14 @@ func TestGetMessageIdUser(t *testing.T) {
 func TestGetMessageIdTrainer(t *testing.T) {
 	id := 123
 	message := Message{
-		IdUser:      id,
-		IdTrainer:   id,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      id,
+		idTrainer:   id,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
-	receivedId := message.getIdTrainer()
+	receivedId := message.GetIdTrainer()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -42,14 +42,14 @@ func TestGetMessageIdTrainer(t *testing.T) {
 func TestGetMessageSentTime(t *testing.T) {
 	sentAt := time.Now()
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    sentAt,
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    sentAt,
+		content:     "message",
+		transmitter: "user",
 	}
 
-	receivedDate := message.getSentTime()
+	receivedDate := message.GetSentTime()
 
 	if receivedDate != sentAt {
 		t.Fatalf("Expected %q, received %q", sentAt, receivedDate)
@@ -58,14 +58,14 @@ func TestGetMessageSentTime(t *testing.T) {
 
 func TestGetMessageContent(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
-	receivedContent := message.getContent()
+	receivedContent := message.GetContent()
 
 	if receivedContent != "message" {
 		t.Fatalf("Expected %q, received %q", "message", receivedContent)
@@ -74,14 +74,14 @@ func TestGetMessageContent(t *testing.T) {
 
 func TestGetMessageTransmitter(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
-	receivedTransmitter := message.getTransmitter()
+	receivedTransmitter := message.GetTransmitter()
 
 	if receivedTransmitter != "user" {
 		t.Fatalf("Expected %q, received %q", "user", receivedTransmitter)
@@ -90,18 +90,18 @@ func TestGetMessageTransmitter(t *testing.T) {
 
 func TestSetMessageIdUser(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
 	id := 1234
 
-	message.setIdUser(id)
+	message.SetIdUser(id)
 
-	receivedId := message.getIdUser()
+	receivedId := message.GetIdUser()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -110,18 +110,18 @@ func TestSetMessageIdUser(t *testing.T) {
 
 func TestSetMessageIdTrainer(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
 	id := 1234
 
-	message.setIdTrainer(id)
+	message.SetIdTrainer(id)
 
-	receivedId := message.getIdTrainer()
+	receivedId := message.GetIdTrainer()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -130,18 +130,18 @@ func TestSetMessageIdTrainer(t *testing.T) {
 
 func TestSetMessageSentTime(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
 	sentAt := time.Now()
 
-	message.setSentTime(sentAt)
+	message.SetSentTime(sentAt)
 
-	receivedDate := message.getSentTime()
+	receivedDate := message.GetSentTime()
 
 	if receivedDate != sentAt {
 		t.Fatalf("Expected %q, received %q", sentAt, receivedDate)
@@ -150,16 +150,16 @@ func TestSetMessageSentTime(t *testing.T) {
 
 func TestSetMessageContent(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "m",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "m",
+		transmitter: "user",
 	}
 
-	message.setContent("message")
+	message.SetContent("message")
 
-	receivedContent := message.getContent()
+	receivedContent := message.GetContent()
 
 	if receivedContent != "message" {
 		t.Fatalf("Expected %q, received %q", "message", receivedContent)
@@ -168,40 +168,40 @@ func TestSetMessageContent(t *testing.T) {
 
 func TestSetMessageTransmitter(t *testing.T) {
 	message := Message{
-		IdUser:      123,
-		IdTrainer:   123,
-		SentTime:    time.Now(),
-		Content:     "message",
-		Transmitter: "user",
+		idUser:      123,
+		idTrainer:   123,
+		sentTime:    time.Now(),
+		content:     "message",
+		transmitter: "user",
 	}
 
-	err := message.setTransmitter("u")
+	err := message.SetTransmitter("u")
 
 	if err == nil {
-		t.Fatalf("Expected error when setting invalid transmitter, received nil")
+		t.Fatalf("Expected error when Setting invalid transmitter, received nil")
 	}
 
-	err = message.setTransmitter("trainer")
+	err = message.SetTransmitter("trainer")
 
 	if err != nil {
-		t.Fatalf("Unexpected error when setting valid transmitter 'trainer' %q",
+		t.Fatalf("Unexpected error when Setting valid transmitter 'trainer' %q",
 			err.Error())
 	}
 
-	receivedTransmitter := message.getTransmitter()
+	receivedTransmitter := message.GetTransmitter()
 
 	if receivedTransmitter != "trainer" {
 		t.Fatalf("Expected %q, received %q", "trainer", receivedTransmitter)
 	}
 
-	err = message.setTransmitter("user")
+	err = message.SetTransmitter("user")
 
 	if err != nil {
-		t.Fatalf("Unexpected error when setting valid transmitter 'user' %q",
+		t.Fatalf("Unexpected error when Setting valid transmitter 'user' %q",
 			err.Error())
 	}
 
-	receivedTransmitter = message.getTransmitter()
+	receivedTransmitter = message.GetTransmitter()
 
 	if receivedTransmitter != "user" {
 		t.Fatalf("Expected %q, received %q", "user", receivedTransmitter)

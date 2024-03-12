@@ -7,15 +7,15 @@ import (
 
 func TestGetIdUser(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedId := user.getIdUser()
+	receivedId := user.GetIdUser()
 
 	if receivedId != 123 {
 		t.Fatalf("Expected %q, received %q", 123, receivedId)
@@ -25,15 +25,15 @@ func TestGetIdUser(t *testing.T) {
 func TestGetUserBirthDate(t *testing.T) {
 	birth := time.Now()
 	user := User{
-		IdUser:      123,
-		BirthDate:   birth,
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   birth,
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedDate := user.getBirthDate()
+	receivedDate := user.GetBirthDate()
 
 	if receivedDate != birth {
 		t.Fatalf("Expected %q, received %q", birth, receivedDate)
@@ -42,15 +42,15 @@ func TestGetUserBirthDate(t *testing.T) {
 
 func TestGetUserName(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedName := user.getName()
+	receivedName := user.GetName()
 
 	if receivedName != "usuario" {
 		t.Fatalf("Expected %q, received %q", "usuario", receivedName)
@@ -59,15 +59,15 @@ func TestGetUserName(t *testing.T) {
 
 func TestGetUserAlias(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedAlias := user.getAlias()
+	receivedAlias := user.GetAlias()
 
 	if receivedAlias != "usr" {
 		t.Fatalf("Expected %q, received %q", "usr", receivedAlias)
@@ -76,15 +76,15 @@ func TestGetUserAlias(t *testing.T) {
 
 func TestGetUserPhoneNumber(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedPhoneNumber := user.getPhoneNumber()
+	receivedPhoneNumber := user.GetPhoneNumber()
 
 	if receivedPhoneNumber != "5555555555" {
 		t.Fatalf("Expected %q, received %q", "5555555555", receivedPhoneNumber)
@@ -93,15 +93,15 @@ func TestGetUserPhoneNumber(t *testing.T) {
 
 func TestGetUserPassword(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	receivedPassword := user.getPassword()
+	receivedPassword := user.GetPassword()
 
 	if receivedPassword != "pwd" {
 		t.Fatalf("Expected %q, received %q", "pwd", receivedPassword)
@@ -110,19 +110,19 @@ func TestGetUserPassword(t *testing.T) {
 
 func TestSetIdUser(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
 	id := 1234
 
-	user.setIdUser(id)
+	user.SetIdUser(id)
 
-	receivedId := user.getIdUser()
+	receivedId := user.GetIdUser()
 
 	if receivedId != id {
 		t.Fatalf("Expected %q, received %q", id, receivedId)
@@ -131,19 +131,19 @@ func TestSetIdUser(t *testing.T) {
 
 func TestSetUserBirthDate(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
 	birth := time.Now()
 
-	user.setBirthDate(birth)
+	user.SetBirthDate(birth)
 
-	receivedDate := user.getBirthDate()
+	receivedDate := user.GetBirthDate()
 
 	if receivedDate != birth {
 		t.Fatalf("Expected %q, received %q", birth, receivedDate)
@@ -152,17 +152,17 @@ func TestSetUserBirthDate(t *testing.T) {
 
 func TestSetUserName(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "user",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "user",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	user.setName("usuario")
+	user.SetName("usuario")
 
-	receivedName := user.getName()
+	receivedName := user.GetName()
 
 	if receivedName != "usuario" {
 		t.Fatalf("Expected %q, received %q", "usuario", receivedName)
@@ -171,17 +171,17 @@ func TestSetUserName(t *testing.T) {
 
 func TestSetUserAlias(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "u",
-		PhoneNumber: "5555555555",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "u",
+		phoneNumber: "5555555555",
+		password:    "pwd",
 	}
 
-	user.setAlias("usr")
+	user.SetAlias("usr")
 
-	receivedAlias := user.getAlias()
+	receivedAlias := user.GetAlias()
 
 	if receivedAlias != "usr" {
 		t.Fatalf("Expected %q, received %q", "usr", receivedAlias)
@@ -190,17 +190,17 @@ func TestSetUserAlias(t *testing.T) {
 
 func TestSetUserPhoneNumber(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "55",
-		Password:    "pwd",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "55",
+		password:    "pwd",
 	}
 
-	user.setPhoneNumber("5555555555")
+	user.SetPhoneNumber("5555555555")
 
-	receivedPhoneNumber := user.getPhoneNumber()
+	receivedPhoneNumber := user.GetPhoneNumber()
 
 	if receivedPhoneNumber != "5555555555" {
 		t.Fatalf("Expected %q, received %q", "5555555555", receivedPhoneNumber)
@@ -209,17 +209,17 @@ func TestSetUserPhoneNumber(t *testing.T) {
 
 func TestSetUserPassword(t *testing.T) {
 	user := User{
-		IdUser:      123,
-		BirthDate:   time.Now(),
-		Name:        "usuario",
-		Alias:       "usr",
-		PhoneNumber: "5555555555",
-		Password:    "p",
+		idUser:      123,
+		birthDate:   time.Now(),
+		name:        "usuario",
+		alias:       "usr",
+		phoneNumber: "5555555555",
+		password:    "p",
 	}
 
-	user.setPassword("pwd")
+	user.SetPassword("pwd")
 
-	receivedPassword := user.getPassword()
+	receivedPassword := user.GetPassword()
 
 	if receivedPassword != "pwd" {
 		t.Fatalf("Expected %q, received %q", "pwd", receivedPassword)

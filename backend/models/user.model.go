@@ -8,58 +8,74 @@ import (
 
 type User struct {
 	gorm.Model
-	IdUser      int
-	BirthDate   time.Time
-	Alias       string
-	Name        string
-	PhoneNumber string
-	Password    string
+	idUser      int
+	birthDate   time.Time
+	alias       string
+	name        string
+	phoneNumber string
+	password    string
 }
 
-func (u *User) getIdUser() int {
-	return u.IdUser
+func NewUser(idUser int,
+	birthDate time.Time,
+	alias string,
+	name string,
+	phoneNumber string,
+	password string) User {
+	return User{
+		idUser:      idUser,
+		birthDate:   birthDate,
+		alias:       alias,
+		name:        name,
+		phoneNumber: phoneNumber,
+		password:    password,
+	}
 }
 
-func (u *User) getBirthDate() time.Time {
-	return u.BirthDate
+func (u *User) GetIdUser() int {
+	return u.idUser
 }
 
-func (u *User) getAlias() string {
-	return u.Alias
+func (u *User) GetBirthDate() time.Time {
+	return u.birthDate
 }
 
-func (u *User) getName() string {
-	return u.Name
+func (u *User) GetAlias() string {
+	return u.alias
 }
 
-func (u *User) getPhoneNumber() string {
-	return u.PhoneNumber
+func (u *User) GetName() string {
+	return u.name
 }
 
-func (u *User) getPassword() string {
-	return u.Password
+func (u *User) GetPhoneNumber() string {
+	return u.phoneNumber
 }
 
-func (u *User) setIdUser(id int) {
-	u.IdUser = id
+func (u *User) GetPassword() string {
+	return u.password
 }
 
-func (u *User) setBirthDate(date time.Time) {
-	u.BirthDate = date
+func (u *User) SetIdUser(id int) {
+	u.idUser = id
 }
 
-func (u *User) setAlias(alias string) {
-	u.Alias = alias
+func (u *User) SetBirthDate(date time.Time) {
+	u.birthDate = date
 }
 
-func (u *User) setName(name string) {
-	u.Name = name
+func (u *User) SetAlias(alias string) {
+	u.alias = alias
 }
 
-func (u *User) setPhoneNumber(phone string) {
-	u.PhoneNumber = phone
+func (u *User) SetName(name string) {
+	u.name = name
 }
 
-func (u *User) setPassword(password string) {
-	u.Password = password
+func (u *User) SetPhoneNumber(phone string) {
+	u.phoneNumber = phone
+}
+
+func (u *User) SetPassword(password string) {
+	u.password = password
 }

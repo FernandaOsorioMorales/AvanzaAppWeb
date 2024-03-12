@@ -13,20 +13,11 @@ func CreateTainer(db *gorm.DB,
 	alias string,
 	name string,
 	phone string,
-	password string,
-	description string,
-	specialty string) (*models.Trainer, error) {
+	pass string,
+	des string,
+	spec string) (*models.Trainer, error) {
 
-	t := models.Trainer{
-		IdTrainer:   id,
-		BirthDate:   birth,
-		Name:        name,
-		Alias:       alias,
-		PhoneNumber: phone,
-		Password:    password,
-		Description: description,
-		Specialty:   specialty,
-	}
+	t := models.NewTrainer(id, birth, alias, name, phone, pass, des, spec)
 
 	err := db.Create(t).Error
 
@@ -40,7 +31,7 @@ func CreateTainer(db *gorm.DB,
 func GetTrainerById(db *gorm.DB, id int) (*models.Trainer, error) {
 	var t models.Trainer
 
-	err := db.Where("IdUser = ?", id).First(&t).Error
+	err := db.Where("idUser = ?", id).First(&t).Error
 
 	if err != nil {
 		return nil, err

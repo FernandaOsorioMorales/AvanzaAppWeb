@@ -13,16 +13,9 @@ func CreateUser(db *gorm.DB,
 	alias string,
 	name string,
 	phone string,
-	password string) (*models.User, error) {
+	pass string) (*models.User, error) {
 
-	u := models.User{
-		IdUser:      id,
-		BirthDate:   birth,
-		Name:        name,
-		Alias:       alias,
-		PhoneNumber: phone,
-		Password:    password,
-	}
+	u := models.NewUser(id, birth, alias, name, phone, pass)
 
 	err := db.Create(u).Error
 
@@ -36,7 +29,7 @@ func CreateUser(db *gorm.DB,
 func GetUserById(db *gorm.DB, id int) (*models.User, error) {
 	var u models.User
 
-	err := db.Where("IdUser = ?", id).First(&u).Error
+	err := db.Where("idUser = ?", id).First(&u).Error
 
 	if err != nil {
 		return nil, err

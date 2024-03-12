@@ -10,55 +10,69 @@ import (
 
 type Message struct {
 	gorm.Model
-	IdUser      int
-	IdTrainer   int
-	SentTime    time.Time
-	Content     string
-	Transmitter string
+	idUser      int
+	idTrainer   int
+	sentTime    time.Time
+	content     string
+	transmitter string
 }
 
-func (m *Message) getIdUser() int {
-	return m.IdUser
+func NewMessage(idUser int,
+	idTrainer int,
+	sentTime time.Time,
+	content string,
+	transmitter string) Message {
+	return Message{
+		idUser:      idUser,
+		idTrainer:   idTrainer,
+		sentTime:    sentTime,
+		content:     content,
+		transmitter: transmitter,
+	}
 }
 
-func (m *Message) getIdTrainer() int {
-	return m.IdTrainer
+func (m *Message) GetIdUser() int {
+	return m.idUser
 }
 
-func (m *Message) getSentTime() time.Time {
-	return m.SentTime
+func (m *Message) GetIdTrainer() int {
+	return m.idTrainer
 }
 
-func (m *Message) getContent() string {
-	return m.Content
+func (m *Message) GetSentTime() time.Time {
+	return m.sentTime
 }
 
-func (m *Message) getTransmitter() string {
-	return m.Transmitter
+func (m *Message) GetContent() string {
+	return m.content
 }
 
-func (m *Message) setIdUser(id int) {
-	m.IdUser = id
+func (m *Message) GetTransmitter() string {
+	return m.transmitter
 }
 
-func (m *Message) setIdTrainer(id int) {
-	m.IdTrainer = id
+func (m *Message) SetIdUser(id int) {
+	m.idUser = id
 }
 
-func (m *Message) setSentTime(time time.Time) {
-	m.SentTime = time
+func (m *Message) SetIdTrainer(id int) {
+	m.idTrainer = id
 }
 
-func (m *Message) setContent(c string) {
-	m.Content = c
+func (m *Message) SetSentTime(time time.Time) {
+	m.sentTime = time
 }
 
-func (m *Message) setTransmitter(tr string) error {
+func (m *Message) SetContent(c string) {
+	m.content = c
+}
+
+func (m *Message) SetTransmitter(tr string) error {
 	transmitter := strings.ToLower(tr)
 	if transmitter != "user" && transmitter != "trainer" {
-		return errors.New("Transmitter must be one of 'user' " +
+		return errors.New("transmitter must be one of 'user' " +
 			"'trainer'. Received '" + tr + "'.")
 	}
-	m.Transmitter = tr
+	m.transmitter = tr
 	return nil
 }
