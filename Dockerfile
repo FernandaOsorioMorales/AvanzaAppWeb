@@ -12,8 +12,9 @@ RUN npm run build
 # Backend build process
 FROM golang:1.22
 WORKDIR /app
-COPY backend/ . 
+COPY backend/go.mod backend/go.sum . 
 RUN go mod download && go mod verify
+COPY backend/ . 
 RUN go build -v -o goapp
 
 COPY --from=0 /shipyard/dist /app/static

@@ -15,7 +15,7 @@ const memory = 64 * 2014
 
 // Choosen by us, hopefully good enough defaults
 const threads = 2
-const keyLength = 1024 //in bytes
+const keyLength = 16//in bytes
 const saltLength = 8
 
 // Produces a random sequence of bytes for salting
@@ -45,7 +45,7 @@ func GeneratePasswordHash(password string) (string, error) {
 
 // Test if a password matches a knownHash created with GeneratePasswordHash.
 // Note that any error is returned as a false.
-func doesPasswordMatch(clearCandidate string, knownHash string) bool {
+func DoesPasswordMatch(clearCandidate string, knownHash string) bool {
 	//pass bytes to hex and then do a simple string eq
 
 	saltHashPair := strings.Split(knownHash, "|")
