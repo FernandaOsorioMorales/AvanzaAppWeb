@@ -1,3 +1,4 @@
+// Holds the database connection to postgres and handles the set up of the ORM.
 package db
 
 import (
@@ -12,8 +13,10 @@ import (
 	"os"
 )
 
+// Reference to the database instance
 var orm *gorm.DB 
 
+// Opens a connection to the database and loads the instance
 func connect() {
 	user := os.Getenv("POSTGRES_USER")
 	pass := os.Getenv("POSTGRES_PASSWORD")
@@ -33,6 +36,7 @@ func connect() {
 	orm = database
 }
 
+// Loads our ORM models into the database, creating or modifying tables as needed
 func migrate() {
 	orm.AutoMigrate(&models.BaseUser{})
 	//db.AutoMigrate(&models.User)
@@ -40,11 +44,13 @@ func migrate() {
 	//db.AutoMigrate(&models.Message)
 }
 
+// Start database connection and set up ORM models on it.
 func Init() {
 	connect()
 	migrate()
 }
 
+// Returns access to the database connection instance.
 func Orm() *gorm.DB {
 	return orm
 }

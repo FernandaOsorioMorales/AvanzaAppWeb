@@ -11,7 +11,7 @@ func TestHashConsistency(t *testing.T) {
 		t.Fatalf("Error while generating hash")
 	}
 
-	if !doesPasswordMatch(password, hash) {
+	if !DoesPasswordMatch(password, hash) {
 		t.Fatalf("Error, doesPasswordMatch fails even though same password was passed from earlier hash")
 	}
 

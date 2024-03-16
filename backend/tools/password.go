@@ -1,3 +1,4 @@
+// Miscellaneous tools needed for the app.
 package tools
 
 import (
