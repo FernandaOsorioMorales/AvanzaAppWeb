@@ -8,35 +8,38 @@ import (
 	"gorm.io/gorm"
 )
 
+// TODO: Add email validation
+// TODO: Add comments
+
 type Message struct {
 	gorm.Model
-	idUser      int
-	idTrainer   int
-	sentTime    time.Time
-	content     string
-	transmitter string
+	emailUser    string
+	emailTrainer string
+	sentTime     time.Time
+	content      string
+	transmitter  string
 }
 
-func NewMessage(idUser int,
-	idTrainer int,
+func NewMessage(emailUser string,
+	emailTrainer string,
 	sentTime time.Time,
 	content string,
 	transmitter string) Message {
 	return Message{
-		idUser:      idUser,
-		idTrainer:   idTrainer,
-		sentTime:    sentTime,
-		content:     content,
-		transmitter: transmitter,
+		emailUser:    emailUser,
+		emailTrainer: emailTrainer,
+		sentTime:     sentTime,
+		content:      content,
+		transmitter:  transmitter,
 	}
 }
 
-func (m *Message) GetIdUser() int {
-	return m.idUser
+func (m *Message) GetIdUser() string {
+	return m.emailUser
 }
 
-func (m *Message) GetIdTrainer() int {
-	return m.idTrainer
+func (m *Message) GetIdTrainer() string {
+	return m.emailTrainer
 }
 
 func (m *Message) GetSentTime() time.Time {
@@ -51,12 +54,12 @@ func (m *Message) GetTransmitter() string {
 	return m.transmitter
 }
 
-func (m *Message) SetIdUser(id int) {
-	m.idUser = id
+func (m *Message) SetIdUser(emailUser string) {
+	m.emailUser = emailUser
 }
 
-func (m *Message) SetIdTrainer(id int) {
-	m.idTrainer = id
+func (m *Message) SetIdTrainer(emailTrainer string) {
+	m.emailTrainer = emailTrainer
 }
 
 func (m *Message) SetSentTime(time time.Time) {

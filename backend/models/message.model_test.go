@@ -5,14 +5,16 @@ import (
 	"time"
 )
 
+// TODO: Add email validation
+
 func TestGetMessageIdUser(t *testing.T) {
-	id := 123
+	id := "123"
 	message := Message{
-		idUser:      id,
-		idTrainer:   id,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    id,
+		emailTrainer: id,
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	receivedId := message.GetIdUser()
@@ -23,13 +25,13 @@ func TestGetMessageIdUser(t *testing.T) {
 }
 
 func TestGetMessageIdTrainer(t *testing.T) {
-	id := 123
+	id := "123"
 	message := Message{
-		idUser:      id,
-		idTrainer:   id,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    id,
+		emailTrainer: id,
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	receivedId := message.GetIdTrainer()
@@ -42,11 +44,11 @@ func TestGetMessageIdTrainer(t *testing.T) {
 func TestGetMessageSentTime(t *testing.T) {
 	sentAt := time.Now()
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    sentAt,
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     sentAt,
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	receivedDate := message.GetSentTime()
@@ -58,11 +60,11 @@ func TestGetMessageSentTime(t *testing.T) {
 
 func TestGetMessageContent(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	receivedContent := message.GetContent()
@@ -74,11 +76,11 @@ func TestGetMessageContent(t *testing.T) {
 
 func TestGetMessageTransmitter(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	receivedTransmitter := message.GetTransmitter()
@@ -90,14 +92,14 @@ func TestGetMessageTransmitter(t *testing.T) {
 
 func TestSetMessageIdUser(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
-	id := 1234
+	id := "1234"
 
 	message.SetIdUser(id)
 
@@ -110,14 +112,14 @@ func TestSetMessageIdUser(t *testing.T) {
 
 func TestSetMessageIdTrainer(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
-	id := 1234
+	id := "1234"
 
 	message.SetIdTrainer(id)
 
@@ -130,11 +132,11 @@ func TestSetMessageIdTrainer(t *testing.T) {
 
 func TestSetMessageSentTime(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	sentAt := time.Now()
@@ -150,11 +152,11 @@ func TestSetMessageSentTime(t *testing.T) {
 
 func TestSetMessageContent(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "m",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "m",
+		transmitter:  "user",
 	}
 
 	message.SetContent("message")
@@ -168,11 +170,11 @@ func TestSetMessageContent(t *testing.T) {
 
 func TestSetMessageTransmitter(t *testing.T) {
 	message := Message{
-		idUser:      123,
-		idTrainer:   123,
-		sentTime:    time.Now(),
-		content:     "message",
-		transmitter: "user",
+		emailUser:    "123",
+		emailTrainer: "123",
+		sentTime:     time.Now(),
+		content:      "message",
+		transmitter:  "user",
 	}
 
 	err := message.SetTransmitter("u")
