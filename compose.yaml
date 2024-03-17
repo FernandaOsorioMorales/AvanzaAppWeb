@@ -1,5 +1,6 @@
 # Development compose file
 # When ready to deploy make sure to set a permanent volume
+version: '3'
 
 services:
   db:
@@ -10,13 +11,19 @@ services:
       # Should we be using docker secrets for these one?
       # For now set the password using .env file
       POSTGRES_PASSWORD: "${dbPassword}"
-  web:
-    build: .
+  back:
+    build: ./backend
     ports:
       - "9090:9090"
     develop:
       watch:
         - action: rebuild
           path: ./backend
+  front:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    develop:
+      watch:
         - action: rebuild
           path: ./frontend
