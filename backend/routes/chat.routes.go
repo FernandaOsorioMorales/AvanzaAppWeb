@@ -9,9 +9,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// TODO - Get email from session
+// TODO - Get email from session (?)
 
 // Returns the user contacts based on the user session.
+// Returns 500 HTTP Status Code if the session can't get
+// retrieved or an error occurs when querying the contact list.
 func GetContacts(c *fiber.Ctx) error {
 	dbase := db.Orm()
 	_, sessErr := tools.GetCurrentSession(c)
