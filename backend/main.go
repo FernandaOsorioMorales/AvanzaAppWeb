@@ -1,11 +1,12 @@
 package main
 
 import (
-	"backend/routes"
 	"backend/controllers"
+	"backend/routes"
 	"backend/tools"
 	"backend/tools/db"
 
+	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
@@ -21,6 +22,9 @@ func main() {
 
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
+
+	app.Get("/chat", routes.GetContacts)
+	app.Get("/chat/:contact", websocket.New(routes.MessageHandler))
 
 	//auth
 	app.Post("/login", controllers.AttemptLogin)
