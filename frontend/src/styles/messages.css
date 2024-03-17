@@ -1,0 +1,11 @@
+
+
+.Container{
+    display: grid;
+    grid-template-columns: 5vw 1fr; /* Primera columna para la barra, segunda columna para la tarjeta */
+    gap: 15px; /* Espacio entre las columnas y las filas */
+    height: 97vh;
+    margin-top: 1em;
+    margin-right: 2em;
+    overflow:hidden;
+}
