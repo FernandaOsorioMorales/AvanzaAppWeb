@@ -8,13 +8,13 @@ import (
 )
 
 func CreateMessage(db *gorm.DB,
-	idUser int,
-	idTrainer int,
+	emailUser string,
+	emailTrainer string,
 	sentTime time.Time,
 	content string,
 	transmitter string) (*models.Message, error) {
 
-	m := models.NewMessage(idUser, idTrainer, sentTime, content, transmitter)
+	m := models.NewMessage(emailUser, emailTrainer, sentTime, content, transmitter)
 
 	err := db.Create(m).Error
 
@@ -25,10 +25,13 @@ func CreateMessage(db *gorm.DB,
 	return &m, nil
 }
 
-func GetMessageById(db *gorm.DB, id int) (*models.Message, error) {
+// Returns messages from a pair (user,trainer).
+func GetMessageByPair(db *gorm.DB, emailUser string, emailTrainer string) (*models.Message, error) {
 	var m models.Message
 
-	err := db.Where("idUser = ?", id).First(&m).Error
+	err := db.Where("emailUser = ? AND emailTrainer ?",
+		emailUser,
+		emailTrainer).First(&m).Error
 
 	if err != nil {
 		return nil, err
