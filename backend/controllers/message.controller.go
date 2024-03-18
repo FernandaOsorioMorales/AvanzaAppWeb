@@ -2,36 +2,32 @@ package controllers
 
 import (
 	"backend/models"
-	"time"
 
 	"gorm.io/gorm"
 )
 
-func CreateMessage(db *gorm.DB,
-	emailUser string,
-	emailTrainer string,
-	sentTime time.Time,
-	content string,
-	transmitter string) (*models.Message, error) {
-
-	m := models.NewMessage(emailUser, emailTrainer, sentTime, content, transmitter)
+// Creates a new message in the database.
+// Returns error if an error ocurrs when creating
+// the message.
+func CreateMessage(db *gorm.DB, m *models.Message) error {
 
 	err := db.Create(m).Error
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &m, nil
+	return nil
 }
 
-// Returns messages from a pair (user,trainer).
-func GetMessageByPair(db *gorm.DB, emailUser string, emailTrainer string) (*models.Message, error) {
+// TODO Return all messages.
+// Returns messages from a pair (userEmail,trainerEmail).
+func GetMessageByPair(db *gorm.DB, EmailUser string, EmailTrainer string) (*models.Message, error) {
 	var m models.Message
 
-	err := db.Where("emailUser = ? AND emailTrainer ?",
-		emailUser,
-		emailTrainer).First(&m).Error
+	err := db.Where("EmailUser = ? AND EmailTrainer ?",
+		EmailUser,
+		EmailTrainer).First(&m).Error
 
 	if err != nil {
 		return nil, err
