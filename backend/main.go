@@ -5,6 +5,7 @@ import (
 	"backend/routes"
 	"backend/tools"
 	"backend/tools/db"
+	"backend/tools/validation"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -45,6 +46,7 @@ func main() {
 	trainerGroup.Delete("/:id", routes.DeleteTrainer)
 
 	db.Init()
+	validation.Init()
 	tools.InitSessions()
 	app.Listen(":9090")
 }
