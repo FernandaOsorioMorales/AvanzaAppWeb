@@ -24,8 +24,8 @@ func main() {
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
 
-	app.Get("/chat", routes.GetContacts)
-	app.Get("/chat/conn", websocket.New(routes.MessageHandler))
+	// Chat
+	app.Get("/chat", websocket.New(routes.ChatHandler))
 
 	//auth
 	app.Post("/login", controllers.AttemptLogin)
