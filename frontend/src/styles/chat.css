@@ -1,10 +1,103 @@
-.Chat{
+html{
+    background-color: #36BFBF;
+}
+
+.ChatContainer{
+
+    display: grid;
+    grid-template-columns: 0.25fr 1fr;
+    gap: 20px;
+}
+
+
+.contactsContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    border-radius: 15px;
     background-color: antiquewhite;
-    border-radius: 10px;
     color: #333;
+}
+
+.scrollableContacts{
+    max-height: 80vh;
+    overflow-y: scroll;
+    width: 92%;
+}
+
+.messengerContainer{
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    color: #333;
+}
+.UserName{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    background-color:rgb(233, 215, 191);
+    margin: 4px;
+    border-radius: 10px;
+}
+
+.ChatMessages{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 2em;
+}
+
+.SendMessage{
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: 10% 85% 5%;
+    background-color: #2F688A;
+    border-radius: 13px;
+    margin: 15px;
+}
+
+.LMessage{
+    align-self: flex-start;
+    background-color: #DC5663;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 60%;
+    margin-bottom: 5px;
+}
+
+.RMessage {
+    align-self: flex-end;
+    background-color: #36BFBF;
+    border-radius: 20px;
+    width: fit-content + 10px;
+    max-width: 60%;
+    margin-bottom: 5px;
+}
+
+.SendButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size:1em;
+    cursor: pointer;
+}
+
+input{
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 70%;
+    background-color: #E9F9FF;
+    color: #333;
+    font-size: 1.5em;
 }

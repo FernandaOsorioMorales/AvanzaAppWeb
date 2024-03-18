@@ -1,10 +1,12 @@
 import '../styles/chat.css';
+import { Contacts } from './contacts';
+import { Messenger } from './messenger';
 
 export function ChatWindow() {
     return (
-        <div className='Chat'>
-            <h1>Messages</h1>
-            <p>Messages go here</p>
+        <div className='ChatContainer'>
+            <Contacts />
+            <Messenger />
         </div>
     )
 }
