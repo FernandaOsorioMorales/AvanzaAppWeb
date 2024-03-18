@@ -18,11 +18,6 @@ import (
 // Returns a json object with _success_ set to true or
 // the message for the error pased.
 func Register(c *fiber.Ctx) error {
-	sess, sessErr := tools.GetCurrentSession(c)
-	if sessErr != nil {
-		return ApiError(c, "Failed to get session", 500)
-	}
-
 	vaErr := va.Check(c, va.Rmap {
 		"birthDate": "required,datetime=2006-01-02",
 		"alias": "required",
@@ -57,10 +52,11 @@ func Register(c *fiber.Ctx) error {
 		return ApiError(c, "Could not register user", 400)
 	}
 
-	sess.Set("loggedIn", true)
-	if sess.Save() != nil {
+	logInErr := tools.LogIn(c, &user)
+	if logInErr != nil {
 		return ApiError(c, "User registered, session failed", 500)
 	}
+
 	return c.JSON(fiber.Map {
 		"success": true,
 	})
@@ -71,12 +67,7 @@ func Register(c *fiber.Ctx) error {
 // setting up a session and putting the username into the session.
 // Returns _json_ with success set to true or the error message.
 func AttemptLogin(c *fiber.Ctx) error {
-	sess, sessErr := tools.GetCurrentSession(c)
-	if sessErr != nil {
-		return ApiError(c, "Failed to get session", 500)
-	}
-
-	if sess.Get("loggedIn") != nil {
+	if tools.IsLoggedIn(c) {
 		return c.JSON(fiber.Map {
 			"success": true,
 		})
@@ -103,10 +94,11 @@ func AttemptLogin(c *fiber.Ctx) error {
 		return ApiError(c, "User password combination inexistent", 400)
 	}
 
-	sess.Set("loggedIn", true)
-	if sess.Save() != nil {
+	logInErr := tools.LogIn(c, &user)
+	if logInErr != nil {
 		return ApiError(c, "User registered, session failed", 500)
 	}
+
 	return c.JSON(fiber.Map {
 		"success": true,
 	})
