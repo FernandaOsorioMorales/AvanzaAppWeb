@@ -1,8 +1,6 @@
 package models
 
 import (
-	"errors"
-	"strings"
 	"time"
 
 	"gorm.io/gorm"
@@ -11,46 +9,41 @@ import (
 // TODO: Add email validation
 
 // Structure to represent messages.
-// EmailUser: User's email.
-// EmailTrainer: Trainer's email.
+// IdUser: User's email.
+// IdTrainer: Trainer's email.
 // SentTime: Message's sent time.
 // Content: Message.
 // Transmitter: Person who sent the message.
 
 type Message struct {
 	gorm.Model
-	EmailUser    string
-	EmailTrainer string
-	SentTime     time.Time
-	Content      string
-	Transmitter  string
+	IdAddressee   uint64
+	IdTransmitter uint64
+	SentTime      time.Time
+	Content       string
 }
 
 // Creates a new Message.
-func NewMessage(EmailUser string,
-	EmailTrainer string,
+func NewMessage(IdAddressee uint64,
+	IdTransmitter uint64,
 	SentTime time.Time,
-	Content string,
-	Transmitter string) Message {
+	Content string) Message {
 	return Message{
-		EmailUser:    EmailUser,
-		EmailTrainer: EmailTrainer,
-		SentTime:     SentTime,
-		Content:      Content,
-		Transmitter:  Transmitter,
+		IdAddressee:   IdAddressee,
+		IdTransmitter: IdTransmitter,
+		SentTime:      SentTime,
+		Content:       Content,
 	}
 }
 
-// TODO Fix name
-// Returns user's email.
-func (m *Message) GetIdUser() string {
-	return m.EmailUser
+// Returns addressee id.
+func (m *Message) GetIdAddressee() uint64 {
+	return m.IdAddressee
 }
 
-// TODO Fix name
-// Returns trainer's email.
-func (m *Message) GetIdTrainer() string {
-	return m.EmailTrainer
+// Returns transmitter email.
+func (m *Message) GetIdTransmitter() uint64 {
+	return m.IdAddressee
 }
 
 // Returns sent time.
@@ -63,19 +56,14 @@ func (m *Message) GetContent() string {
 	return m.Content
 }
 
-// Returns transmitter.
-func (m *Message) GetTransmitter() string {
-	return m.Transmitter
+// Sets addressee id.
+func (m *Message) SetIdUser(IdAddressee uint64) {
+	m.IdAddressee = IdAddressee
 }
 
-// Sets user email.
-func (m *Message) SetIdUser(EmailUser string) {
-	m.EmailUser = EmailUser
-}
-
-// Sets trainer email.
-func (m *Message) SetIdTrainer(EmailTrainer string) {
-	m.EmailTrainer = EmailTrainer
+// Sets transmitter id.
+func (m *Message) SetIdTrainer(IdTransmitter uint64) {
+	m.IdTransmitter = IdTransmitter
 }
 
 // Sets sent time.
@@ -86,15 +74,4 @@ func (m *Message) SetSentTime(time time.Time) {
 // Sets content.
 func (m *Message) SetContent(c string) {
 	m.Content = c
-}
-
-// Sets transmitter.
-func (m *Message) SetTransmitter(tr string) error {
-	Transmitter := strings.ToLower(tr)
-	if Transmitter != "user" && Transmitter != "trainer" {
-		return errors.New("Transmitter must be one of 'user' " +
-			"'trainer'. Received '" + tr + "'.")
-	}
-	m.Transmitter = tr
-	return nil
 }
