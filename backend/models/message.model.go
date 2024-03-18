@@ -43,7 +43,7 @@ func (m *Message) GetIdAddressee() uint64 {
 
 // Returns transmitter email.
 func (m *Message) GetIdTransmitter() uint64 {
-	return m.IdAddressee
+	return m.IdTransmitter
 }
 
 // Returns sent time.
@@ -57,12 +57,12 @@ func (m *Message) GetContent() string {
 }
 
 // Sets addressee id.
-func (m *Message) SetIdUser(IdAddressee uint64) {
+func (m *Message) SetIdAddressee(IdAddressee uint64) {
 	m.IdAddressee = IdAddressee
 }
 
 // Sets transmitter id.
-func (m *Message) SetIdTrainer(IdTransmitter uint64) {
+func (m *Message) SetIdTransmitter(IdTransmitter uint64) {
 	m.IdTransmitter = IdTransmitter
 }
 
