@@ -14,7 +14,7 @@ import (
 )
 
 // Reference to the database instance
-var orm *gorm.DB 
+var orm *gorm.DB
 
 // Opens a connection to the database and loads the instance
 func connect() {
@@ -27,7 +27,7 @@ func connect() {
 	log.Printf("Database connection: [%s]\n", dsn)
 
 	database, err := gorm.Open(postgres.Open(dsn),
-		&gorm.Config{ Logger: logger.Default.LogMode(logger.Info) })
+		&gorm.Config{Logger: logger.Default.LogMode(logger.Info)})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database")
@@ -39,9 +39,10 @@ func connect() {
 // Loads our ORM models into the database, creating or modifying tables as needed
 func migrate() {
 	orm.AutoMigrate(&models.BaseUser{})
+	orm.AutoMigrate(&models.BaseContact{})
 	//db.AutoMigrate(&models.User)
 	//db.AutoMigrate(&models.Trainer)
-	//db.AutoMigrate(&models.Message)
+	orm.AutoMigrate(&models.Message{})
 }
 
 // Start database connection and set up ORM models on it.
