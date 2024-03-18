@@ -24,7 +24,7 @@ func main() {
 	app.Get("/", routes.HandleRoot)
 
 	app.Get("/chat", routes.GetContacts)
-	app.Get("/chat/:contact", websocket.New(routes.MessageHandler))
+	app.Get("/chat/conn", websocket.New(routes.MessageHandler))
 
 	//auth
 	app.Post("/login", controllers.AttemptLogin)
