@@ -1,10 +1,10 @@
 import Title from "../components/landingpage/title";
 import React from "react";
 import Button from "../components/landingpage/button";
-import LoginForm from "../components/Login/login";
-import RegisterForm from "../components/Login/register";
+import LoginForm from "./login";
+import RegisterForm from "./register";
 
-export default function Root(){
+export function Root(){
     return (
         <div className="bg-blue-500">
            <Title/>

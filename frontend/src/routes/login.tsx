@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginForm : React.FC =() =>{
     return(
@@ -19,7 +20,7 @@ const LoginForm : React.FC =() =>{
                 <button type="submit" className="text-black text-1xl text-center bg-white p-2 rounded-sm">Login</button>
 
                 <div className="register-link">
-                    <p>¿Aún no tienes una cuenta? <a href="./register.tsx" className="underline">¡Regístrate!</a></p>
+                    <Link to="/register">¿No tienes cuenta?Regístrate aquí</Link>
                 </div>
 
             </form>
