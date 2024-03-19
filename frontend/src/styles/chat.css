@@ -55,6 +55,7 @@ html{
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    max-height: 67vh;
     padding: 2em;
 }
 
@@ -73,6 +74,7 @@ html{
     background-color: #DC5663;
     border-radius: 20px;
     width: fit-content;
+    height: fit-content;
     max-width: 60%;
     margin-bottom: 5px;
 }
@@ -81,7 +83,8 @@ html{
     align-self: flex-end;
     background-color: #36BFBF;
     border-radius: 20px;
-    width: fit-content + 10px;
+    width: fit-content;
+    height: fit-content;
     max-width: 60%;
     margin-bottom: 5px;
 }
