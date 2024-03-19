@@ -7,11 +7,11 @@ import (
 )
 
 // Creates a new base contact and inserts it in the database.
-func CreateBaseContact(db *gorm.DB,
+func CreateContact(db *gorm.DB,
 	Id uint64,
-	IdContact uint64) (*models.BaseContact, error) {
+	IdContact uint64) (*models.Contact, error) {
 
-	c := models.NewBaseContact(Id, IdContact)
+	c := models.NewContact(Id, IdContact)
 
 	err := db.Create(c).Error
 
@@ -24,10 +24,10 @@ func CreateBaseContact(db *gorm.DB,
 
 // TODO return only idContact field
 // Returns the contact list of a user.
-func GetContactList(db *gorm.DB, id uint64) ([]models.BaseContact, error) {
-	var contacts []models.BaseContact
+func GetContactList(db *gorm.DB, id uint64) ([]models.Contact, error) {
+	var contacts []models.Contact
 
-	err := db.Where("Id = ?", id).First(&contacts).Error
+	err := db.Where("Id = ?", id).Find(&contacts).Error
 
 	if err != nil {
 		return nil, err
