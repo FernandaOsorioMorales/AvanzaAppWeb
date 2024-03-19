@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-      "lib": ["dom", "es2015"],
-      "outDir": "./lib/cjs/",
-      "sourceMap": true,
-      "declaration": true,
-      "noImplicitAny": true,
-      "module": "commonjs",
-      "target": "es5",
-      "allowJs": true,
-      "jsx": "react",
-      "moduleResolution": "node"
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
-  "include": ["src/**/*.ts*"],
-  "exclude": ["node_modules", "dist", "lib"]
+  "include": ["vite.config.ts"]
 }
