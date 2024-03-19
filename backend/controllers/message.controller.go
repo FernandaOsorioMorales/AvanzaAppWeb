@@ -21,13 +21,13 @@ func CreateMessage(db *gorm.DB, m *models.Message) error {
 }
 
 // TODO Return all messages.
-// Returns messages from a pair (userEmail,trainerEmail).
-func GetMessageByPair(db *gorm.DB, EmailUser string, EmailTrainer string) (*models.Message, error) {
+// Returns messages from a pair (IdAddressee, IdTransmitter).
+func GetMessageByPair(db *gorm.DB, IdAddressee uint64, IdTransmitter uint64) (*models.Message, error) {
 	var m models.Message
 
-	err := db.Where("EmailUser = ? AND EmailTrainer ?",
-		EmailUser,
-		EmailTrainer).First(&m).Error
+	err := db.Where("IdAddressee = ? AND IdTransmitter ?",
+		IdAddressee,
+		IdTransmitter).First(&m).Error
 
 	if err != nil {
 		return nil, err

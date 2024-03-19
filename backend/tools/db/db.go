@@ -39,7 +39,7 @@ func connect() {
 // Loads our ORM models into the database, creating or modifying tables as needed
 func migrate() {
 	orm.AutoMigrate(&models.BaseUser{})
-	orm.AutoMigrate(&models.BaseContact{})
+	orm.AutoMigrate(&models.Contact{})
 	//db.AutoMigrate(&models.User)
 	//db.AutoMigrate(&models.Trainer)
 	orm.AutoMigrate(&models.Message{})
