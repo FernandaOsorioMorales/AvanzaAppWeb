@@ -10,6 +10,7 @@ import (
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -17,6 +18,9 @@ func main() {
 	app := fiber.New()
 	// *Middleware for logging
 	app.Use(logger.New())
+
+	// Allow CORS from our front-end server
+	app.Use(cors.New())
 
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
