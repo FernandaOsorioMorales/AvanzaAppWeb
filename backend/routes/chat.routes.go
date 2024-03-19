@@ -11,32 +11,15 @@ import (
 	"backend/tools/socket"
 
 	"github.com/gofiber/contrib/websocket"
-	"github.com/gofiber/fiber/v2"
 )
 
-// TODO - Get email from session (?)
+// TODO - Implement function
 
 // Returns the user contacts based on the user session.
 // Returns 500 HTTP Status Code if the session can't get
 // retrieved or an error occurs when querying the contact list.
-func GetContacts(c *fiber.Ctx) error {
-	// dbase := db.Orm()
-	// id, sessErr := tools.GetCurrentUserId(c)
-
-	// if sessErr != nil {
-	// 	return controllers.ApiError(c, "Failed to get session", 500)
-	// }
-
-	// mail := "¡¡¡REPLACE WITH EMAIL FROM SESSION!!!" // TODO - Get email from session
-	// contactList, err := controllers.GetContactList(dbase, mail)
-
-	// if err != nil {
-	// 	return controllers.ApiError(c, "Failed to retrieve user contacts", 500)
-	// }
-
-	return c.JSON(fiber.Map{
-		"contacts": "",
-	})
+func getContacts(id uint64) (string, error) {
+	return "", nil
 }
 
 // TODO - Handle errors
@@ -55,11 +38,17 @@ func ChatHandler(c *websocket.Conn) {
 
 	if user == "" {
 		log.Print("Failed to connect to client")
-		c.WriteMessage(websocket.TextMessage, []byte("email param missing"))
+		c.WriteMessage(websocket.TextMessage, []byte("id param missing"))
 		return
 	}
 
 	userId, err := strconv.ParseUint(user, 10, 64)
+
+	if err != nil {
+		log.Print("The user id could not be parsed to int")
+		c.WriteMessage(websocket.TextMessage, []byte("The userId sent must be uint"))
+		return
+	}
 
 	socket.NewConnection(userId, c)
 
