@@ -3,10 +3,13 @@ const colors = require('tailwindcss/colors');
 
 const config: Config = {
   content: [
-    "./src/**/*.ts",
+    "./src/**/*.{ts,js,jsx,tsx}",
     "./**/*.html"
   ],
   theme: {
+    fontFamily: {
+      sans: ['Poppins'],
+    },
     extend: {
       colors: {
         'azulote': '#2F688A',
@@ -14,9 +17,6 @@ const config: Config = {
         'aqua': '#36BFBF',
         'vainilla': '#F8F0C6',
         'blue-light': '#e9f9ff'
-      },
-      fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
       },
     },
   },
