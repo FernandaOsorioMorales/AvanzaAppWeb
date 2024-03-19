@@ -1,6 +1,7 @@
 // import io from 'socket.io-client';
 import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
+import React from "react";
 
 // const socket = io('http://localhost:9090/chat/conn');
 export function Messenger() {

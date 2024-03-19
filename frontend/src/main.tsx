@@ -5,8 +5,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Root } from './routes/root.tsx';
-import { Messages } from "./routes/messages.tsx";
+import { Root } from './routes/root';
+import { Messages } from "./routes/messages";
+import LoginForm from "./routes/login";
+import RegisterForm from "./routes/register";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,16 @@ const router = createBrowserRouter([
   {
     path: "/messages",
     element: <Messages />,
+  },
+  {
+    path: "/login",
+    element: <LoginForm />,
+  },
+  {
+    path: "/register",
+    element: <RegisterForm />,
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
