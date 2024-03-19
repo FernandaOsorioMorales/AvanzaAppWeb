@@ -15,9 +15,6 @@ import (
 func main() {
 
 	app := fiber.New()
-
-	app.Static("/static", "/app/static")
-
 	// *Middleware for logging
 	app.Use(logger.New())
 

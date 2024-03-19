@@ -1,6 +1,5 @@
 # Development compose file
 # When ready to deploy make sure to set a permanent volume
-
 version: "3.8"
 
 services:
@@ -13,8 +12,8 @@ services:
       POSTGRES_PASSWORD: "${dbPassword}"
       POSTGRES_NAME: "${dbName}"
 
-  web:
-    build: .
+  back:
+    build: ./backend
     ports:
       - "9090:9090"
     depends_on:
@@ -28,5 +27,12 @@ services:
       watch:
         - action: rebuild
           path: ./backend
+
+  front:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    develop:
+      watch:
         - action: rebuild
           path: ./frontend
