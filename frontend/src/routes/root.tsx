@@ -1,7 +1,11 @@
-export function Root(){
+import Title from "../components/title";
+import Header from "../components/header";
+import React from "react";
+
+export default function Root(){
     return (
         <div>
-            <h1>This is a Root</h1>
+           <Title/>
         </div>
     );
 }

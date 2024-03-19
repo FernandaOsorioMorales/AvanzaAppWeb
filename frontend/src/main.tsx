@@ -1,11 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import './index.css';
+import './input.css';
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Root } from './routes/root.tsx';
+import Root from "./routes/root";
 
 const router = createBrowserRouter([
   {
