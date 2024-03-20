@@ -1,13 +1,16 @@
 import '../../styles/chat.css';
 import { Contacts } from './contacts';
 import { Messenger } from './messenger';
-import React from "react";
+import React, { useEffect } from "react";
 
 export function ChatWindow() {
+
+    const [selectedContact, setSelectedContact] = React.useState("");
+
     return (
         <div className='ChatContainer'>
-            <Contacts />
-            <Messenger />
+            <Contacts setSelectedContact={setSelectedContact}/>
+            <Messenger selectedContact={selectedContact}/>
         </div>
     )
 }

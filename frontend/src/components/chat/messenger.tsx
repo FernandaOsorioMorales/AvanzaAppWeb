@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
 import React from "react";
 
-export function Messenger() {
-
+export function Messenger(params: {selectedContact: string}) {
+    const idParam = new URLSearchParams(window.location.search).get('id');
     const [message, setMessage] = useState('')
     const [msgArray, setmsgArray] = useState([{sent: true, content: 'Hola como estás uwu'}, {sent: false, content: 'Bien y tú? uwu'}])
     const [socket, setSocket] = useState<WebSocket>();
@@ -16,7 +16,9 @@ export function Messenger() {
     }, [msgArray]);
 
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:9090/chat?id=1');
+        var ws = 'ws://localhost:9090/chat?id=' + idParam;
+        console.log(ws);
+        const newSocket = new WebSocket(ws);
 
         newSocket.onopen = () => {
             console.log('Connected to the server');
@@ -24,7 +26,7 @@ export function Messenger() {
 
         newSocket.onmessage = (event) => {
             console.log('Message received:', event.data);
-            setmsgArray([...msgArray, { sent: false, content: event.data.content }]);
+            setmsgArray([...msgArray, { sent: false, content: JSON.parse(event.data).content }]);
         }
         
         newSocket.onclose = () => {
@@ -56,7 +58,7 @@ export function Messenger() {
     return (
         <div className="messengerContainer">
             <div className="UserName">
-                <h1 style={{fontSize:'2em'}}>Booker DeWitt</h1>
+                <h1 style={{fontSize:'2em'}}>{params.selectedContact}</h1>
             </div>
             <div className="ChatMessages" ref={messageBodyRef}>
                 {msgArray.map((msg, index) => {
