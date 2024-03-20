@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "qs";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Link, Navigate} from "react-router-dom";
 
 import {useSelector, useDispatch} from "react-redux";
@@ -48,6 +48,27 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 		});
 
 	}
+
+	function sessionLogin() {
+		axios({
+			method: "post",
+			url: "http://localhost:9090/continue-login",
+			withCredentials: true,
+		}).then(res => {
+			if ("data" in res === false)
+				throw "unexpected response"
+			const answer = res.data;
+			console.log(answer)
+			if (answer.success)
+					dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
+		}).catch(e => {
+			//do nothing
+			console.log(e);
+		})
+	}
+
+	useEffect(sessionLogin, []);
+
 
     return (
       <div className="wrapper flex justify-center items-center p-10 h-screen"> 

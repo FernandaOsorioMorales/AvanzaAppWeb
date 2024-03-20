@@ -35,6 +35,7 @@ func main() {
 	//auth
 	app.Post("/login", controllers.AttemptLogin)
 	app.Post("/register", controllers.Register)
+	app.Post("/continue-login", controllers.ContinueUserSession)
 
 	// !User Routes
 	userGroup := app.Group("/user")

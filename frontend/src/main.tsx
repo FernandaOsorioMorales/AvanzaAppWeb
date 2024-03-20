@@ -9,6 +9,7 @@ import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
+import Err404 from "./routes/Err404"
 
 import './styles/index.css';
 
@@ -28,8 +29,11 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterForm />,
+  },
+  {
+	  path: "/*",
+	  element: <Err404 />,
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

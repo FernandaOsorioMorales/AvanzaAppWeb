@@ -108,3 +108,24 @@ func AttemptLogin(c *fiber.Ctx) error {
 	})
 }
 
+// If a user has already logged into the app and has an active
+// session on the server then we return their id. If they don't
+// have an active session we return a message
+func ContinueUserSession(c *fiber.Ctx) error {
+	loggedIn, id := tools.GetCurrentUserId(c)
+	if loggedIn {
+		var user models.BaseUser
+		result := db.Orm().Where("id = ?", id).First(&user)
+		if result.Error == nil {
+			return c.JSON(fiber.Map {
+				"success": true,
+				"userId": id,
+				"alias": user.Alias,
+			})
+		}
+	}
+
+	return c.JSON(fiber.Map {
+		"success": false,
+	})
+}

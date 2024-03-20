@@ -29,6 +29,7 @@ func LogIn(c *fiber.Ctx, u *models.BaseUser) error {
 	}
 	sess.Set("loggedIn", true)
 	sess.Set("userId", u.ID)
+	sess.Set("alias", u.Alias)
 	saveErr := sess.Save()
 	if saveErr != nil {
 		return saveErr
