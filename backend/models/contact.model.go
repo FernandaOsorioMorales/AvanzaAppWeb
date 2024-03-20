@@ -7,7 +7,7 @@ import (
 // Structure to represent contact, either Traineer or Trainee.
 type Contact struct {
 	gorm.Model
-	Id        uint64 // Id of the user who's requesting contacts
+	IdUser    uint64 // Id of the user who's requesting contacts
 	IdContact uint64 // Id of contact
 }
 
@@ -17,7 +17,7 @@ func NewContact(
 	idContact uint64,
 ) Contact {
 	return Contact{
-		Id:        id,
+		IdUser:    id,
 		IdContact: idContact,
 	}
 }
