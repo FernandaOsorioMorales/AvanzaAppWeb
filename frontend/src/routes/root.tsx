@@ -4,13 +4,18 @@ import Button from "../components/landingpage/button";
 import LoginForm from "./login";
 import RegisterForm from "./register";
 
-export function Root(){
+export function Root() {
     return (
-        <div className="bg-blue-500">
-           <Title/>
-           <div className="">
-            <Button/>
-           </div>
+      <div className="bg-azulote flex flex-col justify-center items-center h-screen">
+        <div className="mb-15">
+          <Title text="Entrar al mundo fitness nunca había sido tan fácil" />
         </div>
+        <div className="">
+            <Button to="/login" text="Sign In" color="bg-white" />
+        </div>
+        <div> 
+            <Button to="/register" text="¿Aún no tienes cuenta? Regístrate" color="bg-azulote"/>
+        </div>
+      </div>
     );
-}
+  }
