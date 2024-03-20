@@ -20,7 +20,10 @@ func main() {
 	app.Use(logger.New())
 
 	// Allow CORS from our front-end server
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config {
+		AllowOrigins: "http://localhost:8080",
+		AllowCredentials: true,
+	}))
 
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
