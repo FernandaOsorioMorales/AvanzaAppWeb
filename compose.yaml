@@ -8,9 +8,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "${dbUser}"
-      POSTGRES_PASSWORD: "${dbPassword}"
-      POSTGRES_NAME: "${dbName}"
+      POSTGRES_USER: "fero"
+      POSTGRES_PASSWORD: "hola"
+      POSTGRES_NAME: "postgres"
 
   back:
     build: ./backend
@@ -19,9 +19,9 @@ services:
     depends_on:
       - db
     environment:
-      POSTGRES_USER: "${dbUser}"
-      POSTGRES_PASSWORD: "${dbPassword}"
-      POSTGRES_NAME: "${dbName}"
+      POSTGRES_USER: "fero"
+      POSTGRES_PASSWORD: "hola"
+      POSTGRES_NAME: "postgres"
       POSTGRES_PORT: "5432"
     develop:
       watch:

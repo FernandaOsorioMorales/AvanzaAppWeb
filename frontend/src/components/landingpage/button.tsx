@@ -1,12 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Button : React.FC= () => {
-    return (
-        <div className="flex justify-center py-12">
-            <Link to="/login" className= "text-black text-3xl text-center bg-white p-6">Sign In</Link>
-        </div>
-    );
+interface ButtonProps {
+  to: string;
+  text: string;
+  color?: string; 
+}
+
+const Button: React.FC<ButtonProps> = ({ to, text, color = "bg-white" }) => {
+  return (
+    <div className="flex justify-center">
+      <Link to={to} className={`text-black text-3xl text-center ${color} p-6 rounded-full`}>
+        {text}
+      </Link>
+    </div>
+  );
 }
 
 export default Button;
