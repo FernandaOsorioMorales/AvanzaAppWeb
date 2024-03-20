@@ -19,10 +19,10 @@ import (
 // the message for the error pased.
 func Register(c *fiber.Ctx) error {
 	vaErr := va.Check(c, va.Rmap {
-		"birthDate": "required,datetime=2006-01-02",
 		"alias": "required",
-		"mail": "required,email",
+		"email": "required,email",
 		"phone": "required",//add more ?
+		"birthDate": "required,datetime=2006-01-02",
 		"password": "required",
 	})
 
@@ -32,7 +32,7 @@ func Register(c *fiber.Ctx) error {
 
 	birthDate := c.FormValue("birthDate")
 	alias := c.FormValue("alias")
-	mail := c.FormValue("mail")
+	mail := c.FormValue("email")
 	phone := c.FormValue("phone")
 	password := c.FormValue("password")
 
@@ -59,6 +59,7 @@ func Register(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map {
 		"success": true,
+		"userId": user.ID,
 	})
 
 }
@@ -101,6 +102,7 @@ func AttemptLogin(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map {
 		"success": true,
+		"userId": user.ID,
 	})
 }
 
