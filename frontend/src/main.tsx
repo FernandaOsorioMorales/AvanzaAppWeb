@@ -1,14 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import './styles/index.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
+// Redux state
+import { Provider as ReduxProvider } from "react-redux";
+import store from './store'
+
 import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
+
+import './styles/index.css';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <ReduxProvider store={store}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </ReduxProvider>
 );

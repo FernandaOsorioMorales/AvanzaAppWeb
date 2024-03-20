@@ -12,6 +12,5 @@ func ApiError(c *fiber.Ctx, message string, status int) error {
 	return c.Status(status).JSON(fiber.Map {
 		"success": false,
 		"errorMessage": message,
-		"data": nil,
 	})
 }

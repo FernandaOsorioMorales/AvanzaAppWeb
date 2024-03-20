@@ -60,6 +60,7 @@ func Register(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map {
 		"success": true,
 		"userId": user.ID,
+		"alias": user.Alias,
 	})
 
 }
@@ -103,6 +104,7 @@ func AttemptLogin(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map {
 		"success": true,
 		"userId": user.ID,
+		"alias": user.Alias,
 	})
 }
 

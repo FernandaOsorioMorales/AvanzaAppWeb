@@ -1,8 +1,15 @@
 import {React, useState} from "react";
 import axios from "axios";
 import qs from 'qs';
+import { Navigate } from 'react-router-dom'
+// global state
+import { useSelector, useDispatch} from 'react-redux';
+import { set } from '../state/userSlice';
 
 const RegisterForm : React.FC =() =>{
+	const loggedIn = useSelector(state => state.user.loggedIn)
+	const dispatch = useDispatch();
+
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
@@ -26,16 +33,23 @@ const RegisterForm : React.FC =() =>{
 			withCredentials: true,
 			data: qs.stringify(registerData),
 			url: "http://localhost:9090/register",
-		})
-			.then(r => console.log(r))
-			.catch(e => {
-				if ('response' in e)
-					console.log(e.response.data);
-			});
+		}).then(res => {
+			if ("data" in res === false)
+				throw "unexpected response"
+
+			const answer = res.data;
+			if (answer.success) {
+				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
+			}
+		}).catch(e => {
+			if ('response' in e)
+				console.log(e.response.data);
+		});
 	}
 
     return(
         <div className="flex justify-center items-center p-10 h-screen">
+		{loggedIn && (<Navigate to="/messages" />) }
   <form className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
     <h1 className="text-5xl text-center mb-6 text-black font-bold tracking-wide">Regístrate</h1>
 
