@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
 import React from "react";
 
-export function Messenger(params: {selectedContact: string}) {
+export function Messenger(params: {selectedContact: string, contactID: number}) {
     const idParam = new URLSearchParams(window.location.search).get('id');
+
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState([{sent: true, content: 'Hola como estás uwu'}, {sent: false, content: 'Bien y tú? uwu'}])
+    const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        console.log(msgArray)
         if (messageBodyRef.current) {
             messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
         }
@@ -25,8 +27,7 @@ export function Messenger(params: {selectedContact: string}) {
         }
 
         newSocket.onmessage = (event) => {
-            console.log('Message received:', event.data);
-            setmsgArray([...msgArray, { sent: false, content: JSON.parse(event.data).content }]);
+            setmsgArray(prevMsgArray => [...prevMsgArray, { sent: false, content: JSON.parse(event.data).content }])
         }
         
         newSocket.onclose = () => {
@@ -40,15 +41,9 @@ export function Messenger(params: {selectedContact: string}) {
         event.preventDefault();
         setmsgArray([...msgArray, { sent: true, content: message }]);
         setMessage('');
-        console.log(JSON.stringify({ 
-            "IdAddressee": 2,
-            "IdTransmitter": 1,
-            "SentTime": new Date(),
-            "content": message 
-        }))
         socket?.send(JSON.stringify({ 
-            "IdAddressee": 2,
-            "IdTransmitter": 1,
+            "IdAddressee": Number(params.contactID),
+            "IdTransmitter": Number(idParam),
             "SentTime": new Date(),
             "content": message 
         }));
