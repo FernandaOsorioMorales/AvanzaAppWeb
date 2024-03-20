@@ -5,7 +5,7 @@ import React from "react";
 export function Messenger() {
 
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState([{sent: true, content: ''}])
+    const [msgArray, setmsgArray] = useState([{sent: true, content: 'Hola como estás uwu'}, {sent: false, content: 'Bien y tú? uwu'}])
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +64,9 @@ export function Messenger() {
                 })}
             </div>
             <form onSubmit={sendMessage} className="SendMessage">
-                <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>media</div>
+                <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    
+                </div>
                 <input 
                     placeholder="Type Something here"
                     value={message}

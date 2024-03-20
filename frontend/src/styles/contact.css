@@ -1,0 +1,16 @@
+.ContactButton{
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    justify-items: center;
+    align-items: center; 
+    background-color: #E9F9FF;
+    color: #333;
+    font-weight: bold;
+    border-top: 2px solid #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    width: 98%;
+    height: 80px;
+}
