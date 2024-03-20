@@ -63,7 +63,6 @@ const RegisterForm : React.FC =() =>{
                 <div className="input-box flex justify-center">
 					<input type="password" onInput={e=>setPassword(e.target.value)}    />
                 </div>
-
                 <div className="flex justify-center">
                 <button type="submit" className="text-black text-1xl text-center bg-white p-2 rounded-sm">Registrar</button>
                 </div>

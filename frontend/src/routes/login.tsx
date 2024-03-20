@@ -19,7 +19,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
           <div className="mb-4">
             <input type="password" placeholder="Contraseña" className="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
           </div>
-          <button type="submit" className="w-full py-2 px-4 bg-azulote text-white rounded-md focus:outline-none focus:bg-azulote hover:bg-azulote">Login</button>
+          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600 hover:bg-blue-600">Login</button>
+
           
           <div className="mt-4 text-center">
             <Link to="/register" className="text-azulote">{registerLinkText}</Link> 
