@@ -9,8 +9,8 @@ import (
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -29,6 +29,7 @@ func main() {
 	app.Get("/", routes.HandleRoot)
 
 	// Chat
+	app.Get("/messages/contacts", routes.GetContacts)
 	app.Get("/chat", websocket.New(routes.ChatHandler))
 
 	//auth
