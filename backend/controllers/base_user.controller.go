@@ -76,14 +76,14 @@ func AttemptLogin(c *fiber.Ctx) error {
 	}
 
 	vaErr := va.Check(c, va.Rmap {
-		"mail": "required,email",
+		"email": "required,email",
 		"password": "required",
 	})
 	if vaErr != nil {
 		return ApiError(c, "Wrong data", 400)
 	}
 
-	mail := c.FormValue("mail")
+	mail := c.FormValue("email")
 	password := c.FormValue("password")
 
 	var user models.BaseUser

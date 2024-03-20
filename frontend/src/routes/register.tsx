@@ -49,7 +49,7 @@ const RegisterForm : React.FC =() =>{
 
     return(
         <div className="flex justify-center items-center p-10 h-screen">
-		{loggedIn && (<Navigate to="/messages" />) }
+		{ loggedIn && (<Navigate to="/messages" />) }
   <form className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
     <h1 className="text-5xl text-center mb-6 text-black font-bold tracking-wide">Regístrate</h1>
 
