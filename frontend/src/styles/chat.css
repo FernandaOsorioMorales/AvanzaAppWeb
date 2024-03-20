@@ -39,6 +39,16 @@ html{
     background-color: #E9F9FF;
     color: #333;
 }
+
+.messengerContainerEmpty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #E9F9FF;
+    color: #333;
+}
+
 .UserName{
     display: flex;
     align-items: center;
