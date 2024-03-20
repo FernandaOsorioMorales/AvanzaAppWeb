@@ -14,3 +14,9 @@
     width: 98%;
     height: 80px;
 }
+
+.ContactButton:hover{
+    background-color: #5390b4;
+    color: #E9F9FF;
+    border-top: 2px solid #E9F9FF;
+}

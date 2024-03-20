@@ -2,29 +2,32 @@ import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
 import React from "react";
 
-export function Messenger() {
+export function Messenger(params: {selectedContact: string, contactID: number}) {
+    const idParam = new URLSearchParams(window.location.search).get('id');
 
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState([{sent: true, content: 'Hola como estás uwu'}, {sent: false, content: 'Bien y tú? uwu'}])
+    const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        console.log(msgArray)
         if (messageBodyRef.current) {
             messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
         }
     }, [msgArray]);
 
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:9090/chat?id=1');
+        var ws = 'ws://localhost:9090/chat?id=' + idParam;
+        console.log(ws);
+        const newSocket = new WebSocket(ws);
 
         newSocket.onopen = () => {
             console.log('Connected to the server');
         }
 
         newSocket.onmessage = (event) => {
-            console.log('Message received:', event.data);
-            setmsgArray([...msgArray, { sent: false, content: event.data.content }]);
+            setmsgArray(prevMsgArray => [...prevMsgArray, { sent: false, content: JSON.parse(event.data).content }])
         }
         
         newSocket.onclose = () => {
@@ -38,15 +41,9 @@ export function Messenger() {
         event.preventDefault();
         setmsgArray([...msgArray, { sent: true, content: message }]);
         setMessage('');
-        console.log(JSON.stringify({ 
-            "IdAddressee": 2,
-            "IdTransmitter": 1,
-            "SentTime": new Date(),
-            "content": message 
-        }))
         socket?.send(JSON.stringify({ 
-            "IdAddressee": 2,
-            "IdTransmitter": 1,
+            "IdAddressee": Number(params.contactID),
+            "IdTransmitter": Number(idParam),
             "SentTime": new Date(),
             "content": message 
         }));
@@ -56,7 +53,7 @@ export function Messenger() {
     return (
         <div className="messengerContainer">
             <div className="UserName">
-                <h1 style={{fontSize:'2em'}}>Booker DeWitt</h1>
+                <h1 style={{fontSize:'2em'}}>{params.selectedContact}</h1>
             </div>
             <div className="ChatMessages" ref={messageBodyRef}>
                 {msgArray.map((msg, index) => {

@@ -1,7 +1,9 @@
 import React from "react";
 import { Contact } from "./contactTag";
 
-export function Contacts() {
+export function Contacts(params: {setSelectedContact: (contact: string) => void, setContactID: (id: number) => void}) {
+
+    const [contact, setContact] = React.useState('')
 
     return (
         <div className="contactsContainer">
@@ -9,19 +11,19 @@ export function Contacts() {
                 <h1 style={{fontSize:'2em'}}>Contacts</h1>
             </div>
             <div className="scrollableContacts">
-                <Contact name="Elizabeth Comestock" id={1}/>
-                <Contact name="Andrew Ryan" id={2}/>
-                <Contact name="Atlas"id={3}/>
-                <Contact name="Sofia Lamb" id={4}/>
-                <Contact name="Frank Fontaine" id={5}/>
-                <Contact name="Daisy Fitzroy" id={6}/>
-                <Contact name="Cornelius Slate" id={7}/>
-                <Contact name="Zachary Hale Comestock" id={8}/>
-                <Contact name="Rosie" id={9}/>
-                <Contact name="Big Daddy" id={10}/>
-                <Contact name="Little Sister" id={11}/>
-                <Contact name="Splicer" id={12}/>
-                <Contact name="Handyman" id={13}/>
+                <Contact name="Elizabeth Comestock" id={1} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Andrew Ryan" id={2} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Atlas"id={3} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Sofia Lamb" id={4} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Frank Fontaine" id={5} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Daisy Fitzroy" id={6} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Cornelius Slate" id={7} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Zachary Hale Comestock" id={8} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Rosie" id={9} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Big Daddy" id={10} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Little Sister" id={11} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Splicer" id={12} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                <Contact name="Handyman" id={13} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
             </div>
         </div>
     );
