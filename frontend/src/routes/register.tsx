@@ -6,6 +6,9 @@ import { Navigate } from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux';
 import { set } from '../state/userSlice';
 
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';//GL
+
 const RegisterForm : React.FC =() =>{
 	const loggedIn = useSelector(state => state.user.loggedIn)
 	const dispatch = useDispatch();
@@ -42,14 +45,22 @@ const RegisterForm : React.FC =() =>{
 				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
 			}
 		}).catch(e => {
-			if ('response' in e)
-				console.log(e.response.data);
+			console.log(e.response.data)
+			if ('response' in e && 'data' in e.response) {
+				toast(e.response.data.errorMessage);
+			} else {
+				toast("Hubo un problema");
+			}
 		});
 	}
 
     return(
         <div className="flex justify-center items-center p-10 h-screen">
+
+        <ToastContainer />
+
 		{ loggedIn && (<Navigate to="/messages" />) }
+
   <form className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
     <h1 className="text-5xl text-center mb-6 text-black font-bold tracking-wide">Regístrate</h1>
 

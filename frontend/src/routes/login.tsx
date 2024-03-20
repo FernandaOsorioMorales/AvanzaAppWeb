@@ -6,6 +6,9 @@ import { Link, Navigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import { set } from "../state/userSlice";
 
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';//GL
+
 
 interface LoginFormProps {
   title: string; // Título del formulario
@@ -43,8 +46,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
 			}
 		}).catch(e => {
-			if ('response' in e)
-				console.log(e.response.data);
+			console.log(e.response.data)
+			if ('response' in e && 'data' in e.response) {
+				toast(e.response.data.errorMessage);
+			} else {
+				toast("Hubo un problema");
+			}
 		});
 
 	}
@@ -62,17 +69,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 			if (answer.success)
 					dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
 		}).catch(e => {
-			//do nothing
 			console.log(e);
 		})
 	}
-
 	useEffect(sessionLogin, []);
 
 
     return (
       <div className="wrapper flex justify-center items-center p-10 h-screen"> 
+
+	  <ToastContainer />
+
 	  { loggedIn && (<Navigate to="/messages" />) }
+
         <form onSubmit={submit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"> 
           <h1 className="text-3xl md:text-5xl text-center font-semibold mb-8">{title}</h1> 
           
