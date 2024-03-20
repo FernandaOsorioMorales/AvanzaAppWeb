@@ -6,7 +6,7 @@ export function Navigation(){
     return (
         <nav className="nav">
             <Link to='/' className='home'>
-                <img src='../../public/home.svg'/>
+                <img src="https://cdn-icons-png.flaticon.com/256/18/18625.png"/>
             </Link>
         </nav>
     )

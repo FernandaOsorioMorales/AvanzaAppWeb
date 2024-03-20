@@ -1,38 +1,62 @@
-// import io from 'socket.io-client';
 import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
 import React from "react";
 
-// const socket = io('http://localhost:9090/chat/conn');
 export function Messenger() {
 
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState([{sent: true, content: 'Hello'}, {sent: false, content: 'Hi there!'}])
+    const [msgArray, setmsgArray] = useState([{sent: true, content: ''}])
+    const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
-    // const [messageReceived, setMessageReceived] = useState('')
-    const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setmsgArray([...msgArray, { sent: true, content: message }]);
-        setMessage('');
-        // socket.emit('send', { message });
-    };
 
     useEffect(() => {
         if (messageBodyRef.current) {
             messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
         }
     }, [msgArray]);
-    
-    // useEffect(() => {
-    //     socket.on('message', (data) => {
-    //         setMessageReceived(data)
-    //     })
-    // }, [socket]);
+
+    useEffect(() => {
+        const newSocket = new WebSocket('ws://localhost:9090/chat?id=1');
+
+        newSocket.onopen = () => {
+            console.log('Connected to the server');
+        }
+
+        newSocket.onmessage = (event) => {
+            console.log('Message received:', event.data);
+            setmsgArray([...msgArray, { sent: false, content: event.data.content }]);
+        }
+        
+        newSocket.onclose = () => {
+            console.log('Disconnected from the server');
+        }
+
+        setSocket(newSocket);
+    }, []);
+
+    const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setmsgArray([...msgArray, { sent: true, content: message }]);
+        setMessage('');
+        console.log(JSON.stringify({ 
+            "IdAddressee": 2,
+            "IdTransmitter": 1,
+            "SentTime": new Date(),
+            "content": message 
+        }))
+        socket?.send(JSON.stringify({ 
+            "IdAddressee": 2,
+            "IdTransmitter": 1,
+            "SentTime": new Date(),
+            "content": message 
+        }));
+    };
+
 
     return (
         <div className="messengerContainer">
             <div className="UserName">
-                <h1>Booker DeWitt</h1>
+                <h1 style={{fontSize:'2em'}}>Booker DeWitt</h1>
             </div>
             <div className="ChatMessages" ref={messageBodyRef}>
                 {msgArray.map((msg, index) => {
