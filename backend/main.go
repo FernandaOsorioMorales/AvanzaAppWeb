@@ -20,8 +20,8 @@ func main() {
 	app.Use(logger.New())
 
 	// Allow CORS from our front-end server
-	app.Use(cors.New(cors.Config {
-		AllowOrigins: "http://localhost:8080",
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     "http://localhost:8080",
 		AllowCredentials: true,
 	}))
 
@@ -29,7 +29,7 @@ func main() {
 	app.Get("/", routes.HandleRoot)
 
 	// Chat
-	app.Get("/messages/contacts", routes.GetContacts)
+	app.Get("/contacts", routes.GetContacts)
 	app.Get("/chat", websocket.New(routes.ChatHandler))
 
 	//auth
