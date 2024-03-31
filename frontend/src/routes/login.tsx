@@ -42,8 +42,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 				throw "unexpected response"
 
 			const answer = res.data;
+			console.log('Answer: ', answer);
 			if (answer.success) {
-				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
+				dispatch(set({id: answer.userId, alias: answer.alias}));
 			}
 		}).catch(e => {
 			console.log(e.response.data)
@@ -67,7 +68,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 			const answer = res.data;
 			console.log(answer)
 			if (answer.success)
-					dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
+					dispatch(set({id: answer.userId, alias: answer.alias}));
 		}).catch(e => {
 			console.log(e);
 		})
