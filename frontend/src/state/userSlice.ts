@@ -15,8 +15,8 @@ export const userSlice = createSlice({
 		},
 		set: (state, action) => {
 			state.loggedIn = true;
-			state.id = action.id;
-			state.alias = action.alias;
+			state.id = action.payload.id;
+			state.alias = action.payload.alias;
 		}
 	}
 })
