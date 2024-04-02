@@ -18,7 +18,7 @@ const config: Config = {
         'azulito': '#e9f9ff'
       },
   },
-  plugins: [],
+  plugins:[require("daisyui")],
 };
 
 export default config;
