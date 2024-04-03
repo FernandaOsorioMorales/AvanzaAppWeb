@@ -20,6 +20,10 @@ type BaseUser struct {
 	PhoneNumber string
 	// Hashed password for the user (see tools/password.go)
 	Password 	string
+	// path to photo in storage solution
+	Photo string
+	// Personal description, to be shown in profile
+	Description string
 }
 
 // Build a new baseUser
@@ -36,5 +40,8 @@ func BaseUserNew(
 		Email: email,
 		PhoneNumber: phone,
 		Password: password,
+		// leaving these for later, shouldn't need to ask them at registration time
+		Photo: "",
+		Description: "",
 	}
 }
