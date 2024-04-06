@@ -11,15 +11,15 @@ import (
 type BaseUser struct {
 	gorm.Model
 	// Date of birth
-	BirthDate	time.Time
+	BirthDate time.Time
 	// Name by which the user want's to be referred as
-	Alias 		string
+	Alias string
 	// Acts as the main identifier of the user on the platform
-	Email 		string `gorm:"unique"` 
-	// Phone number of the user, to be shared with trainers
-	PhoneNumber string
+	Email string `gorm:"unique"` //KEEP PRIVATE
 	// Hashed password for the user (see tools/password.go)
-	Password 	string
+	Password string //KEEP PRIVATE
+	// Phone number of the user, to be shared with trainers
+	PhoneNumber string //KEEP PRIVATE
 	// path to photo in storage solution
 	Photo string
 	// Personal description, to be shown in profile
@@ -34,14 +34,14 @@ func BaseUserNew(
 	phone string,
 	password string,
 ) BaseUser {
-	return BaseUser {
-		BirthDate: birth,
-		Alias: alias,
-		Email: email,
+	return BaseUser{
+		BirthDate:   birth,
+		Alias:       alias,
+		Email:       email,
 		PhoneNumber: phone,
-		Password: password,
+		Password:    password,
 		// leaving these for later, shouldn't need to ask them at registration time
-		Photo: "",
+		Photo:       "",
 		Description: "",
 	}
 }

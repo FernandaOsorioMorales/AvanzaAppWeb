@@ -9,6 +9,7 @@ import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
+import Profile from "./routes/profile";
 import Err404 from "./routes/Err404"
 
 import './styles/index.css';
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterForm />,
   },
+  { path: "/profile", element: <Profile/> },
   {
 	  path: "/*",
 	  element: <Err404 />,
