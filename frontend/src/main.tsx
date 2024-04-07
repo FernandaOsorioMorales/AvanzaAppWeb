@@ -10,6 +10,8 @@ import { Messages } from "./routes/messages";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
 import Err404 from "./routes/Err404"
+import TrainerProfile from "./routes/trainerProfile"
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './styles/index.css';
 
@@ -33,13 +35,19 @@ const router = createBrowserRouter([
   {
 	  path: "/*",
 	  element: <Err404 />,
+  },
+  {
+	  path: "/trainerProfile",
+	  element: <TrainerProfile />,
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        {router}
+      </React.StrictMode>
+    </BrowserRouter>
   </ReduxProvider>
 );

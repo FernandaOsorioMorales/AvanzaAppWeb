@@ -10,7 +10,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ to, text, color = "bg-white" }) => {
   return (
     <div className="flex justify-center">
-      <Link to={to} className={`text-black text-3xl text-center ${color} p-6 rounded-full`}>
+      <Link to={to} className={`text-black text-1xl text-center ${color} p-2 rounded-full`}>
         {text}
       </Link>
     </div>
