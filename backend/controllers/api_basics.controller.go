@@ -9,8 +9,11 @@ import (
 // be unique enough to be handled by front-end. These are not
 // user facing messages.
 func ApiError(c *fiber.Ctx, message string, status int) error {
-	return c.Status(status).JSON(fiber.Map {
-		"success": false,
+	return c.Status(status).JSON(fiber.Map{
 		"errorMessage": message,
 	})
+}
+
+func ApiSuccess(c *fiber.Ctx, data fiber.Map) error {
+	return c.Status(200).JSON(data)
 }

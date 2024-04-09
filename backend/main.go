@@ -37,19 +37,11 @@ func main() {
 	app.Post("/register", controllers.Register)
 	app.Post("/continue-login", controllers.ContinueUserSession)
 
-	// !User Routes
-	userGroup := app.Group("/user")
-	userGroup.Get("", routes.GetUsers)
-	userGroup.Get("/:id", routes.GetUserByID)
-	userGroup.Post("", routes.PostNewUser)
-	userGroup.Delete("/:id", routes.DeleteUser)
-
-	// !User Routes
-	trainerGroup := app.Group("/trainer")
-	trainerGroup.Get("", routes.GetTrainers)
-	trainerGroup.Get("/:id", routes.GetTrainerByID)
-	trainerGroup.Post("", routes.PostNewTrainer)
-	trainerGroup.Delete("/:id", routes.DeleteTrainer)
+	//BaseUser
+	//app.Post("/user") // handled by auth register ??
+	app.Get("/user", controllers.GetBaseUser)
+	app.Patch("/user", controllers.UpdateBaseUser)
+	app.Delete("/user", controllers.DeleteBaseUser)
 
 	db.Init()
 	validation.Init()
