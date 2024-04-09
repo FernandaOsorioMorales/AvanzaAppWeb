@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 // Redux state
 import { Provider as ReduxProvider } from "react-redux";
-import store from './store'
+import store from './state/store'
 
 import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
