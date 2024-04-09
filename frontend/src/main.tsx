@@ -7,6 +7,7 @@ import store from './store'
 
 import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
+import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
 import Err404 from "./routes/Err404"
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
 	  path: "/*",
 	  element: <Err404 />,
+  },
+  {
+    path: "/routines",
+    element: <Assembler />,
   }
 ]);
 
