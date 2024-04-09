@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm title="Log in" registerLinkText="¿No tienes cuenta? Regístrate aquí" />,
+    element: <LoginForm title="Que gusto verte de nuevo" registerLinkText="¿Aún no te unes? Regístrate aquí" />,
   },
   {
     path: "/register",
@@ -37,17 +37,15 @@ const router = createBrowserRouter([
 	  element: <Err404 />,
   },
   {
-	  path: "/trainerProfile",
-	  element: <TrainerProfile />,
+    path: "/trainerProfile",
+    element: <TrainerProfile />,
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-    <BrowserRouter>
-      <React.StrictMode>
-        {router}
-      </React.StrictMode>
-    </BrowserRouter>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   </ReduxProvider>
 );

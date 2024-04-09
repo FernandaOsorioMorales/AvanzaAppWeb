@@ -8,6 +8,8 @@ import { set } from "../state/userSlice";
 
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';//GL
+import Navbar from "../components/landingpage/navBar";
+import espalda from "../assets/espalda.png";
 
 
 interface LoginFormProps {
@@ -77,33 +79,41 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 
 
     return (
-      <div className="wrapper flex justify-center items-center p-10 h-screen"> 
+		<div className="">
+			<div>
+				<Navbar />
+			</div>
+			<div className="bg-blue-100 flex justify-start p-10 w-full">
 
-	  <ToastContainer />
+				<ToastContainer />
+	  
+				{ loggedIn && (<Navigate to="/messages" />) }			
+				<div className="flex p-12 pb-36 w-full">
+				<form onSubmit={submit} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
+		  			<h1 className="text-3xl md:text-5xl text-center text-gray-600 font-semibold mb-8">{title}</h1>
+	  
+		  			<div className="mb-4">
+						<input type="email" onInput={e => setEmail(e.target.value)} placeholder="Correo" className="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
+		  			</div>
+	  
+		  			<div className="mb-4">
+						<input type="password" onInput={e => setPassword(e.target.value)} placeholder="Contraseña" className="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
+		  			</div>
+	  
+		  			<div className="flex justify-center">
+						<button type="submit" className="text-white text-2xl bg-gray-600 py-2 px-6 rounded-md focus:outline-none hover:bg-blue-700 hover:shadow-lg">Ingresar</button>
+		  			</div>
+	  
+		  			<div className="mt-4 text-center">
+						<Link to="/register" className="text-gray-600">{registerLinkText}</Link>
+		  			</div>
+				</form>
 
-	  { loggedIn && (<Navigate to="/messages" />) }
-
-        <form onSubmit={submit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"> 
-          <h1 className="text-3xl md:text-5xl text-center font-semibold mb-8">{title}</h1> 
-          
-          <div className="mb-4">
-            <input type="email" onInput={e => setEmail(e.target.value)} placeholder="Correo" className="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
-          </div>
-          
-          <div className="mb-4">
-            <input type="password" onInput={e => setPassword(e.target.value)} placeholder="Contraseña" className="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
-          </div>
-
-          <div className="flex justify-center">
-            <button type="submit" className="text-white text-2xl bg-black py-2 px-6 rounded-md focus:outline-none hover:bg-blue-700 hover:shadow-lg">Ingresar</button>
-          </div>
-
-          
-          <div className="mt-4 text-center">
-            <Link to="/register" className="text-azulote">{registerLinkText}</Link> 
-          </div>
-        </form>
-      </div>
+				<img src={espalda} alt="espalda" className="w-25 h-25" ></img>
+				</div>
+	  		</div>
+		</div>
+		
     );
   }
 

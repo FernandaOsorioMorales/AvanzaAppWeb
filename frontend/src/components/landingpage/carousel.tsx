@@ -1,34 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-const Carousel: React.FC= () => {
+import corriendo from "../../assets/corriendo.png";
+import ejercicio from "../../assets/ejercicio.png";
+import espalda from "../../assets/espalda.png";
+import pesas from "../../assets/pesas.png";
+import pesas2 from "../../assets/pesas2.png";
+import pesas3 from "../../assets/pesas3.png";
+import pesas4 from "../../assets/pesas4.png";
+  
+  const Carousel: React.FC = () => {
     return (
-        <div className="w-64 h-40 overflow-hidden rounded-box">
-        <div className="flex flex-nowrap overflow-x-auto">
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div> 
-          <div className="carousel-item flex-none w-64">
-            <img src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" className="w-full" alt="Tailwind CSS Carousel component" />
-          </div>
+        <div className="container mx-auto bg-blue-100">
+            <div className="flex justify-center">
+                <img src={corriendo} alt="Corriendo" className="w-32 h-32" />
+                <img src={ejercicio} alt="Ejercicio" className="w-32 h-32"/>
+                <img src={espalda} alt="Espalda" className="w-32 h-32"/>
+                <img src={pesas} alt="Pesas" className="w-32 h-32"/>
+                <img src={pesas2} alt="Pesas" className="w-32 h-32"/>
+                <img src={pesas3} alt="Pesas" className="w-32 h-32"/>
+                <img src={pesas4} alt="Pesas" className="w-32 h-32"/>
+            </div>
         </div>
-      </div>
+        
     );
-  }
+  };
   
   export default Carousel;
