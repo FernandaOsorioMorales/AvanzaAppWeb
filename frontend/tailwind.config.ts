@@ -4,7 +4,7 @@ const colors = require('tailwindcss/colors');
 const config: Config = {
   content: [
     "./src/**/*.{ts,js,jsx,tsx}",
-    "./**/*.html"
+    "./**/*.html",
   ],
   theme: {
     fontFamily: {

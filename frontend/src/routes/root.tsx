@@ -6,7 +6,6 @@ import RegisterForm from "./register";
 import Navbar from "../components/landingpage/navBar";
 import Carousel from "../components/landingpage/carousel";
 
-
 export function Root() {
     return (
       <div>
