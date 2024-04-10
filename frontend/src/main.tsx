@@ -11,6 +11,8 @@ import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
 import Err404 from "./routes/Err404"
+import TrainerProfile from "./routes/trainerProfile"
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './styles/index.css';
 
@@ -25,20 +27,24 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm title="Log in" registerLinkText="¿No tienes cuenta? Regístrate aquí" />,
+    element: <LoginForm title="Que gusto verte de nuevo" registerLinkText="¿Aún no te unes? Regístrate aquí" />,
   },
   {
     path: "/register",
     element: <RegisterForm />,
   },
   {
-	  path: "/*",
-	  element: <Err404 />,
-  },
-  {
     path: "/routines",
     element: <Assembler />,
-  }
+  },
+  {
+    path: "/trainerProfile",
+    element: <TrainerProfile />,
+  },
+  {
+    path: "/*",
+    element: <Err404 />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
