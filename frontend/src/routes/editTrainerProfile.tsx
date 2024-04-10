@@ -1,6 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 import {React, useEffect, useState} from "react";
+import Navbar from "../components/landingpage/navBar";
+import corriendo from "../assets/corriendo.png";
 //import {useSelector} from "react-redux";
 
 export default function EditTrainerProfile() {
@@ -52,23 +54,48 @@ export default function EditTrainerProfile() {
 	}
 
     return (
-        <div >
-        <h1>P O C</h1>
+        <div>
+            <div>
+				<Navbar />
+		    </div>
+        <div className="bg-blue-100 flex justify-start p-10 w-full">
+            <div className="flex  pb-36 w-full">
+            <form onSubmit={editUser} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
 
-		<label htmlFor="alias">username: {alias}</label>
-		<input type="text" id="alias" className="width-1/4"/>
+                <h1 className="text-5xl text-center mb-6 text-gray-600 font-bold tracking-wide">Edita tu perfil </h1>
 
-		<label htmlFor="birth">Birthday: {birth}</label>
-		<input type="date" id="birth" className="width-1/4" disabled/>
+                <div className="mb-4">
+                    <label className="block text-xl text-gray-600 mb-2">Nombre: {alias}</label>
+                    <input type="text" id="alias" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500" placeholder="Tu nombre"/>
+                </div>
+                
+                
+                <div className="mb-4">
+                    <label className="block text-xl text-gray-600 mb-2" htmlFor="birth">Birthday: {birth}</label>
+                    <input type="date" id="birth" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500"/>
+                </div>
 
-		<label htmlFor="photo">Photo: {photo}</label>
-		<input type="text" id="photo" className="width-1/4" disabled/>
+                <div className="mb-4">
+                    <label className="block text-xl text-gray-600 mb-2" htmlFor="photo">Foto: {photo}</label>
+                    <input type="text" id="photo" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500" placeholder="Tu foto"/>
+                </div>
+                
+                <div className="mb-4">
+                <label className="block text-xl text-gray-600 mb-2" htmlFor="desc">Descripción: {desc}</label>
+                <input type="text" id="desc" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500" placeholder="Tu descripción"/>
+                </div>
 
-		<label htmlFor="desc">Description: {desc}</label>
-		<input type="text" id="desc" className="width-1/4" disabled/>
-
-		<button onClick={editUser} className="btn bg-amber-200">Update !</button>
+                <div className="flex justify-center">
+					<button type="submit" className="text-white text-2xl bg-gray-600 py-2 px-6 rounded-md focus:outline-none hover:bg-blue-700 hover:shadow-lg">Guardar</button>
+				</div>
+            
+            </form>
+            <img src={corriendo} />
 
         </ div>
+
+        </div>
+        </div>
+        
     )
 }

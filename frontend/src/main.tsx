@@ -29,7 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm title="Que gusto verte de nuevo" registerLinkText="¿Aún no te unes? Regístrate aquí" />,
+    element: <LoginForm title="¡Que gusto verte de nuevo!" registerLinkText="¿Aún no te unes? Regístrate aquí" />,
   },
   {
     path: "/register",

@@ -66,7 +66,7 @@ const RegisterForm : React.FC =() =>{
 			<ToastContainer />
 
 			{ loggedIn && (<Navigate to="/messages" />) }
-			<div className="flex  pb-36 w-fulll">
+			<div className="flex  pb-36 w-full">
 			<form className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
 				<h1 className="text-5xl text-center mb-6 text-gray-600 font-bold tracking-wide">¡Te estabamos esperando!</h1>
 
