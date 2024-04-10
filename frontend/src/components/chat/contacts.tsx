@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useEffect, useRef, useState } from 'react';
 import React from "react";
 import { Contact } from "./contactTag";

@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
-import { React, useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Link, Navigate} from "react-router-dom";
 
 import {useSelector, useDispatch} from "react-redux";
