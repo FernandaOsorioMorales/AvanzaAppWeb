@@ -20,6 +20,7 @@ return (
         </div>
         <div className="p-7 text-2xl font-semibold flex-1 h-screen"> 
             <h1>¡Hola Entrenador! Mira como luce tu semana</h1>
+            <a href="/editTrainerProfile">EDIT PROFILE</a>
         </div>
     </div>
 );

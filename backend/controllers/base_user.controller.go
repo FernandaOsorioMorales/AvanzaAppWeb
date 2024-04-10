@@ -53,7 +53,10 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 	}
 
 	if field == "photo" {
-		//TODO
+		user.Photo = c.FormValue("photo")
+		if db.Orm().Save(&user).Error != nil {
+			return ApiError(c, "Db Error", 500)
+		}
 	}
 
 	return ApiSuccess(c, nil)

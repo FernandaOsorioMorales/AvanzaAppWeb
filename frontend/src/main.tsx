@@ -3,15 +3,17 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 // Redux state
 import { Provider as ReduxProvider } from "react-redux";
-import store from './store'
+import store from './state/store'
 
 import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
-import Err404 from "./routes/Err404"
-import TrainerProfile from "./routes/trainerProfile"
+import Profile from "./routes/profile";
+import Err404 from "./routes/Err404";
+import TrainerProfile from "./routes/trainerProfile";
+import EditTrainerProfile from "./routes/editTrainerProfile";
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import './styles/index.css';
@@ -45,6 +47,7 @@ const router = createBrowserRouter([
     path: "/*",
     element: <Err404 />,
   },
+  { path: "/editTrainerProfile", element: <EditTrainerProfile /> }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -54,3 +57,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </React.StrictMode>
   </ReduxProvider>
 );
+
