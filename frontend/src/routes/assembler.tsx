@@ -25,9 +25,12 @@ export function Assembler(){
                     <button className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
                 </div>
 
-                <div className="bg-yellow-500 h-full flex justify-center">
+                <div className="p-5 h-full flex justify-center">
                     <ListRoutines >
-                        <Routine routineName='Rutina de piernas' tags={["pierna", "pantorrilla", "cara"]}/>
+                        <Routine routineName='Rutina con un nombre cómicamente XL' tags={["omóplato"]}/>
+                        <Routine routineName='Rutina de Pecho' tags={["pierna", "cara", "abdomen", "pecho"]}/>
+                        <Routine routineName='Rutina de Cara' tags={["pierna", "cara", "abdomen", "pecho", "cardio"]}/>
+
                     </ListRoutines>
                 </div>
             </div>
