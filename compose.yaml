@@ -1,6 +1,5 @@
 # Development compose file
 # When ready to deploy make sure to set a permanent volume
-version: "3.8"
 
 services:
   db:
@@ -9,20 +8,25 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: "${dbUser}"
+      PGUSER: "${dbUser}"
       POSTGRES_PASSWORD: "${dbPassword}"
       POSTGRES_NAME: "${dbName}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 4s
 
   back:
     build: ./backend
     ports:
       - "9090:9090"
-    depends_on:
-      - db
     environment:
       POSTGRES_USER: "${dbUser}"
       POSTGRES_PASSWORD: "${dbPassword}"
       POSTGRES_NAME: "${dbName}"
       POSTGRES_PORT: "5432"
+    depends_on:
+      db:
+        condition: service_healthy
     develop:
       watch:
         - action: rebuild
