@@ -11,7 +11,7 @@ export function Root() {
       <div>
         <div>
           <Navbar />
-        </div>
+        </div>c
         <div className="bg-blue-100 pb-11 h-full">
           <Title />
           <Carousel />
