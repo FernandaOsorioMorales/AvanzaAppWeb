@@ -15,18 +15,12 @@ export function Routine(params: {routineName: string, tags: string[]}){
     const [isOpen, setIsOpen] = useState(false);
     const [ModalOpen, setModalOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-    const closeDropdown = () => {
-        setIsOpen(false);
-    };
-
     return (
         <>
             <Modal open={ModalOpen} >
                         <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} Exercises={""}></CDRoutine>
             </Modal>
+            
             <div className="w-full h-20 mb-6 rounded flex flex-row justify-around items-center bg-blue-100">
                 <h1 className="w-1/4 flex justify-center items-center h-16 text-xl text-gray-600">{params.routineName}</h1>
                 <ul className="w-1/3 flex flex-row justify-around">
@@ -44,12 +38,12 @@ export function Routine(params: {routineName: string, tags: string[]}){
                 </div>
                 
                 <div className="relative">
-                    <button onClick={toggleDropdown}>
+                    <button onClick={() => setIsOpen(!isOpen)}>
                         <EllipsisVertical size={25}/>
                     </button>
 
                     {isOpen && (
-                        <div className="absolute z-10 mt-2 w-24 bg-white rounded-md shadow-lg" onMouseLeave={closeDropdown}>
+                        <div className="absolute z-10 mt-2 w-24 bg-white rounded-md shadow-lg" onMouseLeave={() => setIsOpen(false)}>
                             <ul className="list-reset">
                                 <li>
                                     <button
