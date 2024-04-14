@@ -4,6 +4,7 @@ import { LayoutDashboard, Home, StickyNote, Layers, Flag, Calendar, LifeBuoy, Se
 import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import { ListRoutines, Routine } from "../components/routineAssembler/ListRoutines";
 import Modal from "../components/routineAssembler/Modal";
+import { CDRoutine } from "../components/routineAssembler/CDRoutine";
 
 export function Assembler(){
     const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +30,13 @@ export function Assembler(){
                     <button onClick={() => setIsOpen(true)} className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
                 </div>
 
-                <Modal open={isOpen} onClose={() => setIsOpen(false)} >
-                    <h1 className="">
-                        Nombre de Rutina
-                    </h1>
+                <Modal open={isOpen} >
+                    <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Create a Routine Name" Tags={["Pierna", "Cara"]} Exercises={""}></CDRoutine>
                 </Modal>
 
                 <div className="p-5 h-full flex justify-center">
                     <ListRoutines >
-                        <Routine routineName='Rutina con un nombre cómicamente XL' tags={["omóplato"]}/>
+                        <Routine routineName='Rutina con un nombre cómicamente XL' tags={["omóplato"]} open={() => setIsOpen(true)}/>
                         <Routine routineName='Rutina de Pecho' tags={["pierna", "cara", "abdomen", "pecho"]}/>
                         <Routine routineName='Rutina de Cara' tags={["pierna", "cara", "abdomen", "pecho", "cardio"]}/>
 
