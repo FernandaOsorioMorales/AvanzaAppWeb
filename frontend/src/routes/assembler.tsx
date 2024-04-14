@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { LayoutDashboard, Home, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell } from "lucide-react";
 import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import { ListRoutines, Routine } from "../components/routineAssembler/ListRoutines";
+import Modal from "../components/routineAssembler/Modal";
 
 export function Assembler(){
+    const [isOpen, setIsOpen] = useState(false);
+    
     return (
+    <>
         <div className="flex bg-blue-50">
             <div>
                 <Sidebar >
@@ -22,8 +26,14 @@ export function Assembler(){
             <div className="w-full flex flex-col">
                 <div className="h-1/16 flex flex-row align-middle justify-between">
                     <input className="w-1/2 bg-gray-600 h-12 m-6 text-white p-2 rounded" placeholder="Buscar Rutina"/>
-                    <button className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
+                    <button onClick={() => setIsOpen(true)} className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
                 </div>
+
+                <Modal open={isOpen} onClose={() => setIsOpen(false)} >
+                    <h1 className="">
+                        Nombre de Rutina
+                    </h1>
+                </Modal>
 
                 <div className="p-5 h-full flex justify-center">
                     <ListRoutines >
@@ -35,5 +45,8 @@ export function Assembler(){
                 </div>
             </div>
         </div>
+
+        <div id="popups"></div>
+    </>
     )
 }
