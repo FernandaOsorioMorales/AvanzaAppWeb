@@ -30,7 +30,7 @@ export function Assembler(){
                     <button onClick={() => setIsOpen(true)} className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
                 </div>
 
-                <Modal open={isOpen} >
+                <Modal open={isOpen} tiny={true} >
                     <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]} Exercises={""}></CDRoutine>
                 </Modal>
 

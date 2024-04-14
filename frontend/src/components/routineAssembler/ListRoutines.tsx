@@ -17,8 +17,8 @@ export function Routine(params: {routineName: string, tags: string[]}){
 
     return (
         <>
-            <Modal open={ModalOpen} >
-                        <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} Exercises={""}></CDRoutine>
+            <Modal open={ModalOpen} tiny={true} >
+                        <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags}></CDRoutine>
             </Modal>
 
             <div className="w-full h-20 mb-6 rounded flex flex-row justify-around items-center bg-blue-100 relative">
