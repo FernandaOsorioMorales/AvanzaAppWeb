@@ -28,6 +28,10 @@ func main() {
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
 
+	// Workout builder
+	app.Get("/exercises", routes.GetExerciseList)
+	app.Get("/workouts", routes.GetWorkoutList)
+
 	// Chat
 	app.Get("/contacts", routes.GetContacts)
 	app.Get("/chat", websocket.New(routes.ChatHandler))
