@@ -8,8 +8,7 @@ import { set } from '../state/userSlice';
 import pesas3 from "../assets/pesas3.png";
 import Navbar from "../components/landingpage/navBar";
 
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';//GL
+import { toast } from "react-toastify";
 
 const RegisterForm : React.FC =() =>{
 	const loggedIn = useSelector(state => state.user.loggedIn)
@@ -44,10 +43,9 @@ const RegisterForm : React.FC =() =>{
 
 			const answer = res.data;
 			if (answer.success) {
-				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
+				dispatch(set({type: 'login', id: answer.userId, alias: answer.alias}))
 			}
 		}).catch(e => {
-			console.log(e.response.data)
 			if ('response' in e && 'data' in e.response) {
 				toast(e.response.data.errorMessage);
 			} else {
@@ -62,8 +60,6 @@ const RegisterForm : React.FC =() =>{
 				<Navbar />
 		</div>
 		<div className=" bg-blue-100 flex justify-start p-10 w-full">
-
-			<ToastContainer />
 
 			{ loggedIn && (<Navigate to="/messages" />) }
 			<div className="flex  pb-36 w-full">
