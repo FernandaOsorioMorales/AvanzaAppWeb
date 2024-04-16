@@ -106,7 +106,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 		  			</div>
 	  
 		  			<div className="mt-4 text-center">
-						<Link to="/register" className="text-gray-600">{registerLinkText}</Link>
+						<Link to="/registerClasification" className="text-gray-600">{registerLinkText}</Link>
 		  			</div>
 				</form>
 

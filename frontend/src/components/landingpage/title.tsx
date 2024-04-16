@@ -13,7 +13,7 @@ const Title: React.FC= () => {
             <button className=" px-3 py-2 rounded-md bg-gray-50 text-gray-800">Inicia Sesión</button>
             </Link>
             <br />
-            <Link to="/register">
+            <Link to="/registerClasification">
             <button className=" px-3 py-2 rounded-md bg-blue-100 text-gray-800">Registrate</button>
             </Link>
           </div>

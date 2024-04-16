@@ -14,9 +14,16 @@ import Profile from "./routes/profile";
 import Err404 from "./routes/Err404";
 import TrainerProfile from "./routes/trainerProfile";
 import EditTrainerProfile from "./routes/editTrainerProfile";
+import registerClasification from "./routes/registerClasification";
 import { BrowserRouter, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import RegisterUser from "./routes/registerUser";
+import UserProfile from "./routes/userProfile";
 
 import './styles/index.css';
+import RegisterClasification from "./routes/registerClasification";
+import RegisterTrainer from "./routes/registerTrainer";
+
 
 const router = createBrowserRouter([
   {
@@ -32,8 +39,8 @@ const router = createBrowserRouter([
     element: <LoginForm title="¡Que gusto verte de nuevo!" registerLinkText="¿Aún no te unes? Regístrate aquí" />,
   },
   {
-    path: "/register",
-    element: <RegisterForm />,
+    path: "/registerUser",
+    element: <RegisterUser />,
   },
   {
     path: "/routines",
@@ -47,7 +54,21 @@ const router = createBrowserRouter([
     path: "/*",
     element: <Err404 />,
   },
-  { path: "/editTrainerProfile", element: <EditTrainerProfile /> }
+  { 
+    path: "/editTrainerProfile", 
+    element: <EditTrainerProfile /> },
+    {
+      path:"/registerClasification",
+      element: <RegisterClasification />,
+    },
+    {
+      path:"/registerTrainer",
+      element: <RegisterTrainer />,
+    },
+    {
+      path:"/userProfile",
+      element: <UserProfile />,
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
