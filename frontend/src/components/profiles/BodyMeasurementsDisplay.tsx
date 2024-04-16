@@ -17,14 +17,14 @@ const BodyMeasurementsDisplay = () => {
   };
 
   return (
-    <div className="w-60 mt-5 mx-auto p-4 bg-blue-900 rounded-lg float-left">
+    <div className="w-60 mt-5 mx-auto p-4 bg-azulote rounded-lg float-left">
         <h2 className="text-3xl text-center font-bold text-blue-50 mb-4">Medidas Corporales</h2>
         <div className="mb-2">
             <p className="text-xl text-blue-50 mb-1">Altura (cm):</p>
                 {editing ? (
             <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} className="border rounded-md px-3 py-2 w-full" />
                 ) : (
-            <p className='text-sm'>{height}</p>
+            <p className='text-sm text-zinc-300'>{height}</p>
             )}
         </div>
         <div className="mb-4">
@@ -32,7 +32,7 @@ const BodyMeasurementsDisplay = () => {
                 {editing ? (
                 <input type='text' value={weight} onChange={(e) => setWeight(e.target.value)} className="border rounded-md px-3 py-2 w-full" />
             ) : (
-            <p>{weight}</p>
+            <p className='text-lg text-zinc-300'>{weight}</p>
             )}
         </div>
         <div className="mb-4">
@@ -40,7 +40,7 @@ const BodyMeasurementsDisplay = () => {
             {editing ? (
             <input type="text" value={bust} onChange={(e) => setBust(e.target.value)} className="border rounded-md px-3 py-2 w-full" />
                 ) : (
-            <p>{bust}</p>
+            <p className='text-lg text-zinc-300'>{bust}</p>
             )}
         </div>
         <div className="mb-4">
@@ -48,7 +48,7 @@ const BodyMeasurementsDisplay = () => {
             {editing ? (
                 <input type="text" value={waist} onChange={(e) => setWaist(e.target.value)} className="border rounded-md px-3 py-2 w-full" />
             ) : (
-            <p>{waist}</p>
+            <p className='text-lg text-zinc-300'>{waist}</p>
             )}
         </div>
         <div className="mb-4">
@@ -56,7 +56,7 @@ const BodyMeasurementsDisplay = () => {
             {editing ? (
             <input type="text" value={hips} onChange={(e) => setHips(e.target.value)} className="border rounded-md px-3 py-2 w-full" />
             ) : (
-            <p>{hips}</p>
+            <p className='text-lg text-zinc-300'>{hips}</p>
             )}
         </div>
         <div className="flex justify-center items-center">

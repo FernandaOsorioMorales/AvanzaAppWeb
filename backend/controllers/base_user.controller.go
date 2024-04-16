@@ -8,12 +8,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Get the user currently logged in
+
 func GetBaseUser(c *fiber.Ctx) error {
 	isLogged, id := tools.GetCurrentUserId(c)
 	if !isLogged {
 		return ApiError(c, "Not logged in", 400)
 	}
+
 
 	var user models.BaseUser
 	err := db.Orm().First(&user, id).Error
