@@ -1,12 +1,14 @@
 import axios from "axios";
 import qs from "qs";
 import {React, useEffect, useState} from "react";
+import {toast} from "react-toastify";
+
+import ProtectedRoute from "../components/protectedRoute.tsx";
 import Navbar from "../components/landingpage/navBar";
+
 import corriendo from "../assets/corriendo.png";
-//import {useSelector} from "react-redux";
 
 export default function EditTrainerProfile() {
-    //const userId = useSelector(state => state.user.id);
 
     const [alias, setAlias] = useState("");
     const [birth, setBirth] = useState("");
@@ -24,7 +26,6 @@ export default function EditTrainerProfile() {
             if ("data" in res === false)
                 throw "unexpected response"
             const ans = res.data;
-            console.log(ans)
 
             setAlias(ans.alias);
             setBirth(ans.birthday);
@@ -32,6 +33,7 @@ export default function EditTrainerProfile() {
             setDesc(ans.description);
         }).catch(e => {
             console.log(e);
+			toast("Hubo un problema al recuperar tus datos");
         })
     }
 
@@ -56,12 +58,12 @@ export default function EditTrainerProfile() {
     return (
         <div>
             <div>
+				<ProtectedRoute />
 				<Navbar />
 		    </div>
         <div className="bg-blue-100 flex justify-start p-10 w-full">
             <div className="flex  pb-36 w-full">
             <form onSubmit={editUser} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
-
                 <h1 className="text-5xl text-center mb-6 text-gray-600 font-bold tracking-wide">Edita tu perfil </h1>
 
                 <div className="mb-4">

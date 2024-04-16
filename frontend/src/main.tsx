@@ -1,10 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
+
 // Redux state
 import { Provider as ReduxProvider } from "react-redux";
 import store from './state/store'
 
+// Toast errors
+import { ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';//GL
+
+// Routes
 import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import { Assembler } from "./routes/assembler";
@@ -73,9 +79,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-    <React.StrictMode>
+  	<ToastContainer />
       <RouterProvider router={router} />
-    </React.StrictMode>
   </ReduxProvider>
 );
 
