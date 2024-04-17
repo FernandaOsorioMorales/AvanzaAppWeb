@@ -31,7 +31,7 @@ export function Assembler(){
                 </div>
 
                 <Modal open={isOpen} tiny={true} >
-                    <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]} Exercises={""}></CDRoutine>
+                    <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]}></CDRoutine>
                 </Modal>
 
                 <div className="p-5 h-full flex justify-center">
