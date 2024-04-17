@@ -1,17 +1,34 @@
 import React, { useEffect } from 'react'
-import {Exercise} from './Exercise'
+import {Exercise, excercise} from './Exercise'
 import Select, { MultiValue } from 'react-select'
-import { TagContainer, Tag } from './Tags'
-import { TagsOption, tagsOption } from './tags'
+import { TagContainer, TagsOption, tagsOption } from './Tags'
+
+const ExampleExcercises : excercise[] = [
+    {id: 1, order: 1, name: "Mewing", reps: 12, series: 2},
+    {id: 2, order: 2, name: "Facing", reps: 20, series: 1}
+]   
+
 // Function to build a JSON object from all the parameters in the popup
-function buildJSON(){
-    
+function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise[], id?: number){
+    const RoutineObject = id != undefined ? {
+        id: id,
+        routineName: routineName,
+        tags: tags.map(({id, value}) => ({id, value})),
+        excercises: excercise
+    }:{
+        routineName: routineName,
+        tags: tags.map(({id, value}) => ({id, value})),
+        excercises: excercise
+    } 
+
+    return JSON.stringify(RoutineObject)
 }
 
 
 // Function to create or edit a routine
 export function CDRoutine(params : {RoutineName : string, Tags : string[], onClose : () => void}) {
-    const [tags, setTags] = React.useState(params.Tags);
+    const [tags, setTags] = React.useState(params.Tags.map((tag) => tagsOption.find((option) => option.value === tag)));
+    const [excercises, setExcercises] = React.useState(ExampleExcercises);
 
   return (
     <div className='h-full'>
@@ -28,23 +45,22 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
 
             <Select id='tags' className='mt-4'
                 closeMenuOnSelect={true}
-                defaultValue={tags.map((tag) => tagsOption.find((option) => option.value === tag))}
+                defaultValue={tags}
                 isMulti
                 options={tagsOption}
-                onChange={(e) => setTags(e as unknown as string[])}
+                onChange={(e) => setTags(e as TagsOption[])}
                 isOptionDisabled={() => tags.length >= 5}
             />
         </TagContainer>
         
         {/* !TODOD draggable context here */}
         <div className='mt-3 mb-6 flex flex-col w-full h-2/3 items-center border-solid border-2 border-gray-500'>
-            <Exercise excerciseName={"Mewing"} reps={12} seriesCount={2}></Exercise>
-            <Exercise excerciseName={"Facing"} reps={20} seriesCount={1}></Exercise>
+            {ExampleExcercises.map((excercise) => <Exercise key={excercise.id} {...excercise}></Exercise>)}
         </div>
 
         <div className='flex flex-row justify-between mt-6'>
             <button onClick={params.onClose} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-red-500'>Cancelar</button>
-            <button className='bg-gray-500 text-white rounded p-2 m-2' onClick={() => console.log(tags)}>Guardar</button>
+            <button onClick={() => console.log(buildJSON(tags as TagsOption[], params.RoutineName, excercises))} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-blue-500'>Guardar</button>
         </div>
     </div>
   )
