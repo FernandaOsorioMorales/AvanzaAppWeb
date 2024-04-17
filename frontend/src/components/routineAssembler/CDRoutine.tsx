@@ -10,14 +10,17 @@ const ExampleExcercises : excercise[] = [
 
 // Function to build a JSON object from all the parameters in the popup
 function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise[], id?: number){
+    const tagsOBJ = tags[0] != undefined ? tags.map(({id, value}) => ({id, value})) : []
+    const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
+
     const RoutineObject = id != undefined ? {
         id: id,
-        routineName: routineName,
-        tags: tags.map(({id, value}) => ({id, value})),
+        routineName: name,
+        tags: tagsOBJ,
         excercises: excercise
     }:{
-        routineName: routineName,
-        tags: tags.map(({id, value}) => ({id, value})),
+        routineName: name,
+        tags: tagsOBJ,
         excercises: excercise
     } 
 
@@ -26,9 +29,10 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 
 
 // Function to create or edit a routine
-export function CDRoutine(params : {RoutineName : string, Tags : string[], onClose : () => void}) {
+export function CDRoutine(params : {RoutineName : string, Tags : string[], onClose : () => void, id?: number}) {
     const [tags, setTags] = React.useState(params.Tags.map((tag) => tagsOption.find((option) => option.value === tag)));
     const [excercises, setExcercises] = React.useState(ExampleExcercises);
+    const [name, setName] = React.useState(params.RoutineName);
 
   return (
     <div className='h-full'>
@@ -36,7 +40,10 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
             Editar Rutina
         </h1>
 
-        <input className='w-9/12 h-fit bg-gray-100 rounded-none text-xl text-gray-600 p-2' type="text" placeholder={params.RoutineName} maxLength={35} />
+        <input className='w-9/12 h-fit bg-gray-100 rounded-none text-xl text-gray-600 p-2' 
+               type="text" placeholder={params.RoutineName}
+               maxLength={35} 
+               onChange={(e) => setName(e.target.value)}/>
 
         <TagContainer styles='mt-3 relative'>
             <label htmlFor="tags" className='absolute -top-2'>
@@ -60,7 +67,7 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
 
         <div className='flex flex-row justify-between mt-6'>
             <button onClick={params.onClose} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-red-500'>Cancelar</button>
-            <button onClick={() => console.log(buildJSON(tags as TagsOption[], params.RoutineName, excercises))} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-blue-500'>Guardar</button>
+            <button onClick={() => console.log(buildJSON(tags as TagsOption[], name, excercises, params.id))} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-blue-500'>Guardar</button>
         </div>
     </div>
   )

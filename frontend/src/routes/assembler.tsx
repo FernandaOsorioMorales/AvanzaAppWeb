@@ -31,14 +31,14 @@ export function Assembler(){
                 </div>
 
                 <Modal open={isOpen} tiny={true} >
-                    <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]}></CDRoutine>
+                    <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]} />
                 </Modal>
 
                 <div className="p-5 h-full flex justify-center">
                     <ListRoutines >
-                        <Routine routineName='Rutina con un nombre cómicamente XL' tags={["omóplato"]}/>
-                        <Routine routineName='Rutina de Pecho' tags={["pierna", "cara", "abdomen", "pecho"]}/>
-                        <Routine routineName='Rutina de Cara' tags={["pierna", "cara", "abdomen", "pecho", "cardio"]}/>
+                        <Routine id={1} routineName='Rutina con un nombre cómicamente XL' tags={["omóplato"]}/>
+                        <Routine id={2} routineName='Rutina de Pecho' tags={["pierna", "cara", "abdomen", "pecho"]}/>
+                        <Routine id={3} routineName='Rutina de Cara' tags={["pierna", "cara", "abdomen", "pecho", "cardio"]}/>
 
                     </ListRoutines>
                 </div>

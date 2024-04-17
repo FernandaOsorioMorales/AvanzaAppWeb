@@ -12,14 +12,14 @@ export function ListRoutines({ children } : { children: React.ReactNode }){
     )
 }
 
-export function Routine(params: {routineName: string, tags: string[]}){
+export function Routine(params: {routineName: string, tags: string[], id: number}){
     const [isOpen, setIsOpen] = useState(false);
     const [ModalOpen, setModalOpen] = useState(false);
 
     return (
         <>
             <Modal open={ModalOpen} tiny={true} >
-                        <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags}></CDRoutine>
+                        <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} id={params.id} />
             </Modal>
 
             <div className="w-full h-20 mb-6 rounded flex flex-row justify-around items-center bg-blue-100 relative">
