@@ -1,5 +1,4 @@
 import React from 'react'
-import { X } from 'lucide-react';
 
 export function TagContainer(params: {children: React.ReactNode, styles?: string}) {
   return (
@@ -11,7 +10,7 @@ export function TagContainer(params: {children: React.ReactNode, styles?: string
 
 export function Tag(params: {tag: string}){
     return (
-      <li className='text-xs font-medium me-2 px-2.5 py-0.5 rounded-full bg-yellow-900 text-yellow-300'>
+      <li className='text-base font-medium me-2 px-3 py-1 rounded-full bg-indigo-900 text-indigo-300'>
         {params.tag}
       </li>
     )
@@ -23,6 +22,7 @@ export interface TagsOption {
   readonly label: string;
 }
 
+// !DEGBUG ONLY
 export const tagsOption = [
   { id:1 ,value: 'cara', label: 'Cara'},
   { id:2 ,value: 'gluteo', label: 'Gluteo'},

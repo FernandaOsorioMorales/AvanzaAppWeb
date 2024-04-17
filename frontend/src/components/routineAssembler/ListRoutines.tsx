@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { EllipsisVertical } from 'lucide-react';
 import Modal from "./Modal";
 import { CDRoutine } from "./CDRoutine";
+import { Tag } from "./Tags";
 
 
 export function ListRoutines({ children } : { children: React.ReactNode }){
@@ -28,7 +29,7 @@ export function Routine(params: {routineName: string, tags: string[], id: number
                         {params.routineName}
                     </h1>
                     <ul className="w-full flex flex-row justify-center items-center">
-                        {params.tags.map((tag, index) => <li key={index} className=" p-2 h-6 text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-gray-600 text-gray-300">{tag}</li>)}
+                        {params.tags.map((tag, index) => <Tag key={index} tag={tag}/>)}
                     </ul>
                 </div>
 
