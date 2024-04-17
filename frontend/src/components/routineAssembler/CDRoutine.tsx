@@ -3,6 +3,8 @@ import {Exercise, excercise} from './Exercise'
 import Select, { MultiValue } from 'react-select'
 import { TagContainer, TagsOption, tagsOption } from './Tags'
 
+
+// !DEBUG ONLY
 const ExampleExcercises : excercise[] = [
     {id: 1, order: 1, name: "Mewing", reps: 12, series: 2},
     {id: 2, order: 2, name: "Facing", reps: 20, series: 1}
