@@ -4,8 +4,11 @@ import (
 	"backend/models"
 	"backend/tools"
 	"backend/tools/db"
+	va "backend/tools/validation"
 
 	"github.com/gofiber/fiber/v2"
+
+	"time"
 )
 
 
@@ -23,7 +26,7 @@ func GetBaseUser(c *fiber.Ctx) error {
 	}
 	return ApiSuccess(c, fiber.Map{
 		"alias":       user.Alias,
-		"birthday":    user.BirthDate,
+		"birthDate":    user.BirthDate,
 		"photo":       user.Photo,
 		"description": user.Description,
 	})
@@ -35,9 +38,14 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 		return ApiError(c, "Not logged in", 400)
 	}
 
-	field := c.FormValue("field")
-	if field != "alias" && field != "photo" {
-		return ApiError(c, "not a valid field", 400)
+	vaErr := va.Check(c, va.Rmap {
+		"alias":     "required",
+		//"email":     "required,email",
+		//"phone":     "required", //add more ?
+		"birthDate": "required,datetime=2006-01-02",
+	})
+	if vaErr != nil {
+		return ApiError(c, "Wrong data", 400)
 	}
 
 	var user models.BaseUser
@@ -46,18 +54,16 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 		return ApiError(c, "DB error", 500)
 	}
 
-	if field == "alias" {
-		user.Alias = c.FormValue("alias")
-		if db.Orm().Save(&user).Error != nil {
-			return ApiError(c, "Db Error", 500)
-		}
+	birthDate, pErr := time.Parse(time.DateOnly, c.FormValue("birthDate"))
+	if pErr != nil {
+		return ApiError(c, "Wrong data", 400)
 	}
+	user.Alias = c.FormValue("alias")
+	user.BirthDate = birthDate
+	user.Description = c.FormValue("description")
 
-	if field == "photo" {
-		user.Photo = c.FormValue("photo")
-		if db.Orm().Save(&user).Error != nil {
-			return ApiError(c, "Db Error", 500)
-		}
+	if db.Orm().Save(&user).Error != nil {
+		return ApiError(c, "DB error", 500)
 	}
 
 	return ApiSuccess(c, nil)
