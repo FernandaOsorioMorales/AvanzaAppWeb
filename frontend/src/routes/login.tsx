@@ -36,7 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 			headers: {'content-type': 'application/x-www-form-urlencoded'},
 			withCredentials: true,
 			data: qs.stringify(loginData),
-			url: "http://localhost:9090/login",
+			url: "/api/login",
 		}).then(res => {
 			if ("data" in res === false)
 				throw "unexpected response"
@@ -59,7 +59,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 	function sessionLogin() {
 		axios({
 			method: "post",
-			url: "http://localhost:9090/continue-login",
+			url: "/api/continue-login",
 			withCredentials: true,
 		}).then(res => {
 			if ("data" in res === false)

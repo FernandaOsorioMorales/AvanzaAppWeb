@@ -11,8 +11,20 @@ export default defineConfig({
 	server: {
 		port: 8080,
 		strictPort: true,
-		cors: true,
 		host: true,
 		origin: "http://0.0.0.0:8080",
+		cors: false,
+		proxy: {
+			"/api": {
+				target: "http://back:9090",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, ''),
+			},
+			"/ws": {
+				target: "ws://back:9090/",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/ws/, ''),
+			}
+		}
 	},
 });
