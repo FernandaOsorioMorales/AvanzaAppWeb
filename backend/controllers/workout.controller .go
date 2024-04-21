@@ -32,3 +32,21 @@ func GetWorkoutsByTrainer(db *gorm.DB, idTrainer uint64) (*[]models.Workout, err
 
 	return &workouts, nil
 }
+
+// Returns workout by id
+func GetWorkoutById(db *gorm.DB, id uint64) (*models.Workout, error) {
+	var workout models.Workout
+
+	err := db.First(&workout, "id = ?", id).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &workout, nil
+}
+
+// Updates a workout in the database.
+func UpdateWorkout(db *gorm.DB, w *models.Workout) {
+	db.Save(w)
+}

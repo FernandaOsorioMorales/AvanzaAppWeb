@@ -31,6 +31,7 @@ func main() {
 	// Workout builder
 	app.Get("/exercises", routes.GetExerciseList)
 	app.Get("/workouts", routes.GetWorkoutList)
+	app.Get("/workout/detail", routes.GetWorkoutDetail)
 
 	// Chat
 	app.Get("/contacts", routes.GetContacts)
