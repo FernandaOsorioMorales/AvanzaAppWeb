@@ -6,8 +6,8 @@ import { TagContainer, TagsOption, tagsOption } from './Tags'
 
 // !DEBUG ONLY
 const ExampleExcercises : excercise[] = [
-    {id: 1, order: 1, name: "Mewing", reps: 12, series: 2},
-    {id: 2, order: 2, name: "Facing", reps: 20, series: 1}
+    {id: 1, order: 1, name: "Mewing", reps: 12, sets: 2},
+    {id: 2, order: 2, name: "Facing", reps: 20, sets: 1}
 ]   
 
 // Function to build a JSON object from all the parameters in the popup
@@ -38,7 +38,7 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
 
   return (
     <div className='h-full'>
-        <h1 className='text-gray-300 text-2xl m-2'>
+        <h1 className='text-gray-300 text-2xl mb-5'>
             Editar Rutina
         </h1>
 
@@ -64,7 +64,8 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
         
         {/* !TODOD draggable context here */}
         <div className='mt-3 mb-6 flex flex-col w-full h-2/3 items-center border-solid border-2 border-gray-500'>
-            {ExampleExcercises.map((excercise) => <Exercise key={excercise.id} {...excercise}></Exercise>)}
+
+            {excercises.map((excercise) => <Exercise key={excercise.id} {...excercise}></Exercise>)}
         </div>
 
         <div className='flex flex-row justify-between mt-6'>
