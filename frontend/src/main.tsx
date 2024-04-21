@@ -12,6 +12,7 @@ import RegisterForm from "./routes/register";
 import Profile from "./routes/profile";
 import Err404 from "./routes/Err404"
 import TrainerProfile from "./routes/trainerProfile"
+import { FollowAlong } from "./routes/followAlong";
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import './styles/index.css';
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/trainerProfile",
     element: <TrainerProfile />,
+  },
+  {
+    path: "/followAlong",
+    element: <FollowAlong/>,
   }
 ]);
 
