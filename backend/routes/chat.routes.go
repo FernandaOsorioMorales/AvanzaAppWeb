@@ -15,8 +15,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// TODO - Implement function
-
 // Returns the user contact list based on the user session.
 // Returns 418 if the user is not logged in.
 // Returns 500 HTTP Status Code if tan error occurs when
