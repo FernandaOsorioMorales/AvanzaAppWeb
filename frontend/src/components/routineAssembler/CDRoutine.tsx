@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import {Exercise, excercise} from './Exercise'
 import Select, { MultiValue } from 'react-select'
 import { TagContainer, TagsOption, tagsOption } from './Tags'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
 // !DEBUG ONLY
 const ExampleExcercises : excercise[] = [
     {id: 1, order: 1, name: "Mewing", reps: 12, sets: 2},
-    {id: 2, order: 2, name: "Facing", reps: 20, sets: 1}
+    {id: 2, order: 2, name: "Facing", reps: 20, sets: 1},
+    {id: 3, order: 3, name: "Chewing", reps: 10, sets: 3}
 ]   
 
 // Function to build a JSON object from all the parameters in the popup
