@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     element: <RegisterForm />,
   },
   {
-    path: "/routines",
+    path: "/workouts",
     element: <Assembler />,
   },
   {
