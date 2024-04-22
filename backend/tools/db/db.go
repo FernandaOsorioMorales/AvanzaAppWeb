@@ -48,6 +48,7 @@ func migrate() {
 	orm.AutoMigrate(&models.TrainingPlan{})
 	orm.AutoMigrate(&models.WorkoutExercise{})
 	orm.AutoMigrate(&models.Workout{})
+	orm.AutoMigrate(&models.Tag{})
 }
 
 // Start database connection and set up ORM models on it.
