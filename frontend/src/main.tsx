@@ -59,9 +59,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-    <React.StrictMode>
       <RouterProvider router={router} />
-    </React.StrictMode>
   </ReduxProvider>
 );
 

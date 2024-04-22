@@ -38,6 +38,10 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
     const [excercises, setExcercises] = React.useState(ExampleExcercises);
     const [name, setName] = React.useState(params.RoutineName);
 
+    const handleDrop = (result: any) => {
+        console.log(result)
+    }
+
   return (
     <div className='h-full'>
         <h1 className='text-gray-300 text-2xl mb-5'>
@@ -64,10 +68,27 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
             />
         </TagContainer>
         
-        {/* !TODOD draggable context here */}
         <div className='mt-3 mb-6 flex flex-col w-full h-2/3 items-center border-solid border-2 border-gray-500'>
-
-            {excercises.map((excercise) => <Exercise key={excercise.id} {...excercise}></Exercise>)}
+            <div className='w-full'>
+                <DragDropContext onDragEnd={handleDrop}>
+                    <Droppable droppableId="ROOT" type="group">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef}>
+                            {excercises.map((excercise, index) => (
+                                <Draggable draggableId={excercise.id.toString()} index={index} key={excercise.id}>
+                                    {(provided) => (
+                                        <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                                            <Exercise {...excercise} />
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </div>
         </div>
 
         <div className='flex flex-row justify-between mt-6'>

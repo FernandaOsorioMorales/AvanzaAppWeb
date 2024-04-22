@@ -17,7 +17,7 @@ export function Exercise(params : excercise) {
   const reps = params.reps > 1 ? ' repeticiones' : ' repeticion';
 
   return (
-    <div className="flex flex-row items-center w-11/12 h-12 bg-gray-300 rounded m-4 relative">
+    <div className="flex flex-row items-center h-12 bg-gray-300 rounded m-4 relative">
       <GripVertical size={20} color='#000000' className='m-2 cursor-pointer'/>
       <h1 className='flex justify-center w-1/3 mr-2 text-blue-900 font-bold p-1'>
         {params.name}
