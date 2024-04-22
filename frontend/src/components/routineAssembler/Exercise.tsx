@@ -2,12 +2,6 @@ import React from 'react'
 import { Trash2, GripVertical } from 'lucide-react';
 import Select, { MultiValue } from 'react-select'
 
-const NumberOptions = [
-  {value: 1, label: '1'},
-  {value: 2, label: '2'},
-  {value: 3, label: '3'}
-]
-
 // Excercise component, an excercise is a 'x' series of 'y' reps, with an order and a name.
 // TODO agegar IdExcercise
 export interface excercise {

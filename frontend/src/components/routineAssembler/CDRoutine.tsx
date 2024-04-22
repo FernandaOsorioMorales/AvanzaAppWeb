@@ -16,27 +16,45 @@ const ExampleExcercises : excercise[] = [
 const ExcerciseOptions : excerciseOptions[] = [
     {ID: 1, value: 'Mewing', label: 'Mewing'},
     {ID: 2, value: 'Facing', label: 'Facing'},
-    {ID: 3, value: 'Chewing', label: 'Chewing'}
+    {ID: 3, value: 'Chewing', label: 'Chewing'},
+    {ID: 4, value: 'Running', label: 'Running'},
+    {ID: 5, value: 'Walking', label: 'Walking'},
+    {ID: 6, value: 'Jumping', label: 'Jumping'},
+    {ID: 7, value: 'Sitting', label: 'Sitting'},
+    {ID: 8, value: 'Standing', label: 'Standing'},
+    {ID: 9, value: 'Laying', label: 'Laying'},
+    {ID: 10, value: 'press bench sit', label: 'press bench sit'},
 
 ]
+
+// TODO fill with fetching to backend
+const TagsFromBackend: TagsOption[] = [] //GetWorkoutDetail
+const ExcercisesFromBackend: excercise[] = [] //GetWorkoutDetail
+const ExcerciseOptionsFromBackend: excerciseOptions[] = [] //GetExcercises
+const TagsOptionsFromBackend: TagsOption[] = [] //GetTags
 
 // Function to build a JSON object from all the parameters in the popup
 // Bounded to the definition of JSON 'PutExcercise' from the standard Backend
 
 //TODO agregar el Excercises.JSON recibido del backend si es que se edita una rutina, si no, se envia el arreglo vacio
 function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise[], id?: number){
-    const tagsOBJ = tags[0] != undefined ? tags.map(({id, value}) => ({id, value})) : []
+
+    const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID, value})) : []
     const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
 
     const RoutineObject = id != undefined ? {
+        Name: name,
         ID: id,
-        routineName: name,
-        tags: tagsOBJ,
-        excercises: excercise
+        Tags: TagsFromBackend,
+        UpdatedTags: tagsOBJ,
+        excercises: ExcercisesFromBackend,
+        UpdatedExcercises: excercise
     }:{
-        routineName: name,
-        tags: tagsOBJ,
-        excercises: excercise
+        Name: name,
+        Tags: TagsFromBackend,
+        UpdatedTags: tagsOBJ,
+        excercises: ExcercisesFromBackend,
+        UpdatedExcercises: excercise
     } 
 
     return JSON.stringify(RoutineObject)
@@ -91,7 +109,8 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
                     isMulti
                     options={tagsOption}
                     onChange={(e) => setTags(e as TagsOption[])}
-                    />
+                    isOptionDisabled={() => tags.length >= 5}
+                />
             </TagContainer>
 
             <div className='relative mt-3'>
@@ -102,8 +121,7 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
                     closeMenuOnSelect={true}
                     options={ExcerciseOptions}
                     onChange={(e) => setExcercises((excercises) => [...excercises, {ID: -1, IdExcercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}
-                    isOptionDisabled={() => tags.length >= 5}
-                    />
+                />
             </div>
         </div>
 
