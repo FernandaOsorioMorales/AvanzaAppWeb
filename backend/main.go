@@ -38,10 +38,12 @@ func main() {
 	app.Post("/continue-login", controllers.ContinueUserSession)
 
 	//BaseUser
-	//app.Post("/user") // handled by auth register ??
 	app.Get("/user", controllers.GetBaseUser)
 	app.Patch("/user", controllers.UpdateBaseUser)
 	app.Delete("/user", controllers.DeleteBaseUser)
+
+	//Trainers
+	app.Get("/trainers", controllers.GetTrainers)
 
 	db.Init()
 	validation.Init()
