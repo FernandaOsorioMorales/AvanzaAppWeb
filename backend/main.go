@@ -43,7 +43,7 @@ func main() {
 	app.Delete("/user", controllers.DeleteBaseUser)
 
 	//Trainers
-	app.Get("/trainers", controllers.GetTrainers)
+	app.Get("/trainers", controllers.GetAvailableTrainers)
 
 	db.Init()
 	validation.Init()
