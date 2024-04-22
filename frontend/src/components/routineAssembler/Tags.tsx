@@ -17,7 +17,7 @@ export function Tag(params: {tag: string}){
 }
 
 export interface TagsOption {
-  readonly id: number;
+  readonly id: number; // from the tags table
   readonly value: string;
   readonly label: string;
 }
