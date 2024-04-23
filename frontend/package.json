@@ -15,6 +15,7 @@
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "firebase": "^10.10.0",
+    "formik": "^2.4.5",
     "lucide-react": "^0.365.0",
     "postcss": "^8.4.38",
     "qs": "^6.12.0",
