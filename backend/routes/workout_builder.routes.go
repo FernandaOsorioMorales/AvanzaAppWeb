@@ -157,7 +157,7 @@ func GetWorkoutDetail(c *fiber.Ctx) error {
 
 	var wk_e []wk_exercises
 
-	result := dbase.Table("workout_exercises").Select("workout_exercises.id_exercise "+
+	result := dbase.Order("ordinal asc").Table("workout_exercises").Select("workout_exercises.id_exercise "+
 		"as id_exercise, "+
 		"exercises.name as name, "+
 		"exercises.description as description, "+
@@ -172,8 +172,23 @@ func GetWorkoutDetail(c *fiber.Ctx) error {
 		return controllers.ApiError(c, "Failed to retrieve workout exercises", 500)
 	}
 
+	var wk_tags *[]models.WorkoutTag
+	var tags *[]models.Tag
+	tags = new([]models.Tag)
+
+	wk_tags, err = controllers.GetWorkoutTagByWkId(dbase, idWorkout)
+
+	for _, wt := range *wk_tags {
+		tag, err := controllers.GetTagById(dbase, uint64(wt.IdTag))
+		if err != nil {
+			return controllers.ApiError(c, "Failed to retrieve tags", 500)
+		}
+		*tags = append(*tags, *tag)
+	}
+
 	return c.JSON(fiber.Map{
 		"exercises": wk_e,
+		"Tags": *tags,
 	})
 }
 
