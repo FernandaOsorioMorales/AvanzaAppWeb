@@ -24,6 +24,7 @@ func Register(c *fiber.Ctx) error {
 		"phone":     "required", //add more ?
 		"birthDate": "required,datetime=2006-01-02",
 		"password":  "required",
+		"kind":      "required",
 	})
 
 	if vaErr != nil {
@@ -35,6 +36,11 @@ func Register(c *fiber.Ctx) error {
 	mail := c.FormValue("email")
 	phone := c.FormValue("phone")
 	password := c.FormValue("password")
+	kind := c.FormValue("kind")
+
+	if kind != "athlete" && kind != "trainer" {
+		return ApiError(c, "Wrong data", 400)
+	}
 
 	hashedPassword, e := tools.GeneratePasswordHash(password)
 	if e != nil {
@@ -52,6 +58,22 @@ func Register(c *fiber.Ctx) error {
 		return ApiError(c, "Could not register user", 400)
 	}
 
+	if kind == "trainer" {
+		trainer := models.Trainer {
+			BaseUserId: user.ID,
+		}
+		if db.Orm().Create(&trainer).Error != nil {
+			return ApiError(c, "Could not register user", 400)
+		}
+	} else {
+		athlete := models.User {
+			BaseUserId: user.ID,
+		}
+		if db.Orm().Create(&athlete).Error != nil {
+			return ApiError(c, "Could not register user", 400)
+		}
+	}
+
 	logInErr := tools.LogIn(c, &user)
 	if logInErr != nil {
 		return ApiError(c, "User registered, session failed", 500)
@@ -61,6 +83,7 @@ func Register(c *fiber.Ctx) error {
 		"success": true,
 		"userId":  user.ID,
 		"alias":   user.Alias,
+		"kind": kind,
 	})
 }
 
@@ -104,6 +127,7 @@ func AttemptLogin(c *fiber.Ctx) error {
 		"success": true,
 		"userId":  user.ID,
 		"alias":   user.Alias,
+		"kind": userKind(user),
 	})
 }
 
@@ -120,6 +144,7 @@ func ContinueUserSession(c *fiber.Ctx) error {
 				"success": true,
 				"userId":  id,
 				"alias":   user.Alias,
+				"kind": userKind(user),
 			})
 		}
 	}

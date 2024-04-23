@@ -27,7 +27,7 @@ export function Exercise(params : {excercise: excercise, index: number, remove: 
   return (
     <div className="flex flex-row items-center h-12 bg-gray-300 rounded m-4 relative">
       <GripVertical size={20} color='#000000' className='m-2 cursor-pointer'/>
-      <h1 className='flex justify-center w-1/3 mr-2 text-blue-900 font-bold p-1'>
+      <h1 className='flex justify-center w-1/3 mr-2 text-cyan-800 font-bold p-1'>
         {params.excercise.Name}
       </h1>
       <h1 className='flex justify-center text-gray-600 p-1 w-fit'>

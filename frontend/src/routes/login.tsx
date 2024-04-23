@@ -4,7 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Navigate} from "react-router-dom";
 import { toast } from "react-toastify";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector } from "react-redux";
 
 import Navbar from "../components/landingpage/navBar";
 import espalda from "../assets/espalda.png";
@@ -19,8 +19,8 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 
-	const loggedIn = useSelector(state => state.user.loggedIn);
-	const dispatch = useDispatch();
+	const isLoggedIn = useSelector(state => state.user.loggedIn);
+	const userKind = useSelector(state => state.user.kind);
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -40,14 +40,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 
 	useEffect(autoLogin, []);
 
+	// Redirect if user is already logged in
+	if (isLoggedIn) {
+		if (userKind == "athlete") {
+			console.log("moving to athlete");
+			return (<Navigate to="/userProfile" />);
+		} else  {
+			console.log("moving to trainer");
+			return (<Navigate to="/trainerProfile" />);
+		}
+	}
+
     return (
-		<div className="">
-			<div>
-				<Navbar />
-			</div>
+		<>
+			<Navbar />
 			<div className="bg-blue-100 flex justify-start p-10 w-full">
 
-				{ loggedIn && (<Navigate to="/messages" />) }			
 				<div className="flex p-12 pb-36 w-full">
 				<form onSubmit={manualLogin} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
 		  			<h1 className="text-3xl md:text-5xl text-center text-gray-600 font-semibold mb-8">{title}</h1>
@@ -72,8 +80,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 				<img src={espalda} alt="espalda" className="w-25 h-25" ></img>
 				</div>
 	  		</div>
-		</div>
-		
+		</>
     );
   }
 

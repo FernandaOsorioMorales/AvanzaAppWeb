@@ -6,17 +6,20 @@ export const userSlice = createSlice({
 		id: null,
 		alias: "",
 		loggedIn: false,
+		kind: "",
 	},
 	reducers: {
 		unset: (state) => {
 			state.id = null;
 			state.alias = "";
 			state.loggedIn = false;
+			state.kind = "";
 		},
 		set: (state, action) => {
 			state.loggedIn = true;
 			state.id = action.payload.id;
 			state.alias = action.payload.alias;
+			state.kind = action.payload.kind;
 		}
 	}
 })
