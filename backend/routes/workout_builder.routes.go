@@ -75,17 +75,47 @@ func GetWorkoutList(c *fiber.Ctx) error {
 	}
 
 	idTrainer := uint64(id)
-
-	var workouts *[]models.Workout
-
-	workouts, err := controllers.GetWorkoutsByTrainer(dbase, idTrainer)
-
-	if err != nil {
-		return controllers.ApiError(c, "Failed to retrieve user workouts", 500)
+ 
+	type wk_tag struct {
+		Workout models.Workout 
+		Tags 	[]models.Tag   
 	}
 
+	var workouts_tag *[]wk_tag
+	workouts_tag = new([]wk_tag)
+	var workouts *[]models.Workout
+	var wk_tags *[]models.WorkoutTag
+	var tags *[]models.Tag
+	tags = new([]models.Tag)
+
+	workouts, err := controllers.GetWorkoutsByTrainer(dbase, idTrainer)
+	if err != nil {
+		return controllers.ApiError(c, "Failed to retrieve trainer workouts", 500)
+	}
+
+	for _, w := range *workouts {
+		wk_tags, err = controllers.GetWorkoutTagByWkId(dbase, uint64(w.ID))
+		if err != nil {
+			return controllers.ApiError(c, "Failed to retrieve workout tags", 500)
+		}
+		for _, wt := range *wk_tags {
+			tag, err := controllers.GetTagById(dbase, uint64(wt.IdTag))
+			if err != nil {
+				return controllers.ApiError(c, "Failed to retrieve tags", 500)
+			}
+			*tags = append(*tags, *tag)
+		}
+		workout_with_tag := wk_tag{}
+		workout_with_tag.Workout = w
+		workout_with_tag.Tags = *tags
+
+		*workouts_tag = append(*workouts_tag, workout_with_tag)
+	}
+	log.Print(*tags)
+	log.Print(*workouts_tag)
+
 	return c.JSON(fiber.Map{
-		"workouts": workouts,
+		"workouts": *workouts_tag,
 	})
 }
 

@@ -30,6 +30,7 @@ func main() {
 
 	// Workout builder
 	app.Get("/exercises", routes.GetExerciseList)
+	app.Get("/tags", routes.GetTagList)
 	app.Get("/workouts", routes.GetWorkoutList)
 	app.Get("/workout/detail", routes.GetWorkoutDetail)
 
