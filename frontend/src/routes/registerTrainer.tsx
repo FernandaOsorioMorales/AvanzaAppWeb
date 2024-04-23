@@ -1,6 +1,7 @@
 import {React, useState} from "react";
 import axios from "axios";
 import qs from 'qs';
+
 import { Navigate } from 'react-router-dom'
 // global state
 import { useSelector, useDispatch} from 'react-redux';
@@ -36,7 +37,7 @@ const RegisterTrainer : React.FC =() =>{
 			headers: {'content-type': 'application/x-www-form-urlencoded'},
 			withCredentials: true,
 			data: qs.stringify(registerData),
-			url: "http://localhost:9090/register",
+			url: "http://localhost:9090/registerTrainer",
 		}).then(res => {
 			if ("data" in res === false)
 				throw "unexpected response"
@@ -64,7 +65,7 @@ const RegisterTrainer : React.FC =() =>{
 			{ loggedIn && (<Navigate to="/messages" />) }
 			<div className="flex  pb-36 w-full">
 			<form className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
-				<h1 className="text-5xl text-center mb-6 text-gray-600 font-bold tracking-wide">¡Te estábamos esperando Entrenador/a!</h1>
+				<h1 className="text-3xl text-center mb-6 text-gray-600 font-bold tracking-wide">¡Te estábamos esperando Entrenador/a!</h1>
 
 				<div className="mb-4">
 					<label className="block text-xl text-gray-600 mb-2">Tu nombre</label>

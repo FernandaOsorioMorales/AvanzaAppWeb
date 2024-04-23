@@ -37,7 +37,7 @@ const RegisterUser : React.FC =() =>{
 			headers: {'content-type': 'application/x-www-form-urlencoded'},
 			withCredentials: true,
 			data: qs.stringify(registerData),
-			url: "http://localhost:9090/register",
+			url: "http://localhost:9090/registerUser",
 		}).then(res => {
 			if ("data" in res === false)
 				throw "unexpected response"
