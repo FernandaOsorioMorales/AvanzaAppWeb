@@ -10,7 +10,7 @@ export function TagContainer(params: {children: React.ReactNode, styles?: string
 
 export function Tag(params: {tag: string}){
     return (
-      <li className='text-base font-medium me-2 px-3 py-1 rounded-full bg-indigo-900 text-indigo-300'>
+      <li className='text-base font-medium me-2 px-3 py-1 rounded-full bg-cyan-800 text-indigo-100'>
         {params.tag}
       </li>
     )
