@@ -14,7 +14,7 @@ return (
             <Sidebar>
                 <SidebarItem icon={<Home size={20} />} text="Inicio" link="/trainerProfile" />
                 <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" />
-                <SidebarItem icon={<Layers size={20} />} text="Ensamblador de rutinas" link="routines"/>
+                <SidebarItem icon={<Layers size={20} />} text="Ensamblador de rutinas" link="/workouts"/>
                 <SidebarItem icon={<MessagesSquare size={20} />} text="Mis Foros" />
                 <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="messages"/>
                 <hr className="my-20" />

@@ -1,37 +1,46 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import parse from 'autosuggest-highlight/parse';
+import match from 'autosuggest-highlight/match';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(searchTerm);
-  };
-
+export default function Highlights() {
   return (
-    <div className="bg-gray-200 rounded-lg p-4">
-      <h2 className="text-lg font-semibold mb-2">Busca a tu próximo entrenador, prueba con cualidades que te gustaría que tuviera</h2>
-      <form onSubmit={handleSubmit} className="flex items-center">
-        <input
-          type="text"
-          placeholder="Buscar..."
-          value={searchTerm}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-md px-3 py-2 mr-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          className="bg-azulote text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
-        >
-          Buscar
-        </button>
-      </form>
-    </div>
-  );
-};
+    <Autocomplete
+      id="highlights-demo"
+      sx={{ width: 300 }}
+      options={top100Films}
+      getOptionLabel={(option) => option.title}
+      renderInput={(params) => (
+        <TextField {...params} label="Highlights" margin="normal" />
+      )}
+      renderOption={(props, option, { inputValue }) => {
+        const matches = match(option.title, inputValue, { insideWords: true });
+        const parts = parse(option.title, matches);
 
-export default SearchBar;
+        return (
+          <li {...props}>
+            <div>
+              {parts.map((part, index) => (
+                <span
+                  key={index}
+                  style={{
+                    fontWeight: part.highlight ? 700 : 400,
+                  }}
+                >
+                  {part.text}
+                </span>
+              ))}
+            </div>
+          </li>
+        );
+      }}
+    />
+  );
+}
+
+// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+const top100Films = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  
+];
