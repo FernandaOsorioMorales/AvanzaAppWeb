@@ -1,19 +1,16 @@
-import {React, useState} from "react";
-import axios from "axios";
-import qs from 'qs';
+import React from "react";
+import {useState} from "react";
 import { Navigate } from 'react-router-dom'
-// global state
 import { useSelector, useDispatch} from 'react-redux';
-import { set } from '../state/userSlice';
-import pesas3 from "../assets/pesas3.png";
-import Navbar from "../components/landingpage/navBar";
+import { toast } from "react-toastify";
 
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';//GL
+import Navbar from "../components/landingpage/navBar";
+import { register } from "../utils/login.ts";
+
+import pesas3 from "../assets/pesas3.png";
 
 const RegisterUser : React.FC =() =>{
 	const loggedIn = useSelector(state => state.user.loggedIn)
-	const dispatch = useDispatch();
 
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -24,35 +21,19 @@ const RegisterUser : React.FC =() =>{
 	function submitData(ev) {
 		ev.preventDefault();
 
-		const registerData = {
+		register({
 			"alias": name,
 			"email": email,
 			"phone": phone,
 			"birthDate": birthDate,
 			"password": password,
-		};
-
-		axios({
-			method: "post",
-			headers: {'content-type': 'application/x-www-form-urlencoded'},
-			withCredentials: true,
-			data: qs.stringify(registerData),
-			url: "http://localhost:9090/registerUser",
-		}).then(res => {
-			if ("data" in res === false)
-				throw "unexpected response"
-
-			const answer = res.data;
-			if (answer.success) {
-				dispatch(set({type: 'base', id: answer.userId, alias: answer.alias}))
-			}
+			"kind": "athlete"
 		}).catch(e => {
-			console.log(e.response.data)
-			if ('response' in e && 'data' in e.response) {
-				toast(e.response.data.errorMessage);
-			} else {
+			const message = e?.response?.data;
+			if (message)
+				toast(message);
+			else
 				toast("Hubo un problema");
-			}
 		});
 	}
 
@@ -63,9 +44,8 @@ const RegisterUser : React.FC =() =>{
 		</div>
 		<div className=" bg-blue-100 flex justify-start p-10 w-full">
 
-			<ToastContainer />
 
-			{ loggedIn && (<Navigate to="/messages" />) }
+			{ loggedIn && (<Navigate to="/userProfile" />) }
 			<div className="flex  pb-36 w-full">
 			<form className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
 				<h1 className="text-5xl text-center mb-6 text-gray-600 font-bold tracking-wide">¡Te estábamos esperando!</h1>

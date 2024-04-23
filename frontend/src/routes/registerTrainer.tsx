@@ -1,19 +1,16 @@
-import {React, useState} from "react";
-import axios from "axios";
-import qs from 'qs';
-
+import React from "react";
+import { useState } from "react";
 import { Navigate } from 'react-router-dom'
-// global state
-import { useSelector, useDispatch} from 'react-redux';
-import { set } from '../state/userSlice';
-import pesas3 from "../assets/pesas3.png";
-import Navbar from "../components/landingpage/navBar";
-
+import { useSelector } from 'react-redux';
 import { toast } from "react-toastify";
+
+import Navbar from "../components/landingpage/navBar";
+import { register } from "../utils/login.ts";
+
+import pesas3 from "../assets/pesas3.png";
 
 const RegisterTrainer : React.FC =() =>{
 	const loggedIn = useSelector(state => state.user.loggedIn)
-	const dispatch = useDispatch();
 
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -24,34 +21,19 @@ const RegisterTrainer : React.FC =() =>{
 	function submitData(ev) {
 		ev.preventDefault();
 
-		const registerData = {
+		register({
 			"alias": name,
 			"email": email,
 			"phone": phone,
 			"birthDate": birthDate,
 			"password": password,
-		};
-
-		axios({
-			method: "post",
-			headers: {'content-type': 'application/x-www-form-urlencoded'},
-			withCredentials: true,
-			data: qs.stringify(registerData),
-			url: "http://localhost:9090/registerTrainer",
-		}).then(res => {
-			if ("data" in res === false)
-				throw "unexpected response"
-
-			const answer = res.data;
-			if (answer.success) {
-				dispatch(set({type: 'login', id: answer.userId, alias: answer.alias}))
-			}
+			"kind": "trainer"
 		}).catch(e => {
-			if ('response' in e && 'data' in e.response) {
-				toast(e.response.data.errorMessage);
-			} else {
+			const message = e?.response?.data;
+			if (message)
+				toast(message);
+			else
 				toast("Hubo un problema");
-			}
 		});
 	}
 
@@ -62,7 +44,7 @@ const RegisterTrainer : React.FC =() =>{
 		</div>
 		<div className=" bg-blue-100 flex justify-start p-10 w-full">
 
-			{ loggedIn && (<Navigate to="/messages" />) }
+			{ loggedIn && (<Navigate to="/trainerProfile" />) }
 			<div className="flex  pb-36 w-full">
 			<form className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={submitData}>
 				<h1 className="text-3xl text-center mb-6 text-gray-600 font-bold tracking-wide">¡Te estábamos esperando Entrenador/a!</h1>

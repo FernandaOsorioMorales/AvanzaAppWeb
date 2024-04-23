@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// A trainer of athletes in the app
 type Trainer struct {
 	gorm.Model
 
@@ -11,7 +12,7 @@ type Trainer struct {
 	Specialties []*TrainerTag `gorm:"many2many:trainer_tags;"`
 
 	// base user id (FK)
-	BaseUserId int
-	//base user linked to actual trainee user
+	BaseUserId uint
+	// base user linked to this trainer
 	BaseUser BaseUser
 }

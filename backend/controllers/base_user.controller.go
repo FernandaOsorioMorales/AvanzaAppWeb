@@ -80,3 +80,18 @@ func DeleteBaseUser(c *fiber.Ctx) error {
 	}
 	return ApiSuccess(c, fiber.Map{"id": id})
 }
+
+
+// For a given base user returns "Trainer" if this base
+// user belongs to a trainer, returns "Athlete" otherwise.
+func userKind(u models.BaseUser) string {
+	var trainer models.Trainer
+	trainerErr := db.Orm().Where("base_user_id = ?", u.ID).First(&trainer).Error
+
+	if trainerErr == nil {
+		return "trainer"
+	} else {
+		return "athlete"
+	}
+}
+

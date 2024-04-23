@@ -2,10 +2,13 @@ import React from "react";
 import { Navigate } from 'react-router-dom';
 import { LayoutDashboard, Home, StickyNote, MessageCircle,Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell } from "lucide-react";
 import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
+import ProtectedRoute from "../components/protectedRoute";
 
 
 export function TrainerProfile(){
 return (
+<>
+	<ProtectedRoute kindsAllowed={["trainer"]} />
     <div className="flex bg-blue-50">
         <div>
             <Sidebar>
@@ -23,6 +26,7 @@ return (
             <h1>¡Hola Entrenador! Mira como luce tu semana</h1>
         </div>
     </div>
+</>
 );
 }
 

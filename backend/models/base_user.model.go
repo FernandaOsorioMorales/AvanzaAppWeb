@@ -1,9 +1,9 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
+
+	"time"
 )
 
 // A user of the application, be a Trainer or Trainee.
@@ -45,3 +45,4 @@ func BaseUserNew(
 		Description: "",
 	}
 }
+

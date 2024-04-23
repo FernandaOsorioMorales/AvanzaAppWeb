@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {continue_login} from "../utils/login";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({kindsAllowed = ["athlete", "trainer"]}) => {
 	const loggedIn = useSelector(state => state.user.loggedIn);
+	const kind = useSelector(state => state.user.kind);
 
 	const [resolved, SetResolved] = useState(false);
 
@@ -20,8 +21,12 @@ const ProtectedRoute = () => {
 		}
 	}, []);
 
-	if (resolved && !loggedIn)
-		return (<Navigate to="/login" />);
+	if (resolved) {
+		if (!loggedIn)
+			return (<Navigate to="/login" />);
+		if (!kindsAllowed.includes(kind))
+			return (<Navigate to="/login" />);
+	}
 	return null;
 }
 
