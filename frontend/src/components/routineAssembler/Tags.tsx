@@ -17,22 +17,23 @@ export function Tag(params: {tag: string}){
 }
 
 export interface TagsOption {
-  readonly id: number;
+  readonly IdTag: number; // from the tags table
+  readonly ID: number; // ID bounded to the excercise in the routine
   readonly value: string;
   readonly label: string;
 }
 
 // !DEGBUG ONLY
-export const tagsOption = [
-  { id:1 ,value: 'cara', label: 'Cara'},
-  { id:2 ,value: 'gluteo', label: 'Gluteo'},
-  { id:3 ,value: 'abdomen', label: 'Abdomen'},
-  { id:4 ,value: 'cien', label: 'Cien'},
-  { id:5 ,value: 'pecho', label: 'Pecho'},
-  { id:6 ,value: 'tricep', label: 'Tricep'},
-  { id:7 ,value: 'bicep', label: 'Bicep'},
-  { id:8 ,value: 'cuadricep', label: 'Cuadricep'},
-  { id:9 ,value: 'quinticep', label: 'Quinticep'},
-  { id:10 ,value: 'pierna', label: 'Pierna'},
-  { id:11 ,value: 'cardio', label: 'Cardio'}
+export const tagsOption: TagsOption[] = [
+  { IdTag:1 ,ID:1 ,value: 'cara', label: 'Cara'},
+  { IdTag:2 ,ID:2 ,value: 'gluteo', label: 'Gluteo'},
+  { IdTag:3 ,ID:3 ,value: 'abdomen', label: 'Abdomen'},
+  { IdTag:4 ,ID:4 ,value: 'cien', label: 'Cien'},
+  { IdTag:5 ,ID:5 ,value: 'pecho', label: 'Pecho'},
+  { IdTag:6 ,ID:6 ,value: 'tricep', label: 'Tricep'},
+  { IdTag:7 ,ID:7 ,value: 'bicep', label: 'Bicep'},
+  { IdTag:8 ,ID:8 ,value: 'cuadricep', label: 'Cuadricep'},
+  { IdTag:9 ,ID:9 ,value: 'quinticep', label: 'Quinticep'},
+  { IdTag:10 ,ID:10 ,value: 'pierna', label: 'Pierna'},
+  { IdTag:11 ,ID:11 ,value: 'cardio', label: 'Cardio'}
 ];

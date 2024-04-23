@@ -6,7 +6,7 @@ export default function Modal(props : {children: any, open: boolean, tiny : bool
 
     if (!props.open) return null;
 
-    const modalSize = props.tiny ? 'w-5/12' : 'w-full';
+    const modalSize = props.tiny ? 'w-6/12' : 'w-full';
   
     return (
         createPortal(
