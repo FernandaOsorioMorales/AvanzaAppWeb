@@ -14,13 +14,13 @@ export function Assembler(){
         <div className="flex bg-blue-50">
             <div>
                 <Sidebar >
-                    <SidebarItem icon={<Home size={20} />} text="Inicio"  />
+                    <SidebarItem icon={<Home size={20} />} text="Inicio" link="/trainerProfile" />
                     <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" />
                     <SidebarItem icon={<Layers size={20} />} text="Ensamblador de rutinas" />
                     <SidebarItem icon={<MessagesSquare size={20} />} text="Mis Foros" />
                     <hr className="my-20" />
                     <SidebarItem icon={<Dumbbell size={20} />} text="Mi especialización" />
-                    <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" />
+                    <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="editTrainerProfile"/>
                 </Sidebar>
             </div>
 

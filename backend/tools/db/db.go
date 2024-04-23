@@ -41,13 +41,16 @@ func migrate() {
 	orm.AutoMigrate(&models.BaseUser{})
 	orm.AutoMigrate(&models.Contact{})
 	//db.AutoMigrate(&models.User)
-	//db.AutoMigrate(&models.Trainer)
+	orm.AutoMigrate(&models.Trainer{})
+	orm.AutoMigrate(&models.Tag{})
 	orm.AutoMigrate(&models.Message{})
 	orm.AutoMigrate(&models.Exercise{})
 	orm.AutoMigrate(&models.TrainingPlanWk{})
 	orm.AutoMigrate(&models.TrainingPlan{})
 	orm.AutoMigrate(&models.WorkoutExercise{})
 	orm.AutoMigrate(&models.Workout{})
+	orm.AutoMigrate(&models.Tag{})
+	orm.AutoMigrate(&models.WorkoutTag{})
 }
 
 // Start database connection and set up ORM models on it.

@@ -3,14 +3,13 @@ import qs from "qs";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Navigate} from "react-router-dom";
-
+import { toast } from "react-toastify";
 import {useSelector, useDispatch} from "react-redux";
-import { set } from "../state/userSlice";
 
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';//GL
 import Navbar from "../components/landingpage/navBar";
 import espalda from "../assets/espalda.png";
+
+import {first_login, continue_login} from "../utils/login";
 
 
 interface LoginFormProps {
@@ -26,58 +25,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	function submit(ev) {
-		ev.preventDefault();
+	function autoLogin() {
+		//attempts a login with the cookies present,
+		//there is no need to show an error to the user if failed
+		continue_login().catch(console.log);
+	}
 
-		const loginData = {
-			"email": email,
-			"password": password,
-		};
-
-		axios({
-			method: "post",
-			headers: {'content-type': 'application/x-www-form-urlencoded'},
-			withCredentials: true,
-			data: qs.stringify(loginData),
-			url: "http://localhost:9090/login",
-		}).then(res => {
-			if ("data" in res === false)
-				throw "unexpected response"
-
-			const answer = res.data;
-			console.log('Answer: ', answer);
-			if (answer.success) {
-				dispatch(set({id: answer.userId, alias: answer.alias}));
-			}
-		}).catch(e => {
-			console.log(e.response.data)
-			if ('response' in e && 'data' in e.response) {
-				toast(e.response.data.errorMessage);
-			} else {
-				toast("Hubo un problema");
-			}
+	function manualLogin(eve) {
+		eve.preventDefault();
+		first_login(email, password).catch(e => {
+			toast("Datos de acceso invalidos");
 		});
-
 	}
 
-	function sessionLogin() {
-		axios({
-			method: "post",
-			url: "http://localhost:9090/continue-login",
-			withCredentials: true,
-		}).then(res => {
-			if ("data" in res === false)
-				throw "unexpected response"
-			const answer = res.data;
-			console.log(answer)
-			if (answer.success)
-					dispatch(set({id: answer.userId, alias: answer.alias}));
-		}).catch(e => {
-			console.log(e);
-		})
-	}
-	useEffect(sessionLogin, []);
-
+	useEffect(autoLogin, []);
 
     return (
 		<div className="">
@@ -86,11 +47,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 			</div>
 			<div className="bg-blue-100 flex justify-start p-10 w-full">
 
-				<ToastContainer />
-	  
 				{ loggedIn && (<Navigate to="/messages" />) }			
 				<div className="flex p-12 pb-36 w-full">
-				<form onSubmit={submit} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
+				<form onSubmit={manualLogin} className="bg-blue-100 p-8 rounded-lg shadow-lg w-full max-w-md">
 		  			<h1 className="text-3xl md:text-5xl text-center text-gray-600 font-semibold mb-8">{title}</h1>
 	  
 		  			<div className="mb-4">
@@ -106,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 		  			</div>
 	  
 		  			<div className="mt-4 text-center">
-						<Link to="/register" className="text-gray-600">{registerLinkText}</Link>
+						<Link to="/registerClasification" className="text-gray-600">{registerLinkText}</Link>
 		  			</div>
 				</form>
 

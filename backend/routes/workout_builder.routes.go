@@ -37,6 +37,31 @@ func GetExerciseList(c *fiber.Ctx) error {
 	})
 }
 
+// Returns the Tag list.
+// Returns 401 if the user is not logged in.
+// Returns 500 HTTP Status Code if tan error occurs when
+// querying the tags.
+func GetTagList(c *fiber.Ctx) error {
+	dbase := db.Orm()
+	logged, _ := tools.GetCurrentUserId(c)
+
+	if !logged {
+		return controllers.ApiError(c, "Login required", 401)
+	}
+
+	var tags *[]models.Tag
+
+	tags, err := controllers.GetTags(dbase)
+
+	if err != nil {
+		return controllers.ApiError(c, "Failed to retrieve exercises", 500)
+	}
+
+	return c.JSON(fiber.Map{
+		"tags": tags,
+	})
+}
+
 // Returns the workout list of a trainer.
 // Returns 401 if the user is not logged in.
 // Returns 500 HTTP Status Code if tan error occurs when
