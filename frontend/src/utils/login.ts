@@ -1,5 +1,5 @@
 import store from "../state/store";
-import {set} from "../state/userSlice";
+import {set, unset} from "../state/userSlice";
 
 import axios from "axios";
 import qs from "qs";
@@ -87,5 +87,14 @@ async function register(registerData: {
 	return false;
 }
 
-export { continue_login, first_login, register};
+async function logout(): Promise<null> {
+	store.dispatch(unset());
+	return axios({
+		method: "post",
+		url: "http://localhost:9090/logout",
+		withCredentials: true
+	});
+}
+
+export { continue_login, first_login, logout, register};
 

@@ -37,6 +37,13 @@ func LogIn(c *fiber.Ctx, u *models.BaseUser) error {
 	return nil
 }
 
+func LogOut(c *fiber.Ctx) {
+	sess, sessErr := sessions.Get(c)
+	if sessErr == nil {
+		sess.Destroy()
+	}
+}
+
 // Return true if a user is logged in
 // Prefer GetCurrentUserId if you also plan to get the user id later
 func IsLoggedIn(c *fiber.Ctx) bool {

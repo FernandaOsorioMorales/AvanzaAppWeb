@@ -153,3 +153,9 @@ func ContinueUserSession(c *fiber.Ctx) error {
 		"success": false,
 	})
 }
+
+//Logout a user by destroying their session
+func Logout(c *fiber.Ctx) error {
+	tools.LogOut(c)
+	return nil
+}

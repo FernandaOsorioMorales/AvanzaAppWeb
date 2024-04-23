@@ -42,6 +42,7 @@ func main() {
 	app.Post("/login", controllers.AttemptLogin)
 	app.Post("/register", controllers.Register)
 	app.Post("/continue-login", controllers.ContinueUserSession)
+	app.Post("/logout", controllers.Logout)
 
 	//BaseUser
 	app.Get("/user", controllers.GetBaseUser)
