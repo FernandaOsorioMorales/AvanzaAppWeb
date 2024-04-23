@@ -17,10 +17,14 @@ import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
 import RegisterForm from "./routes/register";
 import Profile from "./routes/profile";
-import Err404 from "./routes/Err404";
-import TrainerProfile from "./routes/trainerProfile";
 import EditTrainerProfile from "./routes/editTrainerProfile";
+
 import registerClasification from "./routes/registerClasification";
+
+import Err404 from "./routes/Err404"
+import TrainerProfile from "./routes/trainerProfile"
+import { FollowAlong } from "./routes/followAlong";
+
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import RegisterUser from "./routes/registerUser";
@@ -49,7 +53,7 @@ const router = createBrowserRouter([
     element: <RegisterUser />,
   },
   {
-    path: "/routines",
+    path: "/workouts",
     element: <Assembler />,
   },
   {
@@ -74,7 +78,12 @@ const router = createBrowserRouter([
     {
       path:"/userProfile",
       element: <UserProfile />,
-    }
+    },
+  {
+    path: "/followAlong",
+    element: <FollowAlong/>,
+  }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
