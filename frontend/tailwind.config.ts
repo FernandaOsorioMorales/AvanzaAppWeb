@@ -12,8 +12,8 @@ const config: Config = {
         'azulF':'#2F688A',
         'rojito':'#DC5663',
         'azulote':'#36BFBF',
-        'vainilla':'F8F0C6',
-        'azulClarito':'E9F9FF'
+        'vainilla':'#F8F0C6',
+        'azulClarito':'#E9F9FF'
       },
       fontFamily:{
         poppins : ['Poppins']

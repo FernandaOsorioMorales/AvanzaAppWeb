@@ -31,7 +31,7 @@ func GetAvailableTrainers(c *fiber.Ctx) error {
 			"description": t.BaseUser.Description,
 			"id": t.BaseUserId,
 			"photo": t.BaseUser.Photo,
-			"specialty": tags,
+			"specialties": tags,
 		})
 	}
 

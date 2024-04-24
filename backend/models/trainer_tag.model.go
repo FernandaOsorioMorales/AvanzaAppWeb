@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type TrainerTag struct {
+type TrainerSpecialty struct {
 	gorm.Model
 	// Description of the tag
 	Name string

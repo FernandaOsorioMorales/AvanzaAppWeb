@@ -42,6 +42,7 @@ func migrate() {
 	orm.AutoMigrate(&models.Contact{})
 	orm.AutoMigrate(&models.User{})
 	orm.AutoMigrate(&models.Trainer{})
+	orm.AutoMigrate(&models.TrainerSpecialty{})
 	orm.AutoMigrate(&models.Tag{})
 	orm.AutoMigrate(&models.Message{})
 	orm.AutoMigrate(&models.Exercise{})

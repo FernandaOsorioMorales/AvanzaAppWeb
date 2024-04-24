@@ -9,7 +9,7 @@ type Trainer struct {
 	gorm.Model
 
 	// specialties of the personal trainer
-	Specialties []*TrainerTag `gorm:"many2many:trainer_tags;"`
+	Specialties []*TrainerSpecialty `gorm:"many2many:specialty_trainer;"`
 
 	// base user id (FK)
 	BaseUserId uint

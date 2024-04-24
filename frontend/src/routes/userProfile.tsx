@@ -7,6 +7,7 @@ import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import ProtectedRoute from "../components/protectedRoute";
 import BodyMeasurementsDisplay from "../components/profiles/BodyMeasurementsDisplay";
 import SearchBar from "../components/profiles/SearchBar";
+import SearchTrainers from "../components/profiles/SearchTrainers";
 import { logout } from "../utils/login.ts";
 
 function logOutAction() {
@@ -33,9 +34,8 @@ return (
                 <div className=" float-left w-1/2">
                 <BodyMeasurementsDisplay />
                 </div>
-                <div className="flex flex-col items-center">
-                <SearchBar />
-                </div>
+                {/* <SearchBar /> */}
+				<SearchTrainers />
         </div>
         
     </div>
