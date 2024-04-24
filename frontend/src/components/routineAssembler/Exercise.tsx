@@ -7,7 +7,7 @@ import { EditParameters } from './EditParameters';
 // Excercise component, an excercise is a 'x' series of 'y' reps, with an order and a name.
 // TODO agegar IdExcercise
 export interface excercise {
-  readonly ID: number; // ID bounded to the excercise in the routine
+  readonly Id: number; // ID bounded to the excercise in the routine
   readonly IdExcercise: number // ID from the excercise table
   readonly Ordinal: number;
   readonly Name: string;
