@@ -32,7 +32,7 @@ function TrainerCard(user_id: number, trainer: {alias: string, description: stri
 	const tags = trainer.specialties.map(t => (<li key={t} value={t} className="badge badge-accent mx-2">{t}</li>));
 
 	return (
-	<div key={trainer.id} className="card bg-vainilla my-2">
+	<div key={trainer.id} className="card bg-azulote my-2">
 		<div className="card-body">
 			<h4 className="card-title">{trainer.alias}</h4>
 			<p className="text-base">{trainer.description}</p>
@@ -77,9 +77,9 @@ function getAvailableTrainers() {
 
 	return (
 	<>
-		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-emerald-300" />
+		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-[#E9F9FF] m-3" />
 
-		<select className="select select-bordered w-full max-w-xs bg-amber-300" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
+		<select className="select select-bordered w-full max-w-xs bg-[#f8f0c8] m-3" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
 			<option value="*" >any</option>
 			{ selectTags }
 		</select>
