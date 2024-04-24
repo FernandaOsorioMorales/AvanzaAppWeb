@@ -1,8 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import qs from "qs";
 
-function TrainerCard(trainer: {alias: string, description: string, id: number, photo: string, specialties: [string]}) {
+function requestTraining(athlete_id: number, trainer_id: number) {
+	const data = {
+		athlete_id: athlete_id,
+		trainer_id: trainer_id,
+	};
+
+	axios({
+		method: "post",
+		withCredentials: true,
+		url: "http://localhost:9090/requestTraining",
+		data: qs.stringify(data)
+	}).then(_ => {
+		toast("Listo !");
+	}).catch(e => {
+		let message = e?.data?.errorMessage;
+		if (message) {
+			toast(message);
+		} else {
+			toast("Hubo un problema");
+		}
+	});
+}
+
+function TrainerCard(user_id: number, trainer: {alias: string, description: string, id: number, photo: string, specialties: [string]}) {
 
 	const tags = trainer.specialties.map(t => (<li key={t} value={t} className="badge badge-accent mx-2">{t}</li>));
 
@@ -13,7 +38,7 @@ function TrainerCard(trainer: {alias: string, description: string, id: number, p
 			<p className="text-base">{trainer.description}</p>
 			<div className="flex flex-row">{ tags }</div>
 			<div className="card-actions justify-end">
-				<button className="btn btn-accent" >Solicitar</button>
+				<button className="btn btn-accent" onClick={() => requestTraining(user_id, trainer.id)}>Solicitar</button>
 			</div>
 		</div>
 	</div>
@@ -39,13 +64,14 @@ function getAvailableTrainers() {
 		setTags([... new Set(specialties)]);
 	}).catch()
 }
-
 	useEffect(getAvailableTrainers, []);
+
+	const userId = useSelector(state => state.user.id)
 
 	const cards = trainers
 		.filter(t => tagFilter == "*" ? true: t.specialties.includes(tagFilter))
 		.filter(t => t.description.includes(search) || t.alias.includes(search))
-		.map(t => TrainerCard(t));
+		.map(t => TrainerCard(userId, t));
 	
 	const selectTags = tags.map(t => (<option key={t}>{t}</option>));
 

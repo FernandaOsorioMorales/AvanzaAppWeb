@@ -4,6 +4,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
+
+// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+const top100Films = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  
+];
+
 export default function Highlights() {
   return (
     <Autocomplete
@@ -38,9 +45,3 @@ export default function Highlights() {
     />
   );
 }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  
-];

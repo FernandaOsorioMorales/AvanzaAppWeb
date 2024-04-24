@@ -43,10 +43,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, registerLinkText }) => {
 	// Redirect if user is already logged in
 	if (isLoggedIn) {
 		if (userKind == "athlete") {
-			console.log("moving to athlete");
 			return (<Navigate to="/userProfile" />);
 		} else  {
-			console.log("moving to trainer");
 			return (<Navigate to="/trainerProfile" />);
 		}
 	}

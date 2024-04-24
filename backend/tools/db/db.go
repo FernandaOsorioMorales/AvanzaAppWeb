@@ -46,11 +46,11 @@ func migrate() {
 	orm.AutoMigrate(&models.Tag{})
 	orm.AutoMigrate(&models.Message{})
 	orm.AutoMigrate(&models.Exercise{})
+	orm.AutoMigrate(&models.Request{})
 	orm.AutoMigrate(&models.TrainingPlanWk{})
 	orm.AutoMigrate(&models.TrainingPlan{})
 	orm.AutoMigrate(&models.WorkoutExercise{})
 	orm.AutoMigrate(&models.Workout{})
-	orm.AutoMigrate(&models.Tag{})
 	orm.AutoMigrate(&models.WorkoutTag{})
 }
 
