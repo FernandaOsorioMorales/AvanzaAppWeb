@@ -25,15 +25,15 @@ export interface TagsOption {
 
 // !DEGBUG ONLY
 export const tagsOption: TagsOption[] = [
-  { IdTag:1 ,ID:1 ,value: 'cara', label: 'Cara'},
-  { IdTag:2 ,ID:2 ,value: 'gluteo', label: 'Gluteo'},
-  { IdTag:3 ,ID:3 ,value: 'abdomen', label: 'Abdomen'},
-  { IdTag:4 ,ID:4 ,value: 'cien', label: 'Cien'},
-  { IdTag:5 ,ID:5 ,value: 'pecho', label: 'Pecho'},
-  { IdTag:6 ,ID:6 ,value: 'tricep', label: 'Tricep'},
-  { IdTag:7 ,ID:7 ,value: 'bicep', label: 'Bicep'},
-  { IdTag:8 ,ID:8 ,value: 'cuadricep', label: 'Cuadricep'},
-  { IdTag:9 ,ID:9 ,value: 'quinticep', label: 'Quinticep'},
-  { IdTag:10 ,ID:10 ,value: 'pierna', label: 'Pierna'},
-  { IdTag:11 ,ID:11 ,value: 'cardio', label: 'Cardio'}
+  { IdTag:15 ,ID:15 ,value: 'cara', label: 'Cara'},
+  { IdTag:16 ,ID:16 ,value: 'gluteo', label: 'Gluteo'},
+  { IdTag:17 ,ID:17 ,value: 'abdomen', label: 'Abdomen'},
+  { IdTag:18 ,ID:18 ,value: 'cien', label: 'Cien'},
+  { IdTag:19 ,ID:19 ,value: 'pecho', label: 'Pecho'},
+  { IdTag:20 ,ID:20 ,value: 'tricep', label: 'Tricep'},
+  { IdTag:21 ,ID:21 ,value: 'bicep', label: 'Bicep'},
+  { IdTag:22 ,ID:22 ,value: 'cuadricep', label: 'Cuadricep'},
+  { IdTag:23 ,ID:23 ,value: 'quinticep', label: 'Quinticep'},
+  { IdTag:24 ,ID:24  ,value: 'pierna', label: 'Pierna'},
+  { IdTag:25 ,ID:25  ,value: 'cardio', label: 'Cardio'}
 ];
