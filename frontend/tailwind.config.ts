@@ -4,21 +4,23 @@ const colors = require('tailwindcss/colors');
 const config: Config = {
   content: [
     "./src/**/*.{ts,js,jsx,tsx}",
-    "./**/*.html"
+    "./**/*.html",
   ],
   theme: {
-    fontFamily: {
-      sans: ['Poppins'],
-    },
+    extend: {
       colors: {
-        'azulote': '#2F688A',
-        'redd': '#DC5663',
-        'aqua': '#36BFBF',
-        'vainilla': '#F8F0C6',
-        'azulito': '#e9f9ff'
+        'azulF':'#2F688A',
+        'rojito':'#DC5663',
+        'azulote':'#36BFBF',
+        'vainilla':'#F8F0C6',
+        'azulClarito':'#E9F9FF'
       },
+      fontFamily:{
+        poppins : ['Poppins']
+      }
+    }
   },
-  plugins: [],
+  plugins:[require("daisyui")],
 };
 
 export default config;

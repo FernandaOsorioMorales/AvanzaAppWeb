@@ -15,8 +15,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// TODO - Implement function
-
 // Returns the user contact list based on the user session.
 // Returns 418 if the user is not logged in.
 // Returns 500 HTTP Status Code if tan error occurs when
@@ -73,7 +71,7 @@ func ChatHandler(c *websocket.Conn) {
 
 	if user == "" {
 		log.Print("Failed to connect to client")
-		c.WriteMessage(websocket.TextMessage, []byte("id param missing"))
+		c.WriteMessage(websocket.TextMessage, []byte("{\"error\":\"Id param missing\"}"))
 		return
 	}
 
@@ -81,13 +79,14 @@ func ChatHandler(c *websocket.Conn) {
 
 	if err != nil {
 		log.Print("The user id could not be parsed to int")
-		c.WriteMessage(websocket.TextMessage, []byte("The userId sent must be uint"))
+		log.Print(err)
+		c.WriteMessage(websocket.TextMessage, []byte("{\"error\":\"The user id must be uint\"}"))
 		return
 	}
 
 	socket.NewConnection(userId, c)
 
-	err = c.WriteMessage(mt, []byte("Successful connection"))
+	err = c.WriteMessage(mt, []byte("{\"success\":\"The user id must be uint\"}"))
 
 	for {
 		mt, message, err = c.ReadMessage()

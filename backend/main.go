@@ -21,28 +21,33 @@ func main() {
 	// !Landing Page Routes
 	app.Get("/", routes.HandleRoot)
 
+	// Workout builder
+	app.Put("/updateWorkout", routes.UpdateCreateWorkout)
+	app.Get("/exercises", routes.GetExerciseList)
+	app.Get("/tags", routes.GetTagList)
+	app.Get("/workouts", routes.GetWorkoutList)
+	app.Get("/workout/detail", routes.GetWorkoutDetail)
+
 	// Chat
-	app.Get("/messages/contacts", routes.GetContacts)
+	app.Get("/contacts", routes.GetContacts)
 	app.Get("/chat", websocket.New(routes.ChatHandler))
 
 	//auth
 	app.Post("/login", controllers.AttemptLogin)
 	app.Post("/register", controllers.Register)
 	app.Post("/continue-login", controllers.ContinueUserSession)
+	app.Post("/logout", controllers.Logout)
 
-	// !User Routes
-	userGroup := app.Group("/user")
-	userGroup.Get("", routes.GetUsers)
-	userGroup.Get("/:id", routes.GetUserByID)
-	userGroup.Post("", routes.PostNewUser)
-	userGroup.Delete("/:id", routes.DeleteUser)
+	//BaseUser
+	app.Get("/user", controllers.GetBaseUser)
+	app.Patch("/user", controllers.UpdateBaseUser)
+	app.Delete("/user", controllers.DeleteBaseUser)
 
-	// !User Routes
-	trainerGroup := app.Group("/trainer")
-	trainerGroup.Get("", routes.GetTrainers)
-	trainerGroup.Get("/:id", routes.GetTrainerByID)
-	trainerGroup.Post("", routes.PostNewTrainer)
-	trainerGroup.Delete("/:id", routes.DeleteTrainer)
+	//Trainers
+	app.Get("/trainers", controllers.GetAvailableTrainers)
+
+	//Athletes
+	app.Post("/requestTraining", controllers.RequestTraining)
 
 	db.Init()
 	validation.Init()

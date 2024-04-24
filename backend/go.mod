@@ -1,6 +1,6 @@
 module backend
 
-go 1.22.0
+go 1.21.0
 
 require (
 	github.com/go-playground/validator/v10 v10.19.0
@@ -12,6 +12,7 @@ require (
 )
 
 require (
+	github.com/Jeffail/gabs v1.4.0 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/fasthttp/websocket v1.5.7 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect

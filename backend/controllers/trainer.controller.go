@@ -2,40 +2,38 @@ package controllers
 
 import (
 	"backend/models"
-	"time"
+	"backend/tools"
+	"backend/tools/db"
 
-	"gorm.io/gorm"
+	"github.com/gofiber/fiber/v2"
 )
 
-func CreateTainer(db *gorm.DB,
-	id int,
-	birth time.Time,
-	alias string,
-	name string,
-	phone string,
-	pass string,
-	des string,
-	spec string) (*models.Trainer, error) {
-
-	t := models.NewTrainer(id, birth, alias, name, phone, pass, des, spec)
-
-	err := db.Create(t).Error
-
-	if err != nil {
-		return nil, err
+func GetAvailableTrainers(c *fiber.Ctx) error {
+	if !tools.IsLoggedIn(c) {
+		return ApiError(c, "Not logged in", 400)
 	}
 
-	return &t, nil
-}
-
-func GetTrainerById(db *gorm.DB, id int) (*models.Trainer, error) {
-	var t models.Trainer
-
-	err := db.Where("idUser = ?", id).First(&t).Error
-
-	if err != nil {
-		return nil, err
+	trainers := make([]models.Trainer, 0)
+	query := db.Orm().Model(&models.Trainer{}).Preload("BaseUser").Preload("Specialties").Find(&trainers)
+	if query.Error != nil {
+		return ApiError(c, "Trouble getting trainers", 500)
 	}
 
-	return &t, nil
+	data := make([](map[string]interface{}), 0)
+	for _,t := range trainers {
+		tags := make([]string, 0)
+		for _,s := range t.Specialties {
+			tags = append(tags, s.Name)
+		}
+
+		data = append(data, map[string]interface{} {
+			"alias": t.BaseUser.Alias,
+			"description": t.BaseUser.Description,
+			"id": t.BaseUserId,
+			"photo": t.BaseUser.Photo,
+			"specialties": tags,
+		})
+	}
+
+	return c.Status(200).JSON(data)
 }

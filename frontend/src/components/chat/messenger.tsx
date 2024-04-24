@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Message } from './message';
+import { useSelector } from "react-redux";
 import React from "react";
 
 export function Messenger(params: {selectedContact: string, contactID: number}) {
-    const idParam = new URLSearchParams(window.location.search).get('id');
 
+    const idParam = useSelector(state => state.user.id);
 
     const [message, setMessage] = useState('')
     const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);

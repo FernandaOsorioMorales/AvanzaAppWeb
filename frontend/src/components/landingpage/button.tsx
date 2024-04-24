@@ -7,14 +7,14 @@ interface ButtonProps {
   color?: string; 
 }
 
-const Button: React.FC<ButtonProps> = ({ to, text, color = "bg-white" }) => {
+const ButtonMio: React.FC<ButtonProps> = ({ to, text, color = "bg-white" }) => {
   return (
     <div className="flex justify-center">
-      <Link to={to} className={`text-black text-3xl text-center ${color} p-6 rounded-full`}>
+      <Link to={to} className={`text-black text-1xl text-center ${color} p-3 rounded-rd`}>
         {text}
       </Link>
     </div>
   );
 }
 
-export default Button;
+export default ButtonMio;
