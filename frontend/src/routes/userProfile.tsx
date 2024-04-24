@@ -21,8 +21,8 @@ return (
     <div className="flex bg-blue-50">
         <div>
             <Sidebar>
-                <SidebarItem icon={<Home size={20} />} text="Inicio" link="/trainerProfile" />
-                <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" />
+                <SidebarItem icon={<Home size={20} />} text="Inicio" link="/userProfile" />
+                <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" link="/calendarUser"/>
                 <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="messages"/>
                 <hr className="my-40" />
                 <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="/editTrainerProfile"/>
