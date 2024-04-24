@@ -110,6 +110,7 @@ func GetWorkoutList(c *fiber.Ctx) error {
 		workout_with_tag.Tags = *tags
 
 		*workouts_tag = append(*workouts_tag, workout_with_tag)
+		*tags = nil
 	}
 	log.Print(*tags)
 	log.Print(*workouts_tag)
@@ -165,7 +166,7 @@ func GetWorkoutDetail(c *fiber.Ctx) error {
 		"workout_exercises.reps as reps, "+
 		"workout_exercises.ordinal as ordinal").Joins("join exercises on "+
 		"exercises.id = "+
-		"workout_exercises.id_exercise").Where("id_workout = ?",
+		"workout_exercises.id_exercise").Where("id_workout = ? AND workout_exercises.deleted_at IS NULL",
 		idWorkout).Find(&wk_e)
 
 	if result.Error != nil {
@@ -192,6 +193,7 @@ func GetWorkoutDetail(c *fiber.Ctx) error {
 	})
 }
 
+// TODO: use transactions
 // Updates or creates the workout and returns the update.
 // (exercises sets and reps).
 // Returns 201 when the workout is created and 200 when it is
@@ -216,33 +218,39 @@ func UpdateCreateWorkout(c *fiber.Ctx) error {
 									"parsing request body", 500)
 	}
 
-	name, exists_name := body.Path("Name").Data().(string)
-		if !exists_name {
-			return controllers.ApiError(c, "Name must not be empty", 404)
-		}
+	name, exists_name := body.Search("Name").Data().(string)
+	if !exists_name {
+		return controllers.ApiError(c, "Name must not be empty", 404)
+	}
 
-	idWk, exists_id := body.Path("Id").Data().(uint)
 
-	if err != nil {
-		log.Print("The workout id could not be parsed to int")
-		log.Print(err)
-		return controllers.ApiError(c, "idWorkout must be an integer", 400)
+	idWk, exists_id := body.Search("Id").Data().(float64)
+	if !exists_id {
+		log.Print(body)
+		log.Print(exists_id)
+		log.Print(idWk)
+		return controllers.ApiError(c, "Id must not be empty", 404)
+	}
+
+	updated_wk := models.Workout{}
+
+	if idWk != -1 {
+		id_workout := uint64(idWk)
+		controllers.DeleteWorkoutTags(dbase, id_workout)
+		controllers.DeleteWorkoutExercises(dbase, id_workout)
+		updated_wk.ID = uint(id_workout)
 	}
 	
-	newWk := models.NewWorkout(idTrainer, name)
+	updated_wk.IdTrainer = idTrainer
+	updated_wk.Name = name
 
-	if !exists_id {
-		log.Print("Creating new workout")
+	controllers.UpdateWorkout(dbase, &updated_wk)
 
-		controllers.CreateWorkout(dbase, &newWk)
-	} else {
-		log.Print("Updating workout")
+	newWk, _ := controllers.GetWorkoutByNameAndTrainer(dbase,
+													updated_wk.IdTrainer,
+													updated_wk.Name)
 
-		newWk.ID = idWk
-		controllers.UpdateWorkout(dbase, &newWk)
-	}
-
-	exercises, err := body.Search("Exercises").Children()
+	exercises, err := body.Search("UpdatedExercises").Children()
 
 	if err != nil {
 		log.Print("The exercise array is empty")
@@ -251,21 +259,41 @@ func UpdateCreateWorkout(c *fiber.Ctx) error {
 		})
 	}
 
-	_idWk := uint64(idWk)
-	controllers.DeleteWorkoutExercises(dbase, _idWk)
-
 	for _, exercise := range exercises {
-		idE, exists := exercise.Path("id").Data().(uint64)
+		idE, exists := exercise.Path("IdExercise").Data().(float64)
 		if !exists {continue}
-		order, exists := exercise.Path("order").Data().(uint8)
+		Ordinal, exists := exercise.Path("Ordinal").Data().(float64)
 		if !exists {continue}
-		reps, exists := exercise.Path("reps").Data().(uint16)
+		Reps, exists := exercise.Path("Reps").Data().(float64)
 		if !exists {continue}
-		sets, exists := exercise.Path("sets").Data().(uint8)
+		Sets, exists := exercise.Path("Sets").Data().(float64)
 		if !exists {continue}
 
-		newWkEx := models.NewWorkoutExercise(idE, _idWk, order, sets, reps)
-		controllers.UpdateWorkoutExercise(dbase, &newWkEx)
+		newWkEx := models.NewWorkoutExercise(uint64(idE), 
+											uint64(newWk.ID),
+											uint8(Ordinal), 
+											uint8(Sets), 
+											uint16(Reps))
+
+		controllers.CreateWorkoutExercise(dbase, &newWkEx)
+	}
+
+	tags, err := body.Search("UpdatedTags").Children()
+
+	if err != nil {
+		log.Print("The tag array is empty")
+		return c.JSON(fiber.Map{
+			"message": "The workout tags could not be updated",
+		})
+	}
+
+	for _, tag := range tags {
+		idT, exists := tag.Path("IdTag").Data().(float64)
+		if !exists {continue}
+
+		newWkTag := models.NewWorkoutTag(uint64(idT), uint64(newWk.ID))											
+
+		controllers.CreateWorkoutTag(dbase, &newWkTag)
 	}
 
 	return c.JSON(fiber.Map{

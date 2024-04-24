@@ -29,6 +29,7 @@ func main() {
 	app.Get("/", routes.HandleRoot)
 
 	// Workout builder
+	app.Put("/updateWorkout", routes.UpdateCreateWorkout)
 	app.Get("/exercises", routes.GetExerciseList)
 	app.Get("/tags", routes.GetTagList)
 	app.Get("/workouts", routes.GetWorkoutList)

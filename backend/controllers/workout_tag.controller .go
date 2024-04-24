@@ -39,6 +39,6 @@ func UpdateWorkoutTag(db *gorm.DB, w *models.WorkoutTag) {
 }
 
 // Deletes records by workout id
-func DeleteWorkoutTag(db *gorm.DB, idWk uint64) {
+func DeleteWorkoutTags(db *gorm.DB, idWk uint64) {
 	db.Delete(&models.WorkoutTag{}, "id_workout = ?",idWk)
 }
