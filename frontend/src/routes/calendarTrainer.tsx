@@ -2,8 +2,8 @@ import * as React from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import  Sidebar, {SidebarItem } from '../components/SideBar/Sidebar';
-import ProtectedRoute from "../components/protectedRoute";
+import  Sidebar, {SidebarItem } from '../components/SideBar/Sidebar.tsx';
+import ProtectedRoute from "../components/protectedRoute.tsx";
 import { logout } from "../utils/login.ts";
 import { LayoutDashboard, Home, StickyNote, MessageCircle,Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell, LogOut } from "lucide-react";
 
@@ -11,7 +11,7 @@ function logOutAction() {
 	logout().catch(_ => toast("hubo un problema"));
 }
 
-export default function BasicDateCalendar() {
+export default function calendarTrainer() {
   return (
     <div className='flex bg-blue-50'>
       <div>

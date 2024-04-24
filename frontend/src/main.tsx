@@ -26,7 +26,8 @@ import UserProfile from "./routes/userProfile";
 import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
 import RegisterTrainer from "./routes/registerTrainer";
-import Calendar from "./routes/calendar";
+import CalendarTrainer from "./routes/calendarTrainer";
+import CalendarUser from "./routes/calendarUser";
 import Specialty from "./routes/specialty";
 
 
@@ -79,8 +80,12 @@ const router = createBrowserRouter([
     element: <FollowAlong/>,
   },
   {
-    path: "/calendar",
-    element: <Calendar />,
+    path: "/calendarTrainer",
+    element: <CalendarTrainer />,
+  },
+  {
+    path: "/calendarUser",
+    element: <CalendarUser />,
   },
   {
     path:"/specialty",
