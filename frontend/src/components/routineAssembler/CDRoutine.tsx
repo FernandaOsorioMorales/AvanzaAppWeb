@@ -85,6 +85,12 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
         setExcercises(newExcercises)
     }
 
+    const editExcercise = (index: number, excercise: excercise) => {
+        const newExcercises = [...excercises]
+        newExcercises[index] = excercise
+        setExcercises(newExcercises)
+    }
+
   return (
     <div className='h-full'>
         <h1 className='text-gray-300 text-2xl mb-5'>
@@ -136,7 +142,7 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
                                 <Draggable draggableId={index.toString()} index={index} key={index}>
                                     {(provided) => (
                                         <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                            <Exercise excercise={excercise} index={index} remove={deleteExcercise}/>
+                                            <Exercise excercise={excercise} index={index} remove={deleteExcercise} editExcercise={editExcercise}/>
                                         </div>
                                     )}
                                 </Draggable>
