@@ -34,8 +34,9 @@ return (
                 <div className=" float-left w-1/2">
                 <BodyMeasurementsDisplay />
                 </div>
-                {/* <SearchBar /> */}
-				<SearchTrainers />
+                <div>
+                <SearchTrainers />
+                </div>
         </div>
         
     </div>
