@@ -30,7 +30,7 @@ export function Assembler(){
                     <button onClick={() => setIsOpen(true)} className="w-1/6 bg-gray-500 h-12 m-6 text-white p-2 rounded">Crear nueva rutina</button>
                 </div>
 
-                <Modal open={isOpen} tiny={true} >
+                <Modal open={isOpen} width="w-6/12" height="h-5/6" idElement="popups" z="10">
                     <CDRoutine onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]} />
                 </Modal>
 
@@ -46,6 +46,7 @@ export function Assembler(){
         </div>
 
         <div id="popups"></div>
+        <div id="miniPopups"></div>
     </>
     )
 }
