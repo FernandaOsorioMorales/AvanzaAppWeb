@@ -19,13 +19,13 @@ export function Routine(params: {routineName: string, tags: string[], id: number
 
     return (
         <>
-            <Modal open={ModalOpen} tiny={true} >
-                        <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} id={params.id} />
+            <Modal open={ModalOpen} width="w-6/12" height="h-5/6" idElement="popups" z="10">
+                <CDRoutine onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} id={params.id} />
             </Modal>
 
             <div className="w-full h-20 mb-6 rounded flex flex-row justify-around items-center bg-blue-100 relative">
                 <div className="flex flex-row absolute left-8 w-10/12">
-                    <h1 className="w-1/3 flex justify-center items-center h-16 text-xl text-gray-600">
+                    <h1 className="w-1/3 flex justify-center items-center h-16 text-xl font-bold text-cyan-800">
                         {params.routineName}
                     </h1>
                     <ul className="w-full flex flex-row justify-center items-center">
