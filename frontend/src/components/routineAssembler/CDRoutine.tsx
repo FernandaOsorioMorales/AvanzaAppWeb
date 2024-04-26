@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import {Exercise, excercise, excerciseOptions} from './Exercise'
-import Select, { MultiValue } from 'react-select'
 import AsyncSelect from 'react-select/async';
 import { TagContainer, TagsOption } from './Tags'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { toast } from 'react-toastify'
 import TagPromiseOptions from './fetchTagsService';
 import ExercisePromiseOptions from './fetchExerciseService';
@@ -18,8 +17,9 @@ const ExcercisesFromBackend: excercise[] = [] //GetWorkoutDetail
 
 //TODO agregar el Excercises.JSON recibido del backend si es que se edita una rutina, si no, se envia el arreglo vacio
 function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise[], id?: number){
+    const IDRoutine = id != undefined ? id : -1
 
-    const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID, value})) : []
+    const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID: {IDRoutine}, value})) : []
     const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
 
     var index = 1
@@ -27,14 +27,14 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 
     const RoutineObject = id != undefined ? {
         Name: name,
-        Id: id,
+        Id: IDRoutine,
         Tags: TagsFromBackend,
         UpdatedTags: tagsOBJ,
         excercises: ExcercisesFromBackend,
         UpdatedExercises: updatedExcercises
     }:{
         Name: name,
-        Id: -1,
+        Id: IDRoutine,
         Tags: TagsFromBackend,
         UpdatedTags: tagsOBJ,
         excercises: ExcercisesFromBackend,
@@ -60,8 +60,34 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 
 
 // Function to create or edit a routine
-export function CDRoutine(params : {RoutineName : string, Tags : string[], onClose : () => void, onUpdate: () => void, id?: number}) {
+export function CDRoutine(params : {RoutineName : string, onClose : () => void, onUpdate: () => void, id?: number, create: boolean}) {
+
     const [tags, setTags] = React.useState<TagsOption[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true)
+
+    const url = "/api/workout/detail" + (params.id != undefined ? `?idWorkout=${params.id}` : "")
+    const example = async () => {
+        const response = await axios.get(url)
+        const data = response.data
+        return data.Tags.map( (tag: { ID: number, Value: string}) => ({ IdTag: tag.ID, ID: tag.ID, value: tag.Value, label: tag.Value }))
+        
+    }
+
+    useEffect(()=>{
+        if(params.create){
+            setIsLoading(false)
+            return
+        }
+        
+         ( async () => { 
+            const Tags = await example() 
+            setTags(Tags)
+            setIsLoading(false)
+            }
+        )() 
+    },[]) 
+
+
     const [excercises, setExcercises] = React.useState<excercise[]>([]);
     const [name, setName] = React.useState(params.RoutineName);
 
@@ -106,16 +132,17 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
                 <label htmlFor="tags" className='absolute -top-2'>
                     AgregarEtiqueta
                 </label>
-                <AsyncSelect id='tags' className='mt-4'
+                { isLoading ? (<div>Loading...</div>) :
+                (<AsyncSelect id='tags' className='mt-4'
                     closeMenuOnSelect={true}
                     defaultValue={tags}
                     cacheOptions
                     isMulti
-                    onChange={(e) => setTags(e as TagsOption[])}
+                    onChange={(e) => setTags(e as unknown as TagsOption[])}
                     isOptionDisabled={() => tags.length >= 5}
                     defaultOptions
                     loadOptions={TagPromiseOptions}
-                />
+                />)}
 
             </TagContainer>
 

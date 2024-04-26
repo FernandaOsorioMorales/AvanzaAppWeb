@@ -20,7 +20,7 @@ export function Routine(params: {routineName: string, tags: string[], id: number
     return (
         <>
             <Modal open={ModalOpen} width="w-6/12" height="h-5/6" idElement="popups" z="10">
-                <CDRoutine onUpdate={() => true} onClose={() => setModalOpen(false)} RoutineName={params.routineName} Tags={params.tags} id={params.id} />
+                <CDRoutine onUpdate={() => true} onClose={() => setModalOpen(false)} RoutineName={params.routineName} id={params.id} create={false} />
             </Modal>
 
             <div className="w-full h-20 mb-6 rounded flex flex-row justify-around items-center bg-blue-100 relative">

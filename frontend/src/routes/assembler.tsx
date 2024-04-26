@@ -55,13 +55,13 @@ export function Assembler(){
                 </div>
 
                 <Modal open={isOpen} width="w-6/12" height="h-5/6" idElement="popups" z="10">
-                    <CDRoutine onUpdate={() => setNewRoutine(!newRoutine)} onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" Tags={["Pierna", "Cara"]} />
+                    <CDRoutine onUpdate={() => setNewRoutine(!newRoutine)} onClose={() => setIsOpen(false)} RoutineName="Asigna un nombre para rutina" create={true}/>
                 </Modal>
 
                 <div className="p-5 h-full flex justify-center">
                     <ListRoutines >
                         { workouts != null ? workouts.map((workout) => {
-                            return <Routine key={Number(workout.Workout.ID)} id={Number(workout.Workout.ID)} routineName={workout.Workout.Name.toString()} tags={workout.Tags != null ? workout.Tags.map(tag => tag.Value.toString()) : []} />
+                            return <Routine key={Number(workout.Workout.ID)} id={Number(workout.Workout.ID)} routineName={workout.Workout.Name.toString()} tags={workout.Tags != null ? workout.Tags.map(tag => tag.Value.toString()) : []}/>
                         }): <h1 className="text-2xl text-cyan-800 flex justify-center">No hay rutinas</h1>}
                     </ListRoutines>
                 </div>
