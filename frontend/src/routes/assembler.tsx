@@ -29,7 +29,9 @@ export function Assembler(){
     }
 
     useEffect(() => {
-        fetchWorkouts();
+        setTimeout(() => {
+            fetchWorkouts();
+        }, 200);
     }, [newRoutine])
     
     return (

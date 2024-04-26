@@ -1,34 +1,17 @@
 import React, { useEffect } from 'react'
 import {Exercise, excercise, excerciseOptions} from './Exercise'
 import Select, { MultiValue } from 'react-select'
-import { TagContainer, TagsOption, tagsOption } from './Tags'
+import AsyncSelect from 'react-select/async';
+import { TagContainer, TagsOption } from './Tags'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import axios, { AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
-
-
-
-// !DEBUG ONLY
-const ExcerciseOptions : excerciseOptions[] = [
-    {ID: 1, value: 'Mewing', label: 'Mewing'},
-    {ID: 2, value: 'Facing', label: 'Facing'},
-    {ID: 3, value: 'Chewing', label: 'Chewing'},
-    {ID: 4, value: 'Running', label: 'Running'}
-]
-// !DEBUG ONLY
-// const ExampleExcercises : excercise[] = [
-//     {ID: 1, IdExcercise:4, Ordinal: 1, Name: "Mewing", Reps: 12, Sets: 2},
-//     {ID: 2, IdExcercise:9, Ordinal: 2, Name: "Facing", Reps: 20, Sets: 1},
-//     {ID: 3, IdExcercise:12, Ordinal: 3, Name: "Chewing", Reps: 10, Sets: 3}
-// ]   
-
-const ExampleExcercises : excercise[] = []
+import TagPromiseOptions from './fetchTagsService';
+import ExercisePromiseOptions from './fetchExerciseService';
 
 // TODO fill with fetching to backend
 const TagsFromBackend: TagsOption[] = [] //GetWorkoutDetail
 const ExcercisesFromBackend: excercise[] = [] //GetWorkoutDetail
-const ExcerciseOptionsFromBackend: excerciseOptions[] = [] //GetExcercises
-const TagsOptionsFromBackend: TagsOption[] = [] //GetTags
 
 // Function to build a JSON object from all the parameters in the popup
 // Bounded to the definition of JSON 'PutExcercise' from the standard Backend
@@ -38,11 +21,6 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 
     const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID, value})) : []
     const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
-
-    // const OrderExcercise = excercise.forEach((excercise) => {
-    //     ({ID : excercise.ID, IdExcercise: excercise.IdExcercise, Ordinal: index, Name: excercise.Name, Sets: excercise.Sets, Reps: excercise.Reps})
-    //     index++
-    // })
 
     var index = 1
     const updatedExcercises = excercise.map((e, index) => ({ ...e, Ordinal: index + 1 }));
@@ -62,8 +40,6 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
         excercises: ExcercisesFromBackend,
         UpdatedExercises: updatedExcercises
     } 
-
-    // console.log(JSON.stringify(RoutineObject))
 
     function editUser() {
 		axios({
@@ -85,8 +61,8 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 
 // Function to create or edit a routine
 export function CDRoutine(params : {RoutineName : string, Tags : string[], onClose : () => void, onUpdate: () => void, id?: number}) {
-    const [tags, setTags] = React.useState(params.Tags.map((tag) => tagsOption.find((option) => option.value === tag)));
-    const [excercises, setExcercises] = React.useState(ExampleExcercises);
+    const [tags, setTags] = React.useState<TagsOption[]>([]);
+    const [excercises, setExcercises] = React.useState<excercise[]>([]);
     const [name, setName] = React.useState(params.RoutineName);
 
     const handleDrop = (result: {source: { droppableId:string, index: number }, destination: { droppableId:string, index: number }, type: string}) => {
@@ -130,26 +106,31 @@ export function CDRoutine(params : {RoutineName : string, Tags : string[], onClo
                 <label htmlFor="tags" className='absolute -top-2'>
                     AgregarEtiqueta
                 </label>
-
-                <Select id='tags' className='mt-4'
+                <AsyncSelect id='tags' className='mt-4'
                     closeMenuOnSelect={true}
                     defaultValue={tags}
+                    cacheOptions
                     isMulti
-                    options={tagsOption}
                     onChange={(e) => setTags(e as TagsOption[])}
                     isOptionDisabled={() => tags.length >= 5}
+                    defaultOptions
+                    loadOptions={TagPromiseOptions}
                 />
+
             </TagContainer>
 
             <div className='relative mt-3'>
                 <label htmlFor="tags" className='absolute -top-2'>
                     AgregarEjercicio
                 </label>
-                <Select id='addExce' className='mt-4'
+                <AsyncSelect id='addExce' className='mt-4'
                     closeMenuOnSelect={true}
-                    options={ExcerciseOptions}
+                    cacheOptions
                     onChange={(e) => setExcercises((excercises) => [...excercises, {Id: -1, IdExcercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}
+                    defaultOptions
+                    loadOptions={ExercisePromiseOptions}
                 />
+
             </div>
         </div>
 
