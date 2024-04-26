@@ -10,10 +10,10 @@ import { toast } from 'react-toastify'
 
 // !DEBUG ONLY
 const ExcerciseOptions : excerciseOptions[] = [
-    {ID: 12, value: 'Mewing', label: 'Mewing'},
-    {ID: 13, value: 'Facing', label: 'Facing'},
-    {ID: 14, value: 'Chewing', label: 'Chewing'},
-    {ID: 15, value: 'Running', label: 'Running'}
+    {ID: 1, value: 'Mewing', label: 'Mewing'},
+    {ID: 2, value: 'Facing', label: 'Facing'},
+    {ID: 3, value: 'Chewing', label: 'Chewing'},
+    {ID: 4, value: 'Running', label: 'Running'}
 ]
 // !DEBUG ONLY
 // const ExampleExcercises : excercise[] = [

@@ -13,8 +13,8 @@ export function Assembler(){
     const [workouts, setWorkouts] = useState([] as any);
     const [newRoutine, setNewRoutine] = useState(false);
     
-    function fetchWorkouts() {
-        axios({
+    async function fetchWorkouts() {
+        let response = await axios({
             method: "get",
             url: "/api/workouts",
             withCredentials: true,
@@ -29,9 +29,7 @@ export function Assembler(){
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            fetchWorkouts();
-        }, 200);
+        fetchWorkouts();
     }, [newRoutine])
     
     return (
