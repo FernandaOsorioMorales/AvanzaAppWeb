@@ -8,7 +8,7 @@ import { EditParameters } from './EditParameters';
 // TODO agegar IdExcercise
 export interface excercise {
   readonly Id: number; // ID bounded to the excercise in the routine
-  readonly IdExcercise: number // ID from the excercise table
+  readonly IdExercise: number // ID from the excercise table
   readonly Ordinal: number;
   readonly Name: string;
   readonly Reps: number; 

@@ -30,14 +30,14 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
         Id: IDRoutine,
         Tags: TagsFromBackend,
         UpdatedTags: tagsOBJ,
-        excercises: ExcercisesFromBackend,
+        exercises: ExcercisesFromBackend,
         UpdatedExercises: updatedExcercises
     }:{
         Name: name,
         Id: IDRoutine,
         Tags: TagsFromBackend,
         UpdatedTags: tagsOBJ,
-        excercises: ExcercisesFromBackend,
+        exercises: ExcercisesFromBackend,
         UpdatedExercises: updatedExcercises
     } 
 
@@ -55,6 +55,8 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 	}
     editUser()
 
+    console.log(JSON.stringify(RoutineObject))
+
     return JSON.stringify(RoutineObject)
 }
 
@@ -68,6 +70,7 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
     const url = "/api/workout/detail" + (params.id != undefined ? `?idWorkout=${params.id}` : "")
     const example = async () => {
         const response = await axios.get(url)
+        console.log(response.data)
         const data = response.data
         return data.Tags.map( (tag: { ID: number, Value: string}) => ({ IdTag: tag.ID, ID: tag.ID, value: tag.Value, label: tag.Value }))
         
@@ -153,7 +156,7 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
                 <AsyncSelect id='addExce' className='mt-4'
                     closeMenuOnSelect={true}
                     cacheOptions
-                    onChange={(e) => setExcercises((excercises) => [...excercises, {Id: -1, IdExcercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}
+                    onChange={(e) => setExcercises((exercises) => [...exercises, {Id: -1, IdExercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}
                     defaultOptions
                     loadOptions={ExercisePromiseOptions}
                 />
