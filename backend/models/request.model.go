@@ -8,11 +8,15 @@ import (
 type Request struct {
 	gorm.Model
 
+	// Athlete requesting training
 	UserId uint
 	User User
 
+	// Trainer being requested
 	TrainerId uint
 	Trainer Trainer
 
-	Accepted bool
+	// In lieu of an enum we use strings,
+	// make sure to only ever insert "accepted", "denied" or "waiting"
+	Status string
 }

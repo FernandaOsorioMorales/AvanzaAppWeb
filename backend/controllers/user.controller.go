@@ -33,7 +33,7 @@ func RequestTraining(c *fiber.Ctx) error {
 	}
 
 	request := models.Request {
-		Accepted: true,
+		Status: "waiting",
 		TrainerId: trainer.ID,
 		UserId: athlete.ID,
 	}

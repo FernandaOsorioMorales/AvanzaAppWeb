@@ -48,6 +48,7 @@ func main() {
 
 	//Athletes
 	app.Post("/requestTraining", controllers.RequestTraining)
+	app.Get("/athleteRequests", controllers.GetAthleteRequests)
 
 	db.Init()
 	validation.Init()
