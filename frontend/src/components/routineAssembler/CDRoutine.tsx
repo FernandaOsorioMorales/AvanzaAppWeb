@@ -9,8 +9,8 @@ import TagPromiseOptions from './fetchTagsService';
 import ExercisePromiseOptions from './fetchExerciseService';
 
 // TODO fill with fetching to backend
-const TagsFromBackend: TagsOption[] = [] //GetWorkoutDetail
-const ExercisesFromBackend: exercise[] = [] //GetWorkoutDetail
+var TagsFromBackend = [] //GetWorkoutDetail
+var ExercisesFromBackend = [] //GetWorkoutDetail
 
 // Function to build a JSON object from all the parameters in the popup
 // Bounded to the definition of JSON 'PutExcercise' from the standard Backend
@@ -20,11 +20,10 @@ function buildJSON(tags: TagsOption[], routineName: string, exercise: exercise[]
     const IDRoutine = id != undefined ? id : -1
 
     const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID: {IDRoutine}, value})) : []
-    const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
+    const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName
 
     var index = 1
     const updatedExercises = exercise.map((e, index) => ({ ...e, Ordinal: index + 1 }));
-    // console.log(updatedExercises)
 
     const RoutineObject = {
         Name: name,
@@ -66,10 +65,11 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
     const url = "/api/workout/detail" + (params.id != undefined ? `?idWorkout=${params.id}` : "")
     const example = async () => {
         const response = await axios.get(url)
-        console.log(response.data)
         const data = response.data
+        ExercisesFromBackend = data.exercises
         const exercises = data.exercises.map( (exercise: { IdExercise: number, Name: string, Reps: number, Sets: number }) => ({ Id: params.id, IdExercise: exercise.IdExercise, Ordinal: -1, Name: exercise.Name, Reps: exercise.Reps, Sets: exercise.Sets }))
         setExercises(exercises)
+        TagsFromBackend = data.Tags
         return data.Tags.map( (tag: { ID: number, Value: string}) => ({ IdTag: tag.ID, ID: tag.ID, value: tag.Value, label: tag.Value }))
 
     }
@@ -109,10 +109,8 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
     }
 
     const editExcercise = (index: number, exercise: exercise) => {
-        console.log(exercises)
         const newExercises = [...exercises]
         newExercises[index] = exercise
-        console.log(newExercises)
         setExercises(newExercises)
     }
 

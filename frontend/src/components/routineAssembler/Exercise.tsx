@@ -20,7 +20,6 @@ export interface exerciseOptions {
   readonly label: string;
 }
 
-// TODO agregar inputDrop para cambiar la cantidad de series y repeticiones
 export function Exercise(params : {exercise: exercise, index: number, remove: (index: number) => void, editExcercise: (index: number, exercise: exercise) => void}) {
   const sets = params.exercise.Sets > 1 ? ' Series' : ' Serie';
   const reps = params.exercise.Reps > 1 ? ' Repeticiones' : ' Repeticion';
