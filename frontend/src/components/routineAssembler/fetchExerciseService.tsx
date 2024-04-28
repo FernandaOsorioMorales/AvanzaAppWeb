@@ -1,5 +1,5 @@
 import axios from "axios"
-import { excerciseOptions } from "./Exercise"
+import { exerciseOptions } from "./Exercise"
 
 const fetchExercises = async () => {
     const response = await axios.get("api/exercises")
@@ -11,13 +11,13 @@ const fetchExercises = async () => {
 const filterTags = async (inputValue: string) => {
     const tagsOptions = await fetchExercises() 
 
-    return tagsOptions.filter((i : excerciseOptions) =>
+    return tagsOptions.filter((i : exerciseOptions) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
 };
   
 const ExercisePromiseOptions = (inputValue: string) =>
-    new Promise<excerciseOptions[]>((resolve) => {
+    new Promise<exerciseOptions[]>((resolve) => {
     setTimeout(() => {
         resolve(filterTags(inputValue));
     }, 1000);

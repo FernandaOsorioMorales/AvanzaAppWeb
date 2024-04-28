@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Exercise, excercise, excerciseOptions} from './Exercise'
+import {Exercise, exercise, exerciseOptions} from './Exercise'
 import AsyncSelect from 'react-select/async';
 import { TagContainer, TagsOption } from './Tags'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -9,37 +9,30 @@ import TagPromiseOptions from './fetchTagsService';
 import ExercisePromiseOptions from './fetchExerciseService';
 
 // TODO fill with fetching to backend
-const TagsFromBackend: TagsOption[] = [] //GetWorkoutDetail
-const ExcercisesFromBackend: excercise[] = [] //GetWorkoutDetail
+var TagsFromBackend = [] //GetWorkoutDetail
+var ExercisesFromBackend = [] //GetWorkoutDetail
 
 // Function to build a JSON object from all the parameters in the popup
 // Bounded to the definition of JSON 'PutExcercise' from the standard Backend
 
-//TODO agregar el Excercises.JSON recibido del backend si es que se edita una rutina, si no, se envia el arreglo vacio
-function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise[], id?: number){
+//TODO agregar el Exercises.JSON recibido del backend si es que se edita una rutina, si no, se envia el arreglo vacio
+function buildJSON(tags: TagsOption[], routineName: string, exercise: exercise[], id?: number){
     const IDRoutine = id != undefined ? id : -1
 
     const tagsOBJ = tags[0] != undefined ? tags.map(({IdTag, ID, value}) => ({IdTag, ID: {IDRoutine}, value})) : []
-    const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName // TODO Set a new Default name or raise exception
+    const name = routineName == 'Asigna un nombre para rutina' ? "Rutina" : routineName
 
     var index = 1
-    const updatedExcercises = excercise.map((e, index) => ({ ...e, Ordinal: index + 1 }));
+    const updatedExercises = exercise.map((e, index) => ({ ...e, Ordinal: index + 1 }));
 
-    const RoutineObject = id != undefined ? {
+    const RoutineObject = {
         Name: name,
         Id: IDRoutine,
         Tags: TagsFromBackend,
         UpdatedTags: tagsOBJ,
-        exercises: ExcercisesFromBackend,
-        UpdatedExercises: updatedExcercises
-    }:{
-        Name: name,
-        Id: IDRoutine,
-        Tags: TagsFromBackend,
-        UpdatedTags: tagsOBJ,
-        exercises: ExcercisesFromBackend,
-        UpdatedExercises: updatedExcercises
-    } 
+        exercises: ExercisesFromBackend,
+        UpdatedExercises: updatedExercises
+    }
 
     function editUser() {
 		axios({
@@ -55,7 +48,7 @@ function buildJSON(tags: TagsOption[], routineName: string, excercise: excercise
 	}
     editUser()
 
-    console.log(JSON.stringify(RoutineObject))
+    // console.log(JSON.stringify(RoutineObject))
 
     return JSON.stringify(RoutineObject)
 }
@@ -66,14 +59,19 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
 
     const [tags, setTags] = React.useState<TagsOption[]>([]);
     const [isLoading, setIsLoading] = React.useState(true)
+    const [exercises, setExercises] = React.useState<exercise[]>([]);
+    const [name, setName] = React.useState(params.RoutineName);
 
     const url = "/api/workout/detail" + (params.id != undefined ? `?idWorkout=${params.id}` : "")
     const example = async () => {
         const response = await axios.get(url)
-        console.log(response.data)
         const data = response.data
+        ExercisesFromBackend = data.exercises
+        const exercises = data.exercises.map( (exercise: { IdExercise: number, Name: string, Reps: number, Sets: number }) => ({ Id: params.id, IdExercise: exercise.IdExercise, Ordinal: -1, Name: exercise.Name, Reps: exercise.Reps, Sets: exercise.Sets }))
+        setExercises(exercises)
+        TagsFromBackend = data.Tags
         return data.Tags.map( (tag: { ID: number, Value: string}) => ({ IdTag: tag.ID, ID: tag.ID, value: tag.Value, label: tag.Value }))
-        
+
     }
 
     useEffect(()=>{
@@ -81,41 +79,39 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
             setIsLoading(false)
             return
         }
-        
-         ( async () => { 
-            const Tags = await example() 
+
+         ( async () => {
+            const Tags = await example()
             setTags(Tags)
             setIsLoading(false)
             }
-        )() 
-    },[]) 
+        )()
+    },[])
 
 
-    const [excercises, setExcercises] = React.useState<excercise[]>([]);
-    const [name, setName] = React.useState(params.RoutineName);
 
     const handleDrop = (result: {source: { droppableId:string, index: number }, destination: { droppableId:string, index: number }, type: string}) => {
         const { source, destination, type } = result;
         if(!destination) return;
 
         if(source.index != destination.index || source.droppableId != destination.droppableId){
-            const reorderedExcersices = [...excercises]
+            const reorderedExcersices = [...exercises]
             const [removedExcersice] = reorderedExcersices.splice(source.index, 1)
             reorderedExcersices.splice(destination.index, 0, removedExcersice)
-            return setExcercises(reorderedExcersices)
+            return setExercises(reorderedExcersices)
         }
     }
 
     const deleteExcercise = (index: number) => {
-        const newExcercises = [...excercises]
-        newExcercises.splice(index, 1)
-        setExcercises(newExcercises)
+        const newExercises = [...exercises]
+        newExercises.splice(index, 1)
+        setExercises(newExercises)
     }
 
-    const editExcercise = (index: number, excercise: excercise) => {
-        const newExcercises = [...excercises]
-        newExcercises[index] = excercise
-        setExcercises(newExcercises)
+    const editExcercise = (index: number, exercise: exercise) => {
+        const newExercises = [...exercises]
+        newExercises[index] = exercise
+        setExercises(newExercises)
     }
 
   return (
@@ -124,9 +120,9 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
             Editar Rutina
         </h1>
 
-        <input className='w-9/12 h-fit bg-gray-100 rounded-none text-xl text-gray-600 p-2' 
+        <input className='w-9/12 h-fit bg-gray-100 rounded-none text-xl text-gray-600 p-2'
                type="text" placeholder={params.RoutineName}
-               maxLength={35} 
+               maxLength={35}
                onChange={(e) => setName(e.target.value)}/>
 
 
@@ -156,7 +152,7 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
                 <AsyncSelect id='addExce' className='mt-4'
                     closeMenuOnSelect={true}
                     cacheOptions
-                    onChange={(e) => setExcercises((exercises) => [...exercises, {Id: -1, IdExercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}
+                    onChange={(e) => {setExercises((exercises) => [...exercises, {ID:params.id ?? - 1, IdExercise:e?.ID ?? -1, Ordinal: -1, Name: e?.value ?? '', Reps: 10, Sets: 3}])}}
                     defaultOptions
                     loadOptions={ExercisePromiseOptions}
                 />
@@ -164,18 +160,18 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
             </div>
         </div>
 
-        
+
         <div className='mt-3 mb-6 flex flex-col w-full h-2/3 max-h-max overflow-y-auto items-center border-solid border-2 border-gray-500'>
             <div className='w-full'>
                 <DragDropContext onDragEnd={handleDrop}>
                     <Droppable droppableId="ROOT" type="group">
                         {(provided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {excercises.map((excercise, index) => (
+                            {exercises.map((exercise, index) => (
                                 <Draggable draggableId={index.toString()} index={index} key={index}>
                                     {(provided) => (
                                         <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                            <Exercise excercise={excercise} index={index} remove={deleteExcercise} editExcercise={editExcercise}/>
+                                            <Exercise exercise={exercise} index={index} remove={deleteExcercise} editExcercise={editExcercise}/>
                                         </div>
                                     )}
                                 </Draggable>
@@ -190,7 +186,7 @@ export function CDRoutine(params : {RoutineName : string, onClose : () => void, 
 
         <div className='flex flex-row justify-between mt-6'>
             <button onClick={params.onClose} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-red-500'>Cancelar</button>
-            <button onClick={() => {buildJSON(tags as TagsOption[], name, excercises, params.id); params.onClose(); params.onUpdate()}} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-blue-500'>Guardar</button>
+            <button onClick={() => {buildJSON(tags as TagsOption[], name, exercises, params.id); console.log(exercises); params.onClose(); params.onUpdate()}} className='bg-gray-500 text-white rounded p-2 m-2 hover:bg-blue-500'>Guardar</button>
         </div>
     </div>
   )
