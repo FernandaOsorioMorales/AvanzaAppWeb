@@ -15,7 +15,7 @@ function first_login(email: string, password: string): Promise<boolean> {
 			headers: {'content-type': 'application/x-www-form-urlencoded'},
 			withCredentials: true,
 			data: qs.stringify(login_data),
-			url: "http://localhost:9090/login",
+			url: "/api/login",
 	}).then(res => {
 		if ("data" in res === false)
 			throw "unexpected response";
@@ -37,7 +37,7 @@ function first_login(email: string, password: string): Promise<boolean> {
 function continue_login(): Promise<boolean> {
 	return axios({
 		method: "post",
-		url: "http://localhost:9090/continue-login",
+		url: "/api/continue-login",
 		withCredentials: true
 	}).then(res => {
 		if ("data" in res === false)
@@ -71,7 +71,7 @@ async function register(registerData: {
 		headers: {'content-type': 'application/x-www-form-urlencoded'},
 		withCredentials: true,
 		data: qs.stringify(registerData),
-		url: "http://localhost:9090/register",
+		url: "/api/register",
 	});
 
 	const data = res?.data;
@@ -91,7 +91,7 @@ async function logout(): Promise<null> {
 	store.dispatch(unset());
 	return axios({
 		method: "post",
-		url: "http://localhost:9090/logout",
+		url: "/api/logout",
 		withCredentials: true
 	});
 }

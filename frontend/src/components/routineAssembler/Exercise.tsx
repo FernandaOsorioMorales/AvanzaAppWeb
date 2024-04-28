@@ -8,10 +8,10 @@ import { EditParameters } from './EditParameters';
 // TODO agegar IdExcercise
 export interface excercise {
   readonly Id: number; // ID bounded to the excercise in the routine
-  readonly IdExcercise: number // ID from the excercise table
+  readonly IdExercise: number // ID from the excercise table
   readonly Ordinal: number;
   readonly Name: string;
-  readonly Reps: number;
+  readonly Reps: number; 
   readonly Sets: number;
 }
 
@@ -40,14 +40,14 @@ export function Exercise(params : {excercise: excercise, index: number, remove: 
       <div className='flex flex-row justify-evenly items-center'>
         <h1 className='flex justify-center text-gray-600 p-1 w-fit'>
           <span className='text-cyan-800 text-xl mr-1'>{params.excercise.Sets}</span>
-          <h3 className='flex mr-5 items-center'>
+          <p className='flex mr-5 items-center'>
             {sets}
-          </h3> 
+          </p> 
           
           <span className='text-cyan-800 text-xl mr-1'>{params.excercise.Reps}</span>
-          <h3 className='flex items-center'>
+          <p className='flex items-center'>
             {reps}
-          </h3>
+          </p>
         </h1>
         <button onClick={() => setIsOpen(true)} className='p-1 ml-2 h-fit bg-gray-600 rounded hover:bg-gray-400'>
           <Pencil size={20} color='#ffffff'/>

@@ -19,7 +19,7 @@ export function Contacts(params: {setSelectedContact: (contact: string) => void,
     const [contacts, setContacts] = useState<Cnt[]>([]);
 
     useEffect(() => {
-        axios.get<Resp>('http://localhost:9090/contacts', 
+        axios.get<Resp>('/api/contacts', 
                 {withCredentials: true}
             ).then((response: AxiosResponse<Resp>) => {
                 console.log(response);

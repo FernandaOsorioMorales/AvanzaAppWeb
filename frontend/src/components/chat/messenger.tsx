@@ -20,7 +20,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
     }, [msgArray]);
 
     useEffect(() => {
-        var ws = 'ws://localhost:9090/chat?id=' + (idParam === null ? 0 : idParam);
+        var ws = '/ws/chat?id=' + (idParam === null ? 0 : idParam);
         console.log(ws);
         const newSocket = new WebSocket(ws);
 

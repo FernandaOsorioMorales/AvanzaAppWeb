@@ -13,7 +13,7 @@ function requestTraining(athlete_id: number, trainer_id: number) {
 	axios({
 		method: "post",
 		withCredentials: true,
-		url: "http://localhost:9090/requestTraining",
+		url: "/api/requestTraining",
 		data: qs.stringify(data)
 	}).then(_ => {
 		toast("Listo !");
@@ -32,13 +32,13 @@ function TrainerCard(user_id: number, trainer: {alias: string, description: stri
 	const tags = trainer.specialties.map(t => (<li key={t} value={t} className="badge badge-accent mx-2">{t}</li>));
 
 	return (
-	<div key={trainer.id} className="card bg-vainilla my-2">
+	<div key={trainer.id} className="card bg-[#DC5663] my-2">
 		<div className="card-body">
-			<h4 className="card-title">{trainer.alias}</h4>
+			<h4 className="card-title text-blue-50">{trainer.alias}</h4>
 			<p className="text-base">{trainer.description}</p>
 			<div className="flex flex-row">{ tags }</div>
 			<div className="card-actions justify-end">
-				<button className="btn btn-accent" onClick={() => requestTraining(user_id, trainer.id)}>Solicitar</button>
+				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(user_id, trainer.id)}>Solicitar</button>
 			</div>
 		</div>
 	</div>
@@ -55,7 +55,7 @@ function getAvailableTrainers() {
 	axios({
 		method: "get",
 		withCredentials: true,
-		url: "http://localhost:9090/trainers",
+		url: "/api/trainers",
 	}).then(res => {
 		const data = res?.data;
 		setTrainers(data);
@@ -77,9 +77,9 @@ function getAvailableTrainers() {
 
 	return (
 	<>
-		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-emerald-300" />
+		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-[#E9F9FF] m-3" />
 
-		<select className="select select-bordered w-full max-w-xs bg-amber-300" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
+		<select className="select select-bordered w-full max-w-xs bg-blue-50 m-3" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
 			<option value="*" >any</option>
 			{ selectTags }
 		</select>

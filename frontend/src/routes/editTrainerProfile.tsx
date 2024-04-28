@@ -23,7 +23,7 @@ export default function EditTrainerProfile() {
     function fetchUser() {
         axios({
             method: "get",
-            url: "http://localhost:9090/user",
+            url: "/api/user",
             withCredentials: true,
         }).then(res => {
             if ("data" in res === false)
@@ -44,7 +44,7 @@ export default function EditTrainerProfile() {
 	function editUser(values) {
 		axios({
 			method: "PATCH",
-            url: "http://localhost:9090/user",
+            url: "/api/user",
             withCredentials: true,
 			headers: {"content-type": "application/x-www-form-urlencoded"},
 			data: qs.stringify(values),

@@ -15,24 +15,20 @@ import { Root } from './routes/root';
 import { Messages } from "./routes/messages";
 import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
-import RegisterForm from "./routes/register";
-import Profile from "./routes/profile";
 import EditTrainerProfile from "./routes/editTrainerProfile";
-
-import registerClasification from "./routes/registerClasification";
 
 import Err404 from "./routes/Err404"
 import TrainerProfile from "./routes/trainerProfile"
 import { FollowAlong } from "./routes/followAlong";
-
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import RegisterUser from "./routes/registerUser";
 import UserProfile from "./routes/userProfile";
 
 import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
 import RegisterTrainer from "./routes/registerTrainer";
+import CalendarTrainer from "./routes/calendarTrainer";
+import CalendarUser from "./routes/calendarUser";
+import Specialty from "./routes/specialty";
 
 
 const router = createBrowserRouter([
@@ -82,8 +78,19 @@ const router = createBrowserRouter([
   {
     path: "/followAlong",
     element: <FollowAlong/>,
+  },
+  {
+    path: "/calendarTrainer",
+    element: <CalendarTrainer />,
+  },
+  {
+    path: "/calendarUser",
+    element: <CalendarUser />,
+  },
+  {
+    path:"/specialty",
+    element:<Specialty />,
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

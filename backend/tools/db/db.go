@@ -24,7 +24,7 @@ func connect() {
 	name := os.Getenv("POSTGRES_NAME")
 
 	dsn := fmt.Sprintf("host=db user=%s password=%s port=%s dbname=%s", user, pass, port, name)
-	log.Printf("Database connection: [%s]\n", dsn)
+	log.Printf("Database connection: [host=db user=%s port=%s dbname=%s]\n", user, port, name)
 
 	database, err := gorm.Open(postgres.Open(dsn),
 		&gorm.Config{Logger: logger.Default.LogMode(logger.Info)})
