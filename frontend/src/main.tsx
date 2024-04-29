@@ -21,6 +21,7 @@ import Err404 from "./routes/Err404"
 import TrainerProfile from "./routes/trainerProfile"
 import { FollowAlong } from "./routes/followAlong";
 import RegisterUser from "./routes/registerUser";
+import RequestTrainer from "./routes/requestTrainer";
 import UserProfile from "./routes/userProfile";
 
 import './styles/index.css';
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
     {
       path:"/userProfile",
       element: <UserProfile />,
+    },
+    {
+      path:"/requestTrainer",
+      element: <RequestTrainer />,
     },
   {
     path: "/followAlong",

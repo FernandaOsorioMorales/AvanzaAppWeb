@@ -47,7 +47,12 @@ func main() {
 	app.Get("/trainers", controllers.GetAvailableTrainers)
 
 	//Athletes
+
+	//Requests
+	app.Get("/athleteRequests", controllers.GetAthleteRequests)
+	app.Get("/trainerRequests", controllers.GetTrainerRequests)
 	app.Post("/requestTraining", controllers.RequestTraining)
+	app.Patch("/resolveRequest", controllers.ResolveRequest)
 
 	db.Init()
 	validation.Init()

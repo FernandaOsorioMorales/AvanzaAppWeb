@@ -13,6 +13,7 @@ const config: Config = {
         'rojito':'#DC5663',
         'azulote':'#36BFBF',
         'vainilla':'#F8F0C6',
+        'verde':'#9CDB94',
         'azulClarito':'#E9F9FF'
       },
       fontFamily:{

@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import qs from "qs";
 
-function requestTraining(athlete_id: number, trainer_id: number) {
+function requestTraining(trainer_id: number) {
 	const data = {
-		athlete_id: athlete_id,
 		trainer_id: trainer_id,
 	};
 
@@ -27,7 +26,7 @@ function requestTraining(athlete_id: number, trainer_id: number) {
 	});
 }
 
-function TrainerCard(user_id: number, trainer: {alias: string, description: string, id: number, photo: string, specialties: [string]}) {
+function TrainerCard(trainer: {alias: string, description: string, id: number, photo: string, specialties: [string]}) {
 
 	const tags = trainer.specialties.map(t => (<li key={t} value={t} className="badge badge-accent mx-2">{t}</li>));
 
@@ -38,7 +37,7 @@ function TrainerCard(user_id: number, trainer: {alias: string, description: stri
 			<p className="text-base">{trainer.description}</p>
 			<div className="flex flex-row">{ tags }</div>
 			<div className="card-actions justify-end">
-				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(user_id, trainer.id)}>Solicitar</button>
+				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(trainer.id)}>Solicitar</button>
 			</div>
 		</div>
 	</div>
@@ -71,7 +70,7 @@ function getAvailableTrainers() {
 	const cards = trainers
 		.filter(t => tagFilter == "*" ? true: t.specialties.includes(tagFilter))
 		.filter(t => t.description.includes(search) || t.alias.includes(search))
-		.map(t => TrainerCard(userId, t));
+		.map(t => TrainerCard(t));
 	
 	const selectTags = tags.map(t => (<option key={t}>{t}</option>));
 
