@@ -23,8 +23,20 @@ func GetContacts(c *fiber.Ctx) error {
 	dbase := db.Orm()
 	logged, id := tools.GetCurrentUserId(c)
 
+	var user models.BaseUser
+	result := db.Orm().Where("id = ?", id).First(&user)
+	if result.Error != nil {
+		return controllers.ApiError(c, "Something wen wrong when retrieving user", 500)
+	}
+
 	if !logged {
 		return controllers.ApiError(c, "I'm a teapot", 418)
+	}
+
+	kind := controllers.UserKind(user)
+
+	if kind == "" {
+		return controllers.ApiError(c, "Missing kind param", 400)
 	}
 
 	type user_contact struct {
@@ -34,20 +46,24 @@ func GetContacts(c *fiber.Ctx) error {
 
 	var contacts []user_contact
 
-	result := dbase.Raw("SELECT "+
-		"contacts.id_contact AS id, "+
-		"base_users.alias AS alias "+
-		"FROM "+
-		"contacts "+
-		"JOIN "+
-		"base_users "+
-		"ON "+
-		"contacts.id_contact = base_users.id "+
-		"WHERE "+
-		"contacts.id_user = ?", id).Scan(&contacts)
-
-	if result.Error != nil {
-		return controllers.ApiError(c, "Failed to retrieve user contacts", 500)
+	if kind == "trainer" {
+		result := dbase.Table("contacts").
+			Select("DISTINCT contacts.id_user AS id, base_users.alias AS alias").
+			Joins("JOIN base_users ON contacts.id_user = base_users.id").
+			Where("contacts.id_trainer = ?", id).
+			Find(&contacts)
+		if result.Error != nil {
+			return controllers.ApiError(c, "Failed to retrieve user contacts", 500)
+		}
+	} else {
+		result := dbase.Table("contacts").
+			Select("DISTINCT contacts.id_trainer AS id, base_users.alias AS alias").
+			Joins("JOIN base_users ON contacts.id_trainer = base_users.id").
+			Where("contacts.id_user = ?", id).
+			Find(&contacts)
+		if result.Error != nil {
+			return controllers.ApiError(c, "Failed to retrieve user contacts", 500)
+		}
 	}
 
 	return c.JSON(fiber.Map{

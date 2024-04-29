@@ -127,7 +127,7 @@ func AttemptLogin(c *fiber.Ctx) error {
 		"success": true,
 		"userId":  user.ID,
 		"alias":   user.Alias,
-		"kind": userKind(user),
+		"kind": UserKind(user),
 	})
 }
 
@@ -144,7 +144,7 @@ func ContinueUserSession(c *fiber.Ctx) error {
 				"success": true,
 				"userId":  id,
 				"alias":   user.Alias,
-				"kind": userKind(user),
+				"kind": UserKind(user),
 			})
 		}
 	}
