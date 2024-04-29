@@ -6,7 +6,7 @@ import React from "react";
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
     const idParam = useSelector(state => state.user.id);
-
+    console.log(idParam)
     const [message, setMessage] = useState('')
     const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
     const [socket, setSocket] = useState<WebSocket>();
@@ -20,7 +20,10 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
     }, [msgArray]);
 
     useEffect(() => {
-        var ws = '/ws/chat?id=' + (idParam === null ? 0 : idParam);
+        if (idParam === null)
+            return ;
+
+        var ws = '/ws/chat?id=' + idParam;
         console.log(ws);
         const newSocket = new WebSocket(ws);
 
@@ -37,7 +40,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         }
 
         setSocket(newSocket);
-    }, []);
+    }, [idParam]);
 
     const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
