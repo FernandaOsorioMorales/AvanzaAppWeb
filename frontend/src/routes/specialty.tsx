@@ -175,10 +175,10 @@ export default function specialty() {
     setAnchorEl,
   } = useAutocomplete({
     id: 'customized-hook-demo',
-    defaultValue: [top100Films[1]],
+    defaultValue: [especialidades[1]],
     multiple: true,
-    options: top100Films,
-    getOptionLabel: (option) => option.title,
+    options: especialidades,
+    getOptionLabel: (option) => option.name,
   });
 
   return (
@@ -192,17 +192,17 @@ export default function specialty() {
       <div {...getRootProps()}>
         <Label {...getInputLabelProps()}>Selecciona con las que te identifiques</Label>
         <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
-          {value.map((option: FilmOptionType, index: number) => (
-            <StyledTag label={option.title} {...getTagProps({ index })} />
+          {value.map((option: SpecialtyTipe, index: number) => (
+            <StyledTag label={option.name} {...getTagProps({ index })} />
           ))}
           <input {...getInputProps()} />
         </InputWrapper>
       </div>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
-          {(groupedOptions as typeof top100Films).map((option, index) => (
+          {(groupedOptions as typeof especialidades).map((option, index) => (
             <li {...getOptionProps({ option, index })}>
-              <span>{option.title}</span>
+              <span>{option.name}</span>
               <CheckIcon fontSize="small" />
             </li>
           ))}
@@ -218,20 +218,19 @@ export default function specialty() {
   );
 }
 
-interface FilmOptionType {
-  title: string;
-  year: number;
+interface SpecialtyTipe {
+  name: string;
 }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: 'Gym', year: 1994 },
-  { title: 'Yoga',  year: 1972 },
-  { title: 'Running', year: 1974 },
-  { title: 'Ciclismo',  year: 2008 },
-  { title: 'Box', year: 1957 },
-  { title: 'Natación',  year: 1993 },
-  { title: 'Powrlifting', year: 1966 },
+const especialidades = [
+  { name: 'Gym'},
+  { name: 'Yoga' },
+  { name: 'Running'},
+  { name: 'Ciclismo' },
+  { name: 'Box'},
+  { name: 'Natación' },
+  { name: 'Powrlifting' },
 
 
 ];
