@@ -63,3 +63,8 @@ func GetWorkoutById(db *gorm.DB, id uint64) (*models.Workout, error) {
 func UpdateWorkout(db *gorm.DB, w *models.Workout) {
 	db.Save(w)
 }
+
+// Deletes records by workout id
+func DeleteWorkout(db *gorm.DB, idWk uint64) {
+	db.Delete(&models.Workout{}, "id = ?",idWk)
+}

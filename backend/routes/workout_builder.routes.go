@@ -301,3 +301,40 @@ func UpdateCreateWorkout(c *fiber.Ctx) error {
 	})
 }
 
+// TODO: use transactions
+// Updates or creates the workout.
+// Returns 200 when the workout is deleted.
+// Returns 401 if the user is not logged in.
+// Returns 500 HTTP Status Code if tan error occurs when
+// querying the workouts.
+func DeleteWorkout(c *fiber.Ctx) error {
+	dbase := db.Orm()
+	logged, _ := tools.GetCurrentUserId(c)
+
+	if !logged {
+		return controllers.ApiError(c, "Login required", 401)
+	}
+
+	idWk := c.Query("idWorkout", "")
+
+	if idWk == "" {
+		log.Print("The workout id must not be empty")
+		return controllers.ApiError(c, "idWorkout must not be empty", 404)
+	}
+
+	idWorkout, err := strconv.ParseUint(idWk, 10, 64)
+
+	if err != nil {
+		log.Print("The workout id could not be parsed to int")
+		log.Print(err)
+		return controllers.ApiError(c, "idWorkout must be an integer", 400)
+	}
+
+	controllers.DeleteWorkoutTags(dbase, idWorkout)
+	controllers.DeleteWorkoutExercises(dbase, idWorkout)
+	controllers.DeleteWorkout(dbase, idWorkout)
+
+	return c.JSON(fiber.Map{
+		"success": true,
+	})
+}
