@@ -35,7 +35,7 @@ function RequestCard(request: {
 	)
 }
 
-function ShowRequests() {
+function RequestsForAthletes() {
 
 	const [requests, setRequests] = useState([]);
 
@@ -62,5 +62,5 @@ function ShowRequests() {
 	)
 }
 
-export default ShowRequests;
+export default RequestsForAthletes;
 

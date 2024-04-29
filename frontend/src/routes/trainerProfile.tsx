@@ -3,10 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { LayoutDashboard, Home, StickyNote, MessageCircle,Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell, LogOut } from "lucide-react";
 import { toast } from "react-toastify";
 
-import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
-import ProtectedRoute from "../components/protectedRoute";
-import { logout } from "../utils/login.ts";
-import hola from "../assets/hola.png";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -14,6 +10,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+
+import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
+import ProtectedRoute from "../components/protectedRoute";
+import RequestsForTrainers from "../components/profiles/RequestsForTrainers";
+import { logout } from "../utils/login.ts";
 
 function logOutAction() {
 	logout().catch(_ => toast("hubo un problema"));
@@ -123,6 +124,9 @@ return (
                     </ListItem>
                     </List>
                 </div>
+				<div className="flex-grow bg-slate-300">
+					<RequestsForTrainers />
+				</div>
             </div>
         </div>
         

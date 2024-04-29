@@ -9,7 +9,7 @@ import ProtectedRoute from "../components/protectedRoute";
 import BodyMeasurementsDisplay from "../components/profiles/BodyMeasurementsDisplay";
 import SearchBar from "../components/profiles/SearchBar";
 import SearchTrainers from "../components/profiles/SearchTrainers";
-import ShowRequests from "../components/profiles/ShowRequests";
+import RequestsForAthletes from "../components/profiles/RequestsForAthletes";
 import { logout } from "../utils/login.ts";
 
 function logOutAction() {
@@ -31,7 +31,7 @@ return (
 		</Sidebar>
 		<div className="flex flex-row w-full">
 			<div className="w-1/2 h-screen">
-				<ShowRequests />
+				<RequestsForAthletes />
 			</div>
 			<div className="w-1/2 p-7 text-2xl font-semibold h-screen">
 					<div className="flex flex-col flex-1 p-6 bg-cyan-700"> 
