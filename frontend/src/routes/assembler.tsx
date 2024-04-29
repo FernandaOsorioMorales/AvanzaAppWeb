@@ -7,6 +7,7 @@ import Modal from "../components/routineAssembler/Modal";
 import { CDRoutine } from "../components/routineAssembler/CDRoutine";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { SidebarTrainer } from "../components/SideBar/SidebarTrainer.tsx";
 
 export function Assembler(){
     const [isOpen, setIsOpen] = useState(false);
@@ -38,15 +39,7 @@ export function Assembler(){
     <>
         <div className="flex bg-blue-50">
             <div>
-                <Sidebar >
-                    <SidebarItem icon={<Home size={20} />} text="Inicio" link="/trainerProfile" />
-                    <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" />
-                    <SidebarItem icon={<Layers size={20} />} text="Ensamblador de rutinas" />
-                    <SidebarItem icon={<MessagesSquare size={20} />} text="Mis Foros" />
-                    <hr className="my-20" />
-                    <SidebarItem icon={<Dumbbell size={20} />} text="Mi especialización" />
-                    <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="editTrainerProfile"/>
-                </Sidebar>
+                <SidebarTrainer/>
             </div>
             <div className="w-full flex flex-col">
                 <div className="h-1/16 flex flex-row align-middle justify-between">
