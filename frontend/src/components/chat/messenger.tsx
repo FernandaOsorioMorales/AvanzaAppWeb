@@ -23,8 +23,11 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         if (idParam === null)
             return ;
 
+        // VILE
+        const loc = window.location;
+        const ws = `ws://${loc.host}/ws/chat?id=${idParam}`;
         //var ws = '/ws/chat?id=' + idParam;
-        var ws = `ws://localhost:9090/chat?id=${idParam}`;
+        //var ws = `ws://localhost:9090/chat?id=${idParam}`;
         console.log(ws);
 
         const newSocket = new WebSocket(ws);
