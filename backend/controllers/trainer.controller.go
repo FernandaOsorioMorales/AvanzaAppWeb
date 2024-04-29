@@ -45,7 +45,7 @@ func GetAvailableTrainers(c *fiber.Ctx) error {
 		data = append(data, map[string]interface{} {
 			"alias": t.BaseUser.Alias,
 			"description": t.BaseUser.Description,
-			"id": t.BaseUserId,
+			"id": t.ID,
 			"photo": t.BaseUser.Photo,
 			"specialties": tags,
 		})
