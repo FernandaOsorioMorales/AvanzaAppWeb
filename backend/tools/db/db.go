@@ -38,6 +38,8 @@ func connect() {
 
 // Creates tags and exercises.
 func populate() {
+	orm.Exec("truncate exercises")
+	orm.Exec("truncate tags")
 	exercises := []string{
 		"Press militar", "Push press", "HSPU aistida", "HSPU",
 		"HS", "Elevaciones frontales", "Elevaciones laterales",
@@ -94,6 +96,7 @@ func migrate() {
 	orm.AutoMigrate(&models.Request{})
 	orm.AutoMigrate(&models.TrainingPlanWk{})
 	orm.AutoMigrate(&models.TrainingPlan{})
+	orm.AutoMigrate(&models.UserTrainingPlan{})
 	orm.AutoMigrate(&models.WorkoutExercise{})
 	orm.AutoMigrate(&models.Workout{})
 	orm.AutoMigrate(&models.WorkoutTag{})
