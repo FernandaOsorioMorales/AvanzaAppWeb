@@ -134,3 +134,7 @@ func ChatHandler(c *websocket.Conn) {
 
 	socket.RemoveConnection(userId)
 }
+
+// Shares a workout to a user: Creates a new training plan
+// if there isn´t any between the trainer and the user and 
+// adds the workou to the training plan.
