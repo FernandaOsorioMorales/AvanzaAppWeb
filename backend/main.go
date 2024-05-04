@@ -41,6 +41,7 @@ func main() {
 	//BaseUser
 	app.Get("/user", controllers.GetBaseUser)
 	app.Patch("/user", controllers.UpdateBaseUser)
+	app.Patch("/user/photo", controllers.UpdateBaseUserPhoto)
 	app.Delete("/user", controllers.DeleteBaseUser)
 
 	//Trainers

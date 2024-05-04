@@ -69,6 +69,34 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 	return ApiSuccess(c, nil)
 }
 
+func UpdateBaseUserPhoto(c *fiber.Ctx) error {
+	isLogged, id := tools.GetCurrentUserId(c)
+	if !isLogged {
+		return ApiError(c, "Not logged in", 400)
+	}
+
+	vaErr := va.Check(c, va.Rmap {
+		"photo": "required",
+	})
+	if vaErr != nil {
+		return ApiError(c, "Wrong data", 400)
+	}
+
+	var user models.BaseUser
+	getUserErr := db.Orm().First(&user, id).Error
+	if getUserErr != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	user.Photo = c.FormValue("photo")
+
+	if db.Orm().Save(&user).Error != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	return ApiSuccess(c, nil)
+}
+
 func DeleteBaseUser(c *fiber.Ctx) error {
 	isLogged, id := tools.GetCurrentUserId(c)
 	if !isLogged {
