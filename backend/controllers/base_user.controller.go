@@ -7,8 +7,6 @@ import (
 	va "backend/tools/validation"
 
 	"github.com/gofiber/fiber/v2"
-
-	"time"
 )
 
 
@@ -27,6 +25,7 @@ func GetBaseUser(c *fiber.Ctx) error {
 	return ApiSuccess(c, fiber.Map{
 		"alias":       user.Alias,
 		"birthDate":    user.BirthDate,
+		"phone":       user.PhoneNumber,
 		"photo":       user.Photo,
 		"description": user.Description,
 	})
@@ -40,9 +39,7 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 
 	vaErr := va.Check(c, va.Rmap {
 		"alias":     "required",
-		//"email":     "required,email",
-		//"phone":     "required", //add more ?
-		"birthDate": "required,datetime=2006-01-02",
+		"phone":     "required",
 	})
 	if vaErr != nil {
 		return ApiError(c, "Wrong data", 400)
@@ -54,12 +51,8 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 		return ApiError(c, "DB error", 500)
 	}
 
-	birthDate, pErr := time.Parse(time.DateOnly, c.FormValue("birthDate"))
-	if pErr != nil {
-		return ApiError(c, "Wrong data", 400)
-	}
 	user.Alias = c.FormValue("alias")
-	user.BirthDate = birthDate
+	user.PhoneNumber = c.FormValue("phone")
 	user.Description = c.FormValue("description")
 
 	if db.Orm().Save(&user).Error != nil {

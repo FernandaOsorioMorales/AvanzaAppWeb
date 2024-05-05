@@ -18,7 +18,7 @@ export default function EditTrainerProfile() {
 
 	const [udata, setUdata] = useState({
 		alias: "",
-		birthDate: "",
+		phone: "",
 		description: "",
 		photo: "",
 	});
@@ -38,7 +38,7 @@ export default function EditTrainerProfile() {
 
 			setUdata({
 				alias: ans.alias,
-				birthDate: ans.birthDate.split('T')[0],
+				phone: ans.phone,
 				description: ans.description,
 				photo: ans.photo
 			});
@@ -121,9 +121,8 @@ export default function EditTrainerProfile() {
 					</div>
 
 					<div className="mb-4">
-						<label className="block text-xl text-gray-600 mb-2">Fecha de nacimiento: </label>
-						<Field name="birthDate" type="date" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500"/>
-
+						<label className="block text-xl text-gray-600 mb-2">Número: </label>
+						<Field name="phone" type="text" className="w-full py-2 px-4 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500" />
 					</div>
 
                 	<div className="mb-4">
