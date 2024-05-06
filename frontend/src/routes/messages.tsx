@@ -3,7 +3,6 @@ import '../styles/messages.css'
 import { ChatWindow } from '../components/chat/chatWindow';
 import ProtectedRoute from '../components/protectedRoute';
 import React from "react";
-import { Navigation } from '../components/chat/navigation';
 
 export function Messages() {
     
@@ -14,7 +13,6 @@ export function Messages() {
     return (
         <div className='Container'>
 			<ProtectedRoute />
-            <Navigation />
             <ChatWindow />
         </div>
     );

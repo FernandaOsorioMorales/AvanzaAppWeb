@@ -1,4 +1,5 @@
 import '../../styles/chat.css';
+import { SidebarTrainer } from '../SideBar/SidebarTrainer';
 import { Contacts } from './contacts';
 import { Messenger } from './messenger';
 import React, { useEffect } from "react";
@@ -9,9 +10,14 @@ export function ChatWindow() {
     const [contactID, setContactID] = React.useState(-1);
 
     return (
-        <div className='ChatContainer'>
-            <Contacts setSelectedContact={setSelectedContact} setContactID={setContactID}/>
-            <Messenger selectedContact={selectedContact} contactID={contactID}/>
-        </div>
+        <>
+            <div>
+                <SidebarTrainer/>
+            </div>
+            <div className='ChatContainer'>
+                <Contacts setSelectedContact={setSelectedContact} setContactID={setContactID}/>
+                <Messenger selectedContact={selectedContact} contactID={contactID}/>
+            </div>
+        </>
     )
 }
