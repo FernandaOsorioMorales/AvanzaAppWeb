@@ -103,8 +103,8 @@ func DeleteBaseUser(c *fiber.Ctx) error {
 }
 
 
-// For a given base user returns "Trainer" if this base
-// user belongs to a trainer, returns "Athlete" otherwise.
+// For a given base user returns "trainer" if this base
+// user belongs to a trainer, returns "athlete" otherwise.
 func UserKind(u models.BaseUser) string {
 	var trainer models.Trainer
 	trainerErr := db.Orm().Where("base_user_id = ?", u.ID).First(&trainer).Error

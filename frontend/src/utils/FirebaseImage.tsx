@@ -17,7 +17,6 @@ const FirebaseImage = ({image_name, className}) => {
 	}
 
 	if (source != "") {
-		console.log(`src: ${source}`);
 		return (<img src={source} alt={alt} className={className}/>);
 	} else {
 		return (<img src={defaultImage} alt={alt} className={className}/>);

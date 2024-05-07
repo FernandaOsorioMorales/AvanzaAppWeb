@@ -29,7 +29,6 @@ import RegisterClasification from "./routes/registerClasification";
 import RegisterTrainer from "./routes/registerTrainer";
 import CalendarTrainer from "./routes/calendarTrainer";
 import CalendarUser from "./routes/calendarUser";
-import Specialty from "./routes/specialty";
 
 
 const router = createBrowserRouter([
@@ -92,10 +91,6 @@ const router = createBrowserRouter([
     path: "/calendarUser",
     element: <CalendarUser />,
   },
-  {
-    path:"/specialty",
-    element:<Specialty />,
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

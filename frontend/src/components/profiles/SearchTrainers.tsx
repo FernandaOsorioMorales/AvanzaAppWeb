@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import qs from "qs";
 
+import FirebaseImage from "../../utils/FirebaseImage.tsx";
+
 function requestTraining(trainer_id: number) {
 	const data = {
 		trainer_id: trainer_id,
@@ -32,10 +34,13 @@ function TrainerCard(trainer: {alias: string, description: string, id: number, p
 
 	return (
 	<div key={trainer.id} className="card bg-[#DC5663] my-2">
-		<div className="card-body">
-			<h4 className="card-title text-blue-50">{trainer.alias}</h4>
-			<p className="text-base">{trainer.description}</p>
-			<div className="flex flex-row">{ tags }</div>
+		<div className="card-body flex flex-row justify-between items-center p-3">
+			<FirebaseImage className="rounded-full h-[10vh] w-[10vh]" image_name={trainer.photo} />
+			<div>
+				<h4 className="card-title text-blue-50">{trainer.alias}</h4>
+				<p className="text-base">{trainer.description}</p>
+				<div className="flex flex-row flex-wrap">{ tags }</div>
+			</div>
 			<div className="card-actions justify-end">
 				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(trainer.id)}>Solicitar</button>
 			</div>
