@@ -23,6 +23,7 @@ import { FollowAlong } from "./routes/followAlong";
 import RegisterUser from "./routes/registerUser";
 import RequestTrainer from "./routes/requestTrainer";
 import UserProfile from "./routes/userProfile";
+import EditAthleteProfile from "./routes/editAthleteProfile";
 
 import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
@@ -79,6 +80,9 @@ const router = createBrowserRouter([
       path:"/requestTrainer",
       element: <RequestTrainer />,
     },
+  { 
+    path: "/EditAthleteProfile", 
+    element: <EditAthleteProfile /> },
   {
     path: "/followAlong",
     element: <FollowAlong/>,
