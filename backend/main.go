@@ -53,6 +53,8 @@ func main() {
 	app.Post("/specialties", controllers.SetSpecialties)
 
 	//Athletes
+	app.Get("/measurements", controllers.GetMeasurements)
+	app.Patch("/measurements", controllers.SetMeasurements)
 
 	//Requests
 	app.Get("/athleteRequests", controllers.GetAthleteRequests)

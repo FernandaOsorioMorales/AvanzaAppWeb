@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import { SidebarAthlete } from "../components/SideBar/SidebarAthlete.tsx";
 import ProtectedRoute from "../components/protectedRoute";
-import BodyMeasurementsDisplay from "../components/profiles/BodyMeasurementsDisplay";
 import SearchBar from "../components/profiles/SearchBar";
 import SearchTrainers from "../components/profiles/SearchTrainers";
 import { logout } from "../utils/login.ts";
@@ -26,9 +25,6 @@ return (
         </div>
         <div className="p-7 text-2xl font-semibold flex-1 h-screen">
             <h1>¡Hola! Mira cómo luce tu semana</h1>
-                <div className=" float-left w-1/2">
-                <BodyMeasurementsDisplay />
-                </div>
                 <div>
                     <RequestTrainer/>
                 </div>
