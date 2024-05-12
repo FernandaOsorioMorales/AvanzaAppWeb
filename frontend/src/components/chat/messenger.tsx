@@ -3,6 +3,7 @@ import { SendHorizontal } from 'lucide-react';
 import { Message } from './message';
 import { useSelector } from "react-redux";
 import React from "react";
+import Modal from '../Modal';
 
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
@@ -12,6 +13,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
     const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         console.log(msgArray)
@@ -24,7 +26,6 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         if (idParam === null)
             return ;
 
-        // VILE
         const loc = window.location;
         const ws = `ws://${loc.host}/ws/chat?id=${idParam}`;
         console.log(ws);
@@ -68,7 +69,13 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         )
     }else{
         return (
+        <>
             <div className="flex-col w-full ml-4 bg-blue-50 text-cyan-900 rounded-sm flex-nowrap">
+                <Modal open={open} width="w-6/12" height="h-5/6" idElement="popups" z="10">
+                    <p>holi</p>
+                    <button onClick={() => setOpen(false)}> Close </button>
+                </Modal>
+
                 <div className="flex h-16 mx-3 mt-2 rounded-md justify-center items-center text-4xl font-bold text-blue-50 bg-cyan-800">
                     <h1>
                         {params.selectedContact}
@@ -80,7 +87,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
                     })}
                 </div>
                 <form onSubmit={sendMessage} className="flex items-center h-14 bg-gray-600 mx-3 rounded-md">
-                    <button className='flex justify-center items-center bg-cyan-800 p-3 w-fit h-3/4 rounded-lg text-blue-50 mx-2 hover:bg-teal-600'>
+                    <button onClick={() => setOpen(true)} className='flex justify-center items-center bg-cyan-800 p-3 w-fit h-3/4 rounded-lg text-blue-50 mx-2 hover:bg-teal-600'>
                         Asignar Rutina
                     </button>
                     <input className='flex-grow bg-gray-600 text-blue-50 p-2 rounded-md focus:outline-none'
@@ -95,6 +102,8 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
                     </button>
                 </form>
             </div>
+            <div id="popups"></div>
+        </>
         );
     }
 }

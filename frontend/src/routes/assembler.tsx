@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ListRoutines, Routine } from "../components/routineAssembler/ListRoutines";
-import Modal from "../components/routineAssembler/Modal";
+import Modal from "../components/Modal.tsx";
 import { CDRoutine } from "../components/routineAssembler/CDRoutine";
 import axios from "axios";
 import { toast } from "react-toastify";
