@@ -4,6 +4,8 @@ import { Message } from './message';
 import { useSelector } from "react-redux";
 import React from "react";
 import Modal from '../Modal';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
@@ -14,6 +16,27 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
+
+    async function fetchWorkouts() {
+        let response = await axios({
+            method: "get",
+            url: "/api/workouts",
+            withCredentials: true,
+        }).then(res => {
+            if ("data" in res === false)
+                throw "unexpected response"
+            const ans = res.data;
+            console.log(JSON.stringify(ans))
+        }).catch(_ => {
+			toast("Hubo un problema al recuperar tus datos");
+        })
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetchWorkouts();
+        }, 200);
+    }, [open])
 
     useEffect(() => {
         console.log(msgArray)
@@ -71,7 +94,8 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         return (
         <>
             <div className="flex-col w-full ml-4 bg-blue-50 text-cyan-900 rounded-sm flex-nowrap">
-                <Modal open={open} width="w-6/12" height="h-5/6" idElement="popups" z="10">
+
+                <Modal open={open} width="w-9/12" height="h-5/6" idElement="popups" z="10">
                     <p>holi</p>
                     <button onClick={() => setOpen(false)}> Close </button>
                 </Modal>
