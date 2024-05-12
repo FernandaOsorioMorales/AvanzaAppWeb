@@ -31,6 +31,10 @@ import RegisterTrainer from "./routes/registerTrainer";
 import CalendarTrainer from "./routes/calendarTrainer";
 import CalendarUser from "./routes/calendarUser";
 
+import Forums from "./routes/Forums.tsx";
+import ForumPosts from "./routes/ForumPosts.tsx";
+import Post from "./routes/Post.tsx";
+
 
 const router = createBrowserRouter([
   {
@@ -94,6 +98,18 @@ const router = createBrowserRouter([
   {
     path: "/calendarUser",
     element: <CalendarUser />,
+  },
+  {
+    path: "/forum",
+	element: <Forums />,
+  },
+  {
+    path: "/forum/:forumId",
+	element: <ForumPosts />,
+  },
+  {
+    path: "/post/:postId",
+	element: <Post />,
   },
 ]);
 

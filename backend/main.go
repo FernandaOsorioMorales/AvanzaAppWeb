@@ -62,6 +62,16 @@ func main() {
 	app.Post("/requestTraining", controllers.RequestTraining)
 	app.Patch("/resolveRequest", controllers.ResolveRequest)
 
+	//Forum
+	app.Get("/forum", controllers.ListForums)
+	app.Post("/forum", controllers.CreateForum)
+	app.Get("/forum/:id", controllers.GetForum)
+
+	app.Post("/post", controllers.CreatePost)
+	app.Get("/post/:id", controllers.GetPost)
+	app.Get("/post/:id/comments", controllers.GetComments)
+
+	app.Post("/comment", controllers.CreateComment)
 
 	db.Init()
 	validation.Init()
