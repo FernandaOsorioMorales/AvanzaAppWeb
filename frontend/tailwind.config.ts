@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxHeight: {
+        '90vh': '90vh',
+        '80vh' : '80vh',
+        '83vh' : '83vh',
+      },
+      height: {
+        '90vh': '90vh',
+        '80vh' : '80vh',
+        '83vh' : '83vh',
+      },
       colors: {
         'azulF':'#2F688A',
         'rojito':'#DC5663',

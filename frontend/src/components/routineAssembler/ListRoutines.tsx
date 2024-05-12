@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { EllipsisVertical } from 'lucide-react';
-import Modal from "./Modal";
+import Modal from "../Modal";
 import { CDRoutine } from "./CDRoutine";
 import { Tag } from "./Tags";
 

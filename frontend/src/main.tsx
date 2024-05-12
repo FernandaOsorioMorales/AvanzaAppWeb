@@ -101,7 +101,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
   	<ToastContainer />
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </ReduxProvider>
 );
 
