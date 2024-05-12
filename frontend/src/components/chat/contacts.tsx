@@ -29,28 +29,16 @@ export function Contacts(params: {setSelectedContact: (contact: string) => void,
             });
     }, []);
 
-    if (contacts !== null) {
-        return (
-            <div className="contactsContainer">
-                <div>
-                    <h1 style={{fontSize:'2em'}}>Contactos</h1>
-                </div>
-                <div className="scrollableContacts">
-                    {contacts.map(contact => (
-                        <Contact name={contact.Alias} id={contact.Id} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
-                    ))}                
-                </div>
+    return (
+        <div className="flex-row w-2/12 bg-blue-50 rounded-xl">
+            <div>
+                <h1 className="flex text-3xl justify-center h-10 text-cyan-900">Contactos</h1>
             </div>
-        );
-    } else {
-        return (
-            <div className="contactsContainer">
-                <div>
-                    <h1 style={{fontSize:'2em'}}>Contacts</h1>
-                </div>
-                <div className="scrollableContacts">
-                </div>
+            <div className="scrollableContacts">
+                {contacts != null ? contacts.map(contact => (
+                    <Contact name={contact.Alias} id={contact.Id} setSelectedContact={params.setSelectedContact} setContactID={params.setContactID}/>
+                )): <div className="scrollableContacts"></div>}                
             </div>
-        );
-    }
+        </div>
+    );
 }

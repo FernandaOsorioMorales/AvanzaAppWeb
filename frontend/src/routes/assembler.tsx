@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
-import { LayoutDashboard, Home, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell } from "lucide-react";
-import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import { ListRoutines, Routine } from "../components/routineAssembler/ListRoutines";
 import Modal from "../components/routineAssembler/Modal";
 import { CDRoutine } from "../components/routineAssembler/CDRoutine";
