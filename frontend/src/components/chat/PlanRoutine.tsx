@@ -1,37 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import AsyncSelect from 'react-select/async';
+import { WorkoutOption, fetchWorkouts } from './fetchRoutinesService';
 
 interface trainingPlanWorkout {
     IdWorkout: number;
     WeekDay: number;
 }
 
-function buildJSON(days: boolean[]){
-    // { for reference
-    //     "IdUser" : "number",
-    //     "trainingPlanWorkout" : [
-    //         {
-    //             "IdWorkout" : "number", // el de GetWorkouts 
-    //             "WeekDay" : "number" // del 1 al 7
-    //         }
-    //     ]
-    // }
+function buildJSON(contactID : number, daysBool: boolean[], workoutsIDs: number[]){
 
-    // Get the days selected
-    const thePlan = days.map((selected, index) => {
+    // Get the days selected with its respective workout
+    const thePlan = daysBool.map((selected, index) => {
         if(selected){
             return {
-                IdWorkout: 0,
-                WeekDay: index
+                IdWorkout: workoutsIDs[index],
+                WeekDay: index + 1
             }
         }else return
     }).filter((day) => day != null) as trainingPlanWorkout[]
 
 
+    // building the JSON 
     const RoutinePlan ={
-        IdUser: 0, //?? Where do we get this from
+        IdUser: contactID, 
         trainingPlanWorkout: thePlan
     }
 
+    // Send the JSON to the backend
     console.log(JSON.stringify(RoutinePlan))
 
 }
@@ -39,11 +34,24 @@ function buildJSON(days: boolean[]){
 export function PlanRoutine(params: {contactID: number, toClose: () => void}) {
     const weekdays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const [checked, setChecked] = useState<boolean[]>(new Array(7).fill(false));
+    const [workoutsID, setWorkoutsID] = useState<number[]>(new Array(7));
+    const [workouts, setWorkouts] = useState<string[]>(new Array(7).fill(""));
 
-    const handleCheck = (index: number) => {
+    // handle the selection of the workout
+    const handleCheck = (index: number, e : WorkoutOption | null) => {
+        if (e == null) return;
         const newChecked = checked.slice();
-        newChecked[index] = !newChecked[index];
+        const newWorkoutsID = workoutsID.slice();
+        const newWorkouts = workouts.slice();
+        if(e?.label === 'Ninguna') newChecked[index] = false;
+        else {
+            newChecked[index] = true;
+            newWorkoutsID[index] = e.ID;
+            newWorkouts[index] = e.name;
+        }
         setChecked(newChecked);
+        setWorkoutsID(newWorkoutsID);
+        setWorkouts(newWorkouts);
     }
 
 return (
@@ -51,11 +59,23 @@ return (
         <div className='flex flex-row gap-2 grow-0 h-19/20'>
             {checked.map((selected, index) => {
                 return (
-                    <div key={index} className={`${selected ? 'bg-teal-800  border-solid transition-all duration-500' : 'bg-transparent border-dashed transition-all duration-500'} flex justify-center w-1/7 border-gray-800 border-2 text-blue-50 text-lg font-bold rounded-md pt-2`}>
+                    <div key={index} className={`relative ${selected ? 'bg-teal-800  border-solid transition-all duration-500' : 'bg-transparent border-dashed transition-all duration-500'} 
+                                                flex flex-col justify-start items-center w-1/7 border-gray-800 border-2 text-blue-50 text-lg font-bold rounded-md pt-2`}>
                         <p className='w-fit bg-teal-800 h-fit rounded-full px-5 py-1 text-blue-50'>     
                             {weekdays[index]}
                         </p>
-                        <input type="checkbox" checked={checked[index]} onChange={() => handleCheck(index)}/>
+                        <AsyncSelect id='tags' className='mt-4 w-full'
+                            closeMenuOnSelect={true}
+                            defaultValue={{ID: -1, name: 'Ninguna', label: 'Ninguna'}}
+                            cacheOptions
+                            onChange={(e : WorkoutOption | null) => handleCheck(index, e)}
+                            defaultOptions
+                            loadOptions={fetchWorkouts}
+                            maxMenuHeight={600}
+                        />
+                        <p className={`absolute text-center bottom-3 ${selected ? "text-white" : "text-gray-800"}`}>
+                            {selected ? workouts[index] : 'Sin Rutina'}
+                        </p>
                     </div>
                 );
             })}
@@ -64,7 +84,7 @@ return (
             <button onClick={params.toClose} className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-orange-600 hover:text-blue-50 hover:border-orange-600'>
                 Cancelar
             </button>
-            <button onClick={() => buildJSON(checked)}className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-teal-600 hover:text-blue-50 hover:border-teal-600'>
+            <button onClick={() => buildJSON(params.contactID, checked, workoutsID)}className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-teal-600 hover:text-blue-50 hover:border-teal-600'>
                 Asignar
             </button>
         </div>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import Modal from '../Modal';
 import { Message } from './message';
 import { PlanRoutine } from './PlanRoutine';
+import {fetchWorkouts} from './fetchRoutinesService';
 
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
@@ -18,20 +19,20 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
     const messageBodyRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
 
-    async function fetchWorkouts() {
-        let response = await axios({
-            method: "get",
-            url: "/api/workouts",
-            withCredentials: true,
-        }).then(res => {
-            if ("data" in res === false)
-                throw "unexpected response"
-            const ans = res.data;
-            console.log(JSON.stringify(ans))
-        }).catch(_ => {
-			toast("Hubo un problema al recuperar tus datos");
-        })
-    }
+    // async function fetchWorkouts() {
+    //     let response = await axios({
+    //         method: "get",
+    //         url: "/api/workouts",
+    //         withCredentials: true,
+    //     }).then(res => {
+    //         if ("data" in res === false)
+    //             throw "unexpected response"
+    //         const ans = res.data;
+    //         console.log(JSON.stringify(ans))
+    //     }).catch(_ => {
+	// 		toast("Hubo un problema al recuperar tus datos");
+    //     })
+    // }
 
     useEffect(() => {
         setTimeout(() => {
