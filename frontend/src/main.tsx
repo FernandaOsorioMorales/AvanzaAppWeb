@@ -30,6 +30,7 @@ import RegisterTrainer from "./routes/registerTrainer";
 import CalendarTrainer from "./routes/calendarTrainer";
 import CalendarUser from "./routes/calendarUser";
 import Specialty from "./routes/specialty";
+import CalendarAthlete from "./routes/calendarAthlete";
 
 
 const router = createBrowserRouter([
@@ -89,9 +90,10 @@ const router = createBrowserRouter([
     element: <CalendarTrainer />,
   },
   {
-    path: "/calendarUser",
-    element: <CalendarUser />,
+    path: "/calendarAthlete",
+    element: <CalendarAthlete />,
   },
+
   {
     path:"/specialty",
     element:<Specialty />,
