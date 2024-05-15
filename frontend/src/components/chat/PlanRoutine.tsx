@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AsyncSelect from 'react-select/async';
 import { WorkoutOption, fetchWorkouts } from './fetchRoutinesService';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Message } from './messenger';
 
 interface trainingPlanWorkout {
     IdWorkout: number;
@@ -27,11 +30,23 @@ function buildJSON(contactID : number, daysBool: boolean[], workoutsIDs: number[
     }
 
     // Send the JSON to the backend
+
+    axios({
+        method: 'put',
+        url: "/api/shareWorkout",
+        withCredentials: true,
+        headers: {"content-type": "application/json"},
+        data: JSON.stringify(RoutinePlan),
+    }).then(res => console.log(JSON.stringify(res.data)))
+    .catch(_ => {
+        toast("Hubo un problema al actualizar tus datos");
+    });
+
     console.log(JSON.stringify(RoutinePlan))
 
 }
 
-export function PlanRoutine(params: {contactID: number, toClose: () => void}) {
+export function PlanRoutine(params: {contactID: number, toClose: () => void, setPresence: (Message) => void}) {
     const weekdays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const [checked, setChecked] = useState<boolean[]>(new Array(7).fill(false));
     const [workoutsID, setWorkoutsID] = useState<number[]>(new Array(7));
@@ -84,7 +99,7 @@ return (
             <button onClick={params.toClose} className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-orange-600 hover:text-blue-50 hover:border-orange-600'>
                 Cancelar
             </button>
-            <button onClick={() => buildJSON(params.contactID, checked, workoutsID)}className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-teal-600 hover:text-blue-50 hover:border-teal-600'>
+            <button onClick={() => {buildJSON(params.contactID, checked, workoutsID); params.setPresence({isTag: true, sent: false, content: '' }); params.toClose()}}className='transition ease-in-out w-fit px-3 py-2 rounded-md bg-white border-solid border-2 border-gray-800 hover:bg-teal-600 hover:text-blue-50 hover:border-teal-600'>
                 Asignar
             </button>
         </div>
