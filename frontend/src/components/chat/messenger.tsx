@@ -9,30 +9,21 @@ import { Message } from './message';
 import { PlanRoutine } from './PlanRoutine';
 import {fetchWorkouts} from './fetchRoutinesService';
 
+export interface Message {
+    isTag: boolean;
+    sent: boolean;
+    content: string;
+}
+
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
     const idParam = useSelector(state => state.user.id);
     console.log(idParam)
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
+    const [msgArray, setmsgArray] = useState<Array<Message>>([]);
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
-
-    // async function fetchWorkouts() {
-    //     let response = await axios({
-    //         method: "get",
-    //         url: "/api/workouts",
-    //         withCredentials: true,
-    //     }).then(res => {
-    //         if ("data" in res === false)
-    //             throw "unexpected response"
-    //         const ans = res.data;
-    //         console.log(JSON.stringify(ans))
-    //     }).catch(_ => {
-	// 		toast("Hubo un problema al recuperar tus datos");
-    //     })
-    // }
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,7 +53,10 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         }
 
         newSocket.onmessage = (event) => {
-            setmsgArray(prevMsgArray => [...prevMsgArray, { sent: false, content: JSON.parse(event.data).content }])
+            if(JSON.parse(event.data).content == "<MSJ_ROUTINE>"){
+                setmsgArray(prevMsgArray => [...prevMsgArray, {isTag: true, sent: false, content: '' }])
+            }else
+            setmsgArray(prevMsgArray => [...prevMsgArray, {isTag: false, sent: false, content: JSON.parse(event.data).content }])
         }
         
         newSocket.onclose = () => {
@@ -76,7 +70,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         event.preventDefault();
         if (message === '')
             return ;
-        setmsgArray([...msgArray, { sent: true, content: message }]);
+        setmsgArray([...msgArray, {isTag: false, sent: true, content: message }]);
         setMessage('');
         socket?.send(JSON.stringify({ 
             "IdAddressee": Number(params.contactID),
@@ -85,6 +79,16 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
             "content": message 
         }));
     };
+
+    const SetPresence = (msg : Message) => {
+        setmsgArray([...msgArray, msg]);
+        socket?.send(JSON.stringify({ 
+            "IdAddressee": Number(params.contactID),
+            "IdTransmitter": Number(idParam),
+            "SentTime": new Date(),
+            "content": "<MSJ_ROUTINE>" 
+        }));
+    }
 
     if(params.contactID === -1){
         return (
@@ -98,7 +102,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
             <div className="flex-col w-full ml-4 bg-blue-50 text-cyan-900 rounded-sm flex-nowrap">
 
                 <Modal open={open} width="w-9/12" height="h-5/6" idElement="popups" z="10">
-                    <PlanRoutine contactID={params.contactID} toClose={() => setOpen(false)}></PlanRoutine>
+                    <PlanRoutine contactID={params.contactID} toClose={() => setOpen(false)} setPresence={SetPresence}></PlanRoutine>
                 </Modal>
 
                 <div className="flex h-16 mx-3 mt-2 rounded-md justify-center items-center text-4xl font-bold text-blue-50 bg-cyan-800">
@@ -108,7 +112,7 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
                 </div>
                 <div className="flex-row overflow-y-scroll h-83vh max-h-83vh bg-slate-200 mx-3 my-1 rounded-sm px-1 pt-2" ref={messageBodyRef}>
                     {msgArray.map((msg, index) => {
-                        return <Message key={index} msg_type={msg.sent == true ? 'RMessage' : 'LMessage'} content={msg.content} />
+                        return <Message key={index} isTag={msg.isTag} msg_type={msg.sent == true ? 'RMessage' : 'LMessage'} content={msg.content} />
                     })}
                 </div>
                 <form onSubmit={sendMessage} className="flex items-center h-14 bg-gray-600 mx-3 rounded-md">
