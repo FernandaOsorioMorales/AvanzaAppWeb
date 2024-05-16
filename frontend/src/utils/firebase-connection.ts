@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes, UploadResult} from "firebase/storage";
 
 const firebaseConfig = {
 
@@ -22,12 +22,16 @@ const fire = initializeApp(firebaseConfig);
 // Storage bucket for our files
 const storage = getStorage();
 
-function saveImage(image: File, name: string) {
+function saveImage(image: File, name: string): Promise<UploadResult> {
 	// TODO: setup name of image
-	const imageRef = ref(storage, `profile-pics/${name}`)
-	uploadBytes(imageRef, image)
-		.then(snap => {console.log("success")})
-		.catch(e => {console.log("failure")})
+	const imageRef = ref(storage, `profile-pics/${name}`);
+	return uploadBytes(imageRef, image);
 }
 
-export {saveImage}
+async function getImageUrl(image_name: string): Promise<string> {
+	const imgRef = ref(storage, `profile-pics/${image_name}`);
+	//const imgRef = ref(storage, `profile-pics/test.png`);
+	return await getDownloadURL(imgRef);
+}
+
+export {getImageUrl, saveImage}

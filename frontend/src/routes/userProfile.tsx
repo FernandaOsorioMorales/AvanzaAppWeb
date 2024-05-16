@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import Sidebar, { SidebarItem } from "../components/SideBar/Sidebar";
 import { SidebarAthlete } from "../components/SideBar/SidebarAthlete.tsx";
 import ProtectedRoute from "../components/protectedRoute";
-import BodyMeasurementsDisplay from "../components/profiles/BodyMeasurementsDisplay";
 import SearchBar from "../components/profiles/SearchBar";
 import SearchTrainers from "../components/profiles/SearchTrainers";
 import { logout } from "../utils/login.ts";
@@ -29,6 +28,7 @@ return (
         Todo comienza encontrando a tu entrenador
       </h1>
       <RequestTrainer />
+
     </div>
   </div>
 </div>

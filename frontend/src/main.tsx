@@ -23,6 +23,7 @@ import { FollowAlong } from "./routes/followAlong";
 import RegisterUser from "./routes/registerUser";
 import RequestTrainer from "./routes/requestTrainer";
 import UserProfile from "./routes/userProfile";
+import EditAthleteProfile from "./routes/editAthleteProfile";
 
 import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
@@ -31,6 +32,7 @@ import CalendarTrainer from "./routes/calendarTrainer";
 import CalendarUser from "./routes/calendarUser";
 import Specialty from "./routes/specialty";
 import CalendarAthlete from "./routes/calendarAthlete";
+
 
 
 const router = createBrowserRouter([
@@ -81,6 +83,9 @@ const router = createBrowserRouter([
       path:"/requestTrainer",
       element: <RequestTrainer />,
     },
+  { 
+    path: "/EditAthleteProfile", 
+    element: <EditAthleteProfile /> },
   {
     path: "/followAlong",
     element: <FollowAlong/>,
@@ -93,7 +98,6 @@ const router = createBrowserRouter([
     path: "/calendarAthlete",
     element: <CalendarAthlete />,
   },
-
   {
     path:"/specialty",
     element:<Specialty />,

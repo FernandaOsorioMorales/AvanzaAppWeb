@@ -33,7 +33,6 @@ export const SidebarTrainer = () => {
                         <SidebarItem icon={<MessagesSquare size={20} />} text="Mis Foros" />
                         <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="/messages" />
                         <hr className="my-20" />
-                        <SidebarItem icon={<Dumbbell size={20} />} text="Mi especialización"link="/specialty"/>
                         <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="/editTrainerProfile"/>
                         <SidebarItem icon={<LogOut size={20} />} text="Salir" onClick={logOutAction} />
                     </Sidebar>

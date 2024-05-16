@@ -3,6 +3,8 @@ import qs from "qs";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import FirebaseImage from "../../utils/FirebaseImage.tsx";
+
 function resolveRequest(athlete_id: number, request_status: string) {
 	if (request_status != "accepted" && request_status != "denied")
 		throw "Invalid status";
@@ -50,7 +52,8 @@ function RequestCard(request: {
 
 	return (
 	<li key={request.athlete_id} className={"card card-compact shadow-md my-4 py-4 w-3/4 " + status_color}>
-		<div className="card-body flex flex-row ">
+		<div className="card-body flex flex-row items-center">
+			<FirebaseImage image_name={request.photo} className="rounded-full h-[10vh] w-[10vh]"/>
 			<div className="flex-grow">
 				<h4 className="card-title">{request.alias}</h4>
 				<p className="text-base">{request.description}</p>
