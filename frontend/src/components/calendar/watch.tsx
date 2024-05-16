@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useStopwatch } from 'react-timer-hook';
+import { useStopwatch } from 'react-timer-hook';
 import Button from '@mui/material/Button';
 
 function MyStopwatch(): JSX.Element {

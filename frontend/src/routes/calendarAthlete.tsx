@@ -8,8 +8,6 @@ import { SidebarAthlete } from "../components/SideBar/SidebarAthlete.tsx";
 import { logout } from "../utils/login.ts";
 import { toast } from "react-toastify";
 import BasicCard from '../components/calendar/card.tsx';
-import { LayoutDashboard, Home, StickyNote, MessageCircle,Layers, Flag, Calendar, LifeBuoy, Settings, MessagesSquare, Dumbbell, LogOut } from "lucide-react";
-import MyDrawer from '../components/calendar/drawer.tsx';
 
 function logOutAction() {
 	logout().catch(_ => toast("hubo un problema"));

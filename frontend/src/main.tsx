@@ -97,10 +97,6 @@ const router = createBrowserRouter([
   {
     path: "/calendarAthlete",
     element: <CalendarAthlete />,
-  },
-  {
-    path:"/specialty",
-    element:<Specialty />,
   }
 ]);
 
