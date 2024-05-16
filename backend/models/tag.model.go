@@ -6,14 +6,13 @@ import (
 
 // Structure to represent a Tag.
 // It will be the main structure to join workouts with tags.
-// their workouts.
 type Tag struct {
 	gorm.Model
-	Value      string // Workout name.
+	Value      string // Tag name.
 }
 
 // Build a new Value
-func NewValue(
+func NewTag(
 	Value string,
 ) Tag {
 	return Tag{
