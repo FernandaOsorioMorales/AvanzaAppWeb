@@ -28,9 +28,13 @@ func main() {
 	app.Get("/workouts", routes.GetWorkoutList)
 	app.Get("/workout/detail", routes.GetWorkoutDetail)
 
+	// FollowAlong
+	app.Get("/trainingPlans", routes.GetTrainingPlan)
+
 	// Chat
 	app.Get("/contacts", routes.GetContacts)
 	app.Get("/chat", websocket.New(routes.ChatHandler))
+	app.Put("/shareWorkout", routes.ShareWorkout)
 
 	//auth
 	app.Post("/login", controllers.AttemptLogin)

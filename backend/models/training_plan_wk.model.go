@@ -15,7 +15,7 @@ type TrainingPlanWk struct {
 }
 
 // Build a new Training Plan.
-func NewTrainigPlanWk(
+func NewTrainingPlanWk(
 	IdWorkout uint64,
 	IdTrainingPlan uint64,
 	DayOfWeek uint8,

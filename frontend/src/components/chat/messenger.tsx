@@ -1,16 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
-import { Message } from './message';
+import { SendHorizontal } from 'lucide-react';
 import { useSelector } from "react-redux";
 import React from "react";
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Modal from '../Modal';
+import { Message } from './message';
+import { PlanRoutine } from './PlanRoutine';
+import {fetchWorkouts} from './fetchRoutinesService';
+
+export interface Message {
+    isTag: boolean;
+    sent: boolean;
+    content: string;
+}
 
 export function Messenger(params: {selectedContact: string, contactID: number}) {
 
     const idParam = useSelector(state => state.user.id);
     console.log(idParam)
     const [message, setMessage] = useState('')
-    const [msgArray, setmsgArray] = useState<Array<{ sent: boolean, content: string }>>([]);
+    const [msgArray, setmsgArray] = useState<Array<Message>>([]);
     const [socket, setSocket] = useState<WebSocket>();
     const messageBodyRef = useRef<HTMLDivElement>(null);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetchWorkouts();
+        }, 200);
+    }, [])
 
     useEffect(() => {
         console.log(msgArray)
@@ -23,11 +42,8 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         if (idParam === null)
             return ;
 
-        // VILE
         const loc = window.location;
         const ws = `ws://${loc.host}/ws/chat?id=${idParam}`;
-        //var ws = '/ws/chat?id=' + idParam;
-        //var ws = `ws://localhost:9090/chat?id=${idParam}`;
         console.log(ws);
 
         const newSocket = new WebSocket(ws);
@@ -37,7 +53,10 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         }
 
         newSocket.onmessage = (event) => {
-            setmsgArray(prevMsgArray => [...prevMsgArray, { sent: false, content: JSON.parse(event.data).content }])
+            if(JSON.parse(event.data).content == "<MSJ_ROUTINE>"){
+                setmsgArray(prevMsgArray => [...prevMsgArray, {isTag: true, sent: false, content: '' }])
+            }else
+            setmsgArray(prevMsgArray => [...prevMsgArray, {isTag: false, sent: false, content: JSON.parse(event.data).content }])
         }
         
         newSocket.onclose = () => {
@@ -49,7 +68,9 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
 
     const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setmsgArray([...msgArray, { sent: true, content: message }]);
+        if (message === '')
+            return ;
+        setmsgArray([...msgArray, {isTag: false, sent: true, content: message }]);
         setMessage('');
         socket?.send(JSON.stringify({ 
             "IdAddressee": Number(params.contactID),
@@ -59,39 +80,59 @@ export function Messenger(params: {selectedContact: string, contactID: number}) 
         }));
     };
 
+    const SetPresence = (msg : Message) => {
+        setmsgArray([...msgArray, msg]);
+        socket?.send(JSON.stringify({ 
+            "IdAddressee": Number(params.contactID),
+            "IdTransmitter": Number(idParam),
+            "SentTime": new Date(),
+            "content": "<MSJ_ROUTINE>" 
+        }));
+    }
+
     if(params.contactID === -1){
         return (
-            <div className="messengerContainerEmpty">
-                <h1 style={{fontSize:'3em', color:'#b7d0d8'}} >Selecciona un chat para comenzar</h1>
+            <div className="flex w-full ml-4 items-center justify-center bg-blue-100 text-cyan-900 rounded-sm">
+                <h1 className=' text-3xl' >Selecciona un chat para comenzar</h1>
             </div>
         )
     }else{
         return (
-            <div className="messengerContainer">
-                <div className="UserName">
-                    <h1 style={{fontSize:'2em'}}>{params.selectedContact}</h1>
+        <>
+            <div className="flex-col w-full ml-4 bg-blue-50 text-cyan-900 rounded-sm flex-nowrap">
+
+                <Modal open={open} width="w-9/12" height="h-5/6" idElement="popups" z="10">
+                    <PlanRoutine contactID={params.contactID} toClose={() => setOpen(false)} setPresence={SetPresence}></PlanRoutine>
+                </Modal>
+
+                <div className="flex h-16 mx-3 mt-2 rounded-md justify-center items-center text-4xl font-bold text-blue-50 bg-cyan-800">
+                    <h1>
+                        {params.selectedContact}
+                    </h1>
                 </div>
-                <div className="ChatMessages" ref={messageBodyRef}>
+                <div className="flex-row overflow-y-scroll h-83vh max-h-83vh bg-slate-200 mx-3 my-1 rounded-sm px-1 pt-2" ref={messageBodyRef}>
                     {msgArray.map((msg, index) => {
-                        return <Message key={index} msg_type={msg.sent == true ? 'RMessage' : 'LMessage'} content={msg.content} />
+                        return <Message key={index} isTag={msg.isTag} msg_type={msg.sent == true ? 'RMessage' : 'LMessage'} content={msg.content} />
                     })}
                 </div>
-                <form onSubmit={sendMessage} className="SendMessage">
-                    <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                        
-                    </div>
-                    <input 
+                <form onSubmit={sendMessage} className="flex items-center h-14 bg-gray-600 mx-3 rounded-md">
+                    <button type='button' onClick={() => setOpen(true)} className='flex justify-center items-center bg-cyan-800 p-3 w-fit h-3/4 rounded-lg text-blue-50 mx-2 hover:bg-teal-600'>
+                        Asignar Rutina
+                    </button>
+                    <input className='flex-grow bg-gray-600 text-blue-50 p-2 rounded-md focus:outline-none'
                         placeholder="Type Something here"
                         value={message}
                         onChange={(event) => {
                             setMessage(event.target.value);
                         }}
-                        />
-                    <button className="SendButton">
-                        <img className='SendIcon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADAklEQVR4nO2ZOWgVURSGbzSS4BIR8tyChVEQREWwUbQRlWCnhSAIWqmISFoLQbEKEo2onWAhSEBBxK1UESxcGmOiIKiFO7hLNOLyySH/I9fJm/dm5i2Zkfc1ydw598z5OWfO3Hufc3Xq1PkvAFqATuAxcMNlDWABcBz4wgiPXBYAGoC1wFngF6PpdGkGmALsAAYIxzIz1aURYB7QBXzwAn4JnABeBIQccyksnw7gCvDbC/QasAGYCfRp7Ln+/rF3xqUBYLLKp98Lfgg4DSyRTc4T8RDo1v9Xxzp+C65d5fPeE/AKOAC0ena5gIg24Kmu14+lgFUFus89YCvQGLDNBURYeW3UtX0/xtU6+GYF+iBQPiZoecicUSI0fl1je8a6fF6rfHJF5oWJWKQX3FpuSy3L52eB8plQYm5BEQZwUuNHXQ3KJx+E8UOCVkT0UUzENGCwai0XmK1SeecJeKOSaovhJ1SEAezVvcuuRuVj34TmmL5KiRgPPNP9jkoE36TyuV+gfFYm9FlUhAFsqkjLDSmftyqfOWX4LSnCAG7KZrdLihZq/sfrrrLSlNjpaBF9Ye0YWCqbT7YaLueB+eUAKqmF5QiII8IATsmux5WDlgU9wDc5tJVpb1JBMUXkgO965vyyhAScdqmX5wVdstRX+p3w7PfJ9mJFRFRCUAIRjd6+Y13FhSQRFFeE5mz27BuqJiSqoCQiNO+W5uyquojAg2cAhwOCeqO+2AFfyzTno+0gqx994SBa9fH87LXtyJmQD9vmGt3VjTZaMNOBcwqoN2Zmh5TRdpcGlJ2vCmpxxDn7Jf6CSxPeiUfJrNimyzu3WuPShEplMEpWgC0SMVCTlhsXdbOSWQFuy26nSyNEyIqdpngtd5JLK5TICnBG9w+5NEORrACztNO0fc9cl3aAI4WyAhzU+HmXBRje2/yTFZ0D2KmLsdplBQJZAbbpuj+VLTdqVoA7ErLdZQ2Gt854x0p2NjzRZQ1GspKny2UVRrKSjZZbIitP7DfzUKM6deq4avEXfFisjrL4iOMAAAAASUVORK5CYII="/>
+                    />
+                    <button className="w-fit h-fit bg-cyan-800 hover:bg-teal-600 rounded-lg mr-2 p-2">
+                        <SendHorizontal size={24} color='#fff'/>
                     </button>
                 </form>
             </div>
+            <div id="popups"></div>
+        </>
         );
     }
 }

@@ -14,7 +14,7 @@ type UserTrainingPlan struct {
 }
 
 // Build a new User Training Plan.
-func NewUserTrainigPlan(
+func NewUserTrainingPlan(
 	IdTrainingPlan uint64,
 	IdUser uint64,
 ) UserTrainingPlan {

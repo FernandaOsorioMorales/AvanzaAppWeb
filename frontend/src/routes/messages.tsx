@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import '../styles/messages.css'
 import { ChatWindow } from '../components/chat/chatWindow';
 import ProtectedRoute from '../components/protectedRoute';
 import React from "react";
@@ -7,11 +6,11 @@ import React from "react";
 export function Messages() {
     
     useEffect(() => {
-        document.title = 'Avanza - Messages';
+        document.title = 'Mensajes';
       }, []);
 
     return (
-        <div className='Container'>
+        <div className='h-screen p-3 overflow-hidden'>
 			<ProtectedRoute />
             <ChatWindow />
         </div>
