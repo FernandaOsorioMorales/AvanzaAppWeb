@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+import { CustomProvider } from 'rsuite';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-
 // Redux state
 import { Provider as ReduxProvider } from "react-redux";
 import store from './state/store'
@@ -102,7 +102,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-  	<ToastContainer />
+
+    <ToastContainer />
+
     <RouterProvider router={router} />
   </ReduxProvider>
 );

@@ -39,6 +39,7 @@ function TrainerCard(trainer: {alias: string, description: string, id: number, p
 			<div className="card-actions justify-end">
 				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(trainer.id)}>Solicitar</button>
 			</div>
+			
 		</div>
 	</div>
 	);
@@ -75,16 +76,17 @@ function getAvailableTrainers() {
 	const selectTags = tags.map(t => (<option key={t}>{t}</option>));
 
 	return (
-	<>
-		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-[#E9F9FF] m-3" />
-
-		<select className="select select-bordered w-full max-w-xs bg-blue-50 m-3" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
-			<option value="*" >any</option>
-			{ selectTags }
-		</select>
-
+		<>
+		<input 
+		  type="text" 
+		  value={search} 
+		  onChange={e => setSearch(e.target.value)} 
+		  className="input input-bordered w-full max-w-md mx-auto my-3 p-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#E9F9FF] bg-blue-50 border-blue-300" 
+		  placeholder="Prueba con su nombre..." 
+		/>
+	  
 		<ul className="flex flex-col my-2">
-			{ cards }
+		  {cards}
 		</ul>
-	</>);
+	  </>);
 }

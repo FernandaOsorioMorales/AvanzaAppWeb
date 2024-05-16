@@ -23,14 +23,15 @@ return (
     <div >
 		<div >
 			<div >
-					<div className="flex flex-col flex-1 p-6 bg-cyan-700"> 
-						<h2 className="text-blue-50 text-2xl pb-4">Encuentra a tu entrenador:</h2> 
+					<div className="flex flex-col flex-1 p-6"> 
+						
 						<SearchTrainers /> 
 					</div>
 			</div>
 		</div>
         
     </div>
+
 </>
 );
 }
