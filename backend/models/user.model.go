@@ -12,4 +12,15 @@ type User struct {
 	BaseUserId uint
 	// base user linked to this athlete
 	BaseUser BaseUser
+
+	// Height of the user in cm
+	Height uint
+	// Weight of the user in kilograms
+	Weight float32
+	// Arm circumference in cm
+	Arms uint
+	// Waist circumference in cm
+	Waist uint
+	// Hip circumference in cm
+	Hips uint
 }

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import qs from "qs";
 
+import FirebaseImage from "../../utils/FirebaseImage.tsx";
+
 function requestTraining(trainer_id: number) {
 	const data = {
 		trainer_id: trainer_id,
@@ -32,13 +34,17 @@ function TrainerCard(trainer: {alias: string, description: string, id: number, p
 
 	return (
 	<div key={trainer.id} className="card bg-[#DC5663] my-2">
-		<div className="card-body">
-			<h4 className="card-title text-blue-50">{trainer.alias}</h4>
-			<p className="text-base">{trainer.description}</p>
-			<div className="flex flex-row">{ tags }</div>
+		<div className="card-body flex flex-row justify-between items-center p-3">
+			<FirebaseImage className="rounded-full h-[10vh] w-[10vh]" image_name={trainer.photo} />
+			<div>
+				<h4 className="card-title text-blue-50">{trainer.alias}</h4>
+				<p className="text-base">{trainer.description}</p>
+				<div className="flex flex-row flex-wrap">{ tags }</div>
+			</div>
 			<div className="card-actions justify-end">
 				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(trainer.id)}>Solicitar</button>
 			</div>
+			
 		</div>
 	</div>
 	);
@@ -75,16 +81,17 @@ function getAvailableTrainers() {
 	const selectTags = tags.map(t => (<option key={t}>{t}</option>));
 
 	return (
-	<>
-		<input type="text" value={search} onChange={e => setSearch(e.target.value)} className="input input-bordered w-full max-w-xs bg-[#E9F9FF] m-3" />
-
-		<select className="select select-bordered w-full max-w-xs bg-blue-50 m-3" defaultValue="*" onChange={e => setTagFilter(e.target.value)}>
-			<option value="*" >any</option>
-			{ selectTags }
-		</select>
-
+		<>
+		<input 
+		  type="text" 
+		  value={search} 
+		  onChange={e => setSearch(e.target.value)} 
+		  className="input input-bordered w-full max-w-md mx-auto my-3 p-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#E9F9FF] bg-blue-50 border-blue-300" 
+		  placeholder="Prueba con su nombre..." 
+		/>
+	  
 		<ul className="flex flex-col my-2">
-			{ cards }
+		  {cards}
 		</ul>
-	</>);
+	  </>);
 }

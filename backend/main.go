@@ -45,18 +45,27 @@ func main() {
 	//BaseUser
 	app.Get("/user", controllers.GetBaseUser)
 	app.Patch("/user", controllers.UpdateBaseUser)
+	app.Patch("/user/photo", controllers.UpdateBaseUserPhoto)
 	app.Delete("/user", controllers.DeleteBaseUser)
 
 	//Trainers
 	app.Get("/trainers", controllers.GetAvailableTrainers)
 
+	//Specialties
+	app.Get("/specialties", controllers.GetAvailableSpecialties)
+	app.Get("/specialties/selected", controllers.GetSelectedSpecialties)
+	app.Post("/specialties", controllers.SetSpecialties)
+
 	//Athletes
+	app.Get("/measurements", controllers.GetMeasurements)
+	app.Patch("/measurements", controllers.SetMeasurements)
 
 	//Requests
 	app.Get("/athleteRequests", controllers.GetAthleteRequests)
 	app.Get("/trainerRequests", controllers.GetTrainerRequests)
 	app.Post("/requestTraining", controllers.RequestTraining)
 	app.Patch("/resolveRequest", controllers.ResolveRequest)
+
 
 	db.Init()
 	validation.Init()

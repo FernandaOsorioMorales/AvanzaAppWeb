@@ -7,8 +7,6 @@ import (
 	va "backend/tools/validation"
 
 	"github.com/gofiber/fiber/v2"
-
-	"time"
 )
 
 
@@ -27,6 +25,7 @@ func GetBaseUser(c *fiber.Ctx) error {
 	return ApiSuccess(c, fiber.Map{
 		"alias":       user.Alias,
 		"birthDate":    user.BirthDate,
+		"phone":       user.PhoneNumber,
 		"photo":       user.Photo,
 		"description": user.Description,
 	})
@@ -40,9 +39,7 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 
 	vaErr := va.Check(c, va.Rmap {
 		"alias":     "required",
-		//"email":     "required,email",
-		//"phone":     "required", //add more ?
-		"birthDate": "required,datetime=2006-01-02",
+		"phone":     "required",
 	})
 	if vaErr != nil {
 		return ApiError(c, "Wrong data", 400)
@@ -54,13 +51,37 @@ func UpdateBaseUser(c *fiber.Ctx) error {
 		return ApiError(c, "DB error", 500)
 	}
 
-	birthDate, pErr := time.Parse(time.DateOnly, c.FormValue("birthDate"))
-	if pErr != nil {
+	user.Alias = c.FormValue("alias")
+	user.PhoneNumber = c.FormValue("phone")
+	user.Description = c.FormValue("description")
+
+	if db.Orm().Save(&user).Error != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	return ApiSuccess(c, nil)
+}
+
+func UpdateBaseUserPhoto(c *fiber.Ctx) error {
+	isLogged, id := tools.GetCurrentUserId(c)
+	if !isLogged {
+		return ApiError(c, "Not logged in", 400)
+	}
+
+	vaErr := va.Check(c, va.Rmap {
+		"photo": "required",
+	})
+	if vaErr != nil {
 		return ApiError(c, "Wrong data", 400)
 	}
-	user.Alias = c.FormValue("alias")
-	user.BirthDate = birthDate
-	user.Description = c.FormValue("description")
+
+	var user models.BaseUser
+	getUserErr := db.Orm().First(&user, id).Error
+	if getUserErr != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	user.Photo = c.FormValue("photo")
 
 	if db.Orm().Save(&user).Error != nil {
 		return ApiError(c, "DB error", 500)
@@ -82,8 +103,8 @@ func DeleteBaseUser(c *fiber.Ctx) error {
 }
 
 
-// For a given base user returns "Trainer" if this base
-// user belongs to a trainer, returns "Athlete" otherwise.
+// For a given base user returns "trainer" if this base
+// user belongs to a trainer, returns "athlete" otherwise.
 func UserKind(u models.BaseUser) string {
 	var trainer models.Trainer
 	trainerErr := db.Orm().Where("base_user_id = ?", u.ID).First(&trainer).Error

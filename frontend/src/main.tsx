@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+import { CustomProvider } from 'rsuite';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-
 // Redux state
 import { Provider as ReduxProvider } from "react-redux";
 import store from './state/store'
@@ -23,6 +23,7 @@ import { FollowAlong } from "./routes/followAlong";
 import RegisterUser from "./routes/registerUser";
 import RequestTrainer from "./routes/requestTrainer";
 import UserProfile from "./routes/userProfile";
+import EditAthleteProfile from "./routes/editAthleteProfile";
 
 import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
@@ -31,6 +32,7 @@ import CalendarTrainer from "./routes/calendarTrainer";
 import CalendarUser from "./routes/calendarUser";
 import Specialty from "./routes/specialty";
 import CalendarAthlete from "./routes/calendarAthlete";
+
 
 
 const router = createBrowserRouter([
@@ -81,6 +83,9 @@ const router = createBrowserRouter([
       path:"/requestTrainer",
       element: <RequestTrainer />,
     },
+  { 
+    path: "/EditAthleteProfile", 
+    element: <EditAthleteProfile /> },
   {
     path: "/followAlong",
     element: <FollowAlong/>,
@@ -93,7 +98,6 @@ const router = createBrowserRouter([
     path: "/calendarAthlete",
     element: <CalendarAthlete />,
   },
-
   {
     path:"/specialty",
     element:<Specialty />,
@@ -102,7 +106,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ReduxProvider store={store}>
-  	<ToastContainer />
+
+    <ToastContainer />
+
     <RouterProvider router={router} />
   </ReduxProvider>
 );
