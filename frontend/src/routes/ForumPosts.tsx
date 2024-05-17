@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Field, Formik, Form } from 'formik';
+import qs from "qs";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,11 +11,10 @@ import ProtectedRoute from "../components/protectedRoute.tsx";
 import { SidebarTrainer } from "../components/SideBar/SidebarTrainer.tsx";
 
 type Post = {id: number, title: string, authorAlias: string, authorPhoto: string, commentCount: number};
-type Forum = {id:number, topic: string};
 
 function postCard(post: Post) {
 	return (
-	<li key={post.id} className="card w-1/2 shadow-lg bg-slate-100 m-4">
+	<li key={post.id} className="card shadow-lg bg-slate-100 m-4">
 		<a href={`/post/${post.id}`}> 
 			<div className="card-body flex flex-row items-center text-md">
 				<div>
@@ -26,6 +27,34 @@ function postCard(post: Post) {
 			</div>
 		</a>
 	</li>
+	);
+}
+
+function PostEditor(props: {forumId: string}) {
+	const [post, setPost] = useState({title: "", content: "", forum: props.forumId})
+
+	function savePost(data) {
+		axios({
+			data: qs.stringify(data),
+			method: "post",
+			url: "/api/post",
+			withCredentials: true
+		})
+		.then(_ => toast("Post creado"))
+		.catch(err => toast(`Hubo un problema: ${err}`));
+	}
+
+	return (
+		<div className="card shadow-xl p-2">
+			<h2 className="text-xl mb-4">Crear un post</h2>
+			<Formik initialValues={post} onSubmit={savePost}>
+				<Form>
+					<Field type="text" name="title" className="input input-bordered mb-4" />
+					<Field type="textarea" name="content" as="textarea" className="textarea textarea-bordered w-full mb-4" />
+					<button type="submit" className="btn glass">Crear post</button>
+				</Form>
+			</Formik>
+		</div>
 	);
 }
 
@@ -61,10 +90,15 @@ export default function ForumPosts() {
 			<div><SidebarTrainer /></div>
 
 			<div className="flex-grow">
-			<h1 className="text-6xl text-center">{forum.topic}</h1>
-			<ul>
-			</ul>
-				{postCards}
+				<h1 className="text-6xl text-center">{forum.topic}</h1>
+				<div className="flex flex-row">
+					<ul className="w-1/2">
+						{postCards}
+					</ul>
+					<div className="w-1/2">
+						<PostEditor forumId={params.forumId!}/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</>

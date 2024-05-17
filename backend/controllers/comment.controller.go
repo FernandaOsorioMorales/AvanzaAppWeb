@@ -9,7 +9,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"strconv"
-	"log"
 )
 
 func GetComments(c *fiber.Ctx) error {
@@ -57,9 +56,6 @@ func CreateComment(c *fiber.Ctx) error {
 		"post": "required,numeric",
 	})
 	if vaErr != nil {
-		log.Printf("%v", vaErr)
-		log.Printf("%v", c.FormValue("content"))
-		log.Printf("%v", c.FormValue("post"))
 		return ApiError(c, "Invalid data 1", 500)
 	}
 
@@ -71,8 +67,7 @@ func CreateComment(c *fiber.Ctx) error {
 	//TODO: validate existance of post ?
 
 	var author models.Trainer
-	author.BaseUserId = id
-	authorQ := db.Orm().First(&author)
+	authorQ := db.Orm().Where("base_user_id = ?", id).First(&author)
 	if authorQ.Error != nil {
 		return ApiError(c, "DB error", 500)
 	}

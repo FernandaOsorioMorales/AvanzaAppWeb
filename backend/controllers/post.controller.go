@@ -23,11 +23,6 @@ func GetPost(c *fiber.Ctx) error {
 	}
 
 	var post models.Post
-	//query := db.Orm().Table("posts").
-	//	Joins("JOIN trainers ON posts.author_id = trainers.id").
-	//	Joins("JOIN base_users ON trainers.base_user_id = base_users.id").
-	//	Where("posts.id = ?", postId).
-	//	First(&post)
 	
 	query := db.Orm().Preload("Author.BaseUser").First(&post, postId)
 
