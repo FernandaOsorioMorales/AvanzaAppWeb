@@ -79,3 +79,77 @@ func CreatePost(c *fiber.Ctx) error {
 
 	return ApiSuccess(c, nil)
 }
+
+func GetLike(c *fiber.Ctx) error {
+	isLoggedIn, id := tools.GetCurrentUserId(c)
+	if !isLoggedIn {
+		return ApiError(c, "Not logged in", 400)
+	}
+
+	urlParams := c.AllParams()
+	postId, ok := urlParams["id"]
+	if !ok {
+		return ApiError(c, "ID not found", 404)
+	}
+
+	var trainer models.Trainer
+	trainerQ := db.Orm().Where("base_user_id = ?", id).First(&trainer)
+	if trainerQ.Error != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	var post models.Post
+	postQ := db.Orm().First(&post, postId)
+	if postQ.Error != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	likeCount := db.Orm().Model(&trainer).Where("posts.id = ?", postId).Association("Likes").Count()
+
+	return ApiSuccess(c, fiber.Map {
+		"like": likeCount > 0,
+	})
+}
+
+func LikePost(c *fiber.Ctx) error {
+	isLoggedIn, id := tools.GetCurrentUserId(c)
+	if !isLoggedIn {
+		return ApiError(c, "Not logged in", 400)
+	}
+
+	// getting the post id
+	urlParams := c.AllParams()
+	postId, ok := urlParams["id"]
+	if !ok {
+		return ApiError(c, "ID not found", 404)
+	}
+
+	//Get actors
+	var trainer models.Trainer
+	trainerQ := db.Orm().Where("base_user_id = ?", id).First(&trainer)
+	if trainerQ.Error != nil {
+		return ApiError(c, "DB Error", 500)
+	}
+	var post models.Post
+	postQ := db.Orm().First(&post, postId)
+	if postQ.Error != nil {
+		return ApiError(c, "DB Error", 500)
+	}
+
+	// register or de-register like
+	likeCount := db.Orm().Model(&trainer).Where("posts.id = ?", postId).Association("Likes").Count()
+	var err error
+	if likeCount > 0 {
+		err = db.Orm().Model(&trainer).Association("Likes").Delete(&post)
+	} else {
+		err = db.Orm().Model(&trainer).Association("Likes").Append(&post)
+	}
+
+	if err != nil {
+		return ApiError(c, "DB Error", 500)
+	}
+
+	return ApiSuccess(c, fiber.Map {
+		"like": ! (likeCount > 0),
+	})
+}

@@ -16,6 +16,9 @@ type Post struct {
 	// Comments responding to the post
 	Comments []Comment
 
+	// Trainers that like this post
+	Likers []*Trainer `gorm:"many2many:likes;"`
+
 	// Author of the post
 	AuthorID uint
 	// Author of the post

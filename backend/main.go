@@ -71,6 +71,9 @@ func main() {
 	app.Get("/post/:id", controllers.GetPost)
 	app.Get("/post/:id/comments", controllers.GetComments)
 
+	app.Get("/post/:id/like", controllers.GetLike)
+	app.Post("/post/:id/like", controllers.LikePost)
+
 	app.Post("/comment", controllers.CreateComment)
 
 	db.Init()

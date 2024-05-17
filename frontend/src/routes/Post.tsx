@@ -13,15 +13,62 @@ import { SidebarTrainer } from "../components/SideBar/SidebarTrainer.tsx";
 type Post = {id: number, title: string, content: string, authorAlias: string, authorPhoto: string };
 type Comment = {id: number, content: string, authorAlias: string, authorPhoto: string};
 
-function ContentBox(props: {post: Post}) {
-	const post = props.post;
-	return (
+function LikeButton(props: {id: string}) {
+	const id = props.id;
+	const [isToggled, setIsToggled] = useState(false);
 
+	useEffect(get_post_like, []);
+	function get_post_like() {
+		axios({
+			method: "get",
+			url: `/api/post/${id}/like`,
+			withCredentials: true,
+		})
+		.then(res => {
+			const like_state = res?.data?.like;
+			setIsToggled(like_state);
+		})
+		.catch(_ => toast("Error al recuperar datos"));
+	}
+
+	function set_post_like() {
+		axios({
+			method: "post",
+			url: `/api/post/${id}/like`,
+			withCredentials: true,
+		})
+		.then(res => {
+			const like_state = res?.data?.like;
+			setIsToggled(like_state);
+		})
+		.catch(_ => toast("Hubo un error al registrar el comentario"));
+	}
+
+	let like_color: string;
+	if (isToggled) {
+		like_color = "bg-indigo-500";
+	} else {
+		like_color = "bg-slate-100";
+	}
+
+	return (
+		<button className={`btn glass ${like_color} ml-auto`} onClick={set_post_like}>
+		Like
+		</button>
+	);
+}
+
+function ContentBox(props: {post: Post, postId: string}) {
+	const post = props.post;
+	const postId = props.postId;
+
+	return (
 	<div className="p-2 rounded shadow-2xl mb-4 p-2">
 		<h1 className="text-4xl text-center">{post.title}</h1>
 		<div className="flex flex-row items-center pb-2 text-2xl">
 			<FirebaseImage image_name={post.authorPhoto} className="w-[12vh] h-[12vh] rounded-full overflow-hidden mr-4" />
 			{post.authorAlias}
+			<LikeButton id={postId}/>
 		</div>
 		{post.content}
 	</div>
@@ -34,9 +81,6 @@ function CommentBox(props: {postId: string}) {
 	});
 
 	function saveComment(values) {
-		// CURRENT: add postid to values you fool
-		//console.log(values);
-		//console.log(qs.stringify({post: props.postId, comment: values.comment}));
 		axios({
 			data: qs.stringify({post: props.postId, content: values.comment}),
 			method: "post",
@@ -119,7 +163,7 @@ export default function Forum() {
 			<div><SidebarTrainer /></div>
 
 			<div className="flex-grow flex flex-col p-4 m-2">
-				<ContentBox post={post}/>
+				<ContentBox postId={params.postId!} post={post}/>
 				<CommentBox postId={params.postId!} />
 				<PostComments comments={comments}/>
 			</div>
