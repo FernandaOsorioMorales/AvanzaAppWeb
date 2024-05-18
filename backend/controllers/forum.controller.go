@@ -49,6 +49,7 @@ func GetForum(c *fiber.Ctx) error {
 	posts := make([]map[string]interface{}, 0)
 	for _,post := range forum.Posts {
 		var author models.BaseUser
+		likeCount := db.Orm().Model(&post).Association("Likers").Count()
 		authorQ := db.Orm().Table("base_users").Joins("join trainers on base_users.id = trainers.base_user_id").Where("trainers.id = ?", post.AuthorID).First(&author)
 
 		if authorQ.Error == nil {
@@ -61,6 +62,7 @@ func GetForum(c *fiber.Ctx) error {
 				"authorAlias": author.Alias,
 				"authorPhoto": author.Photo,
 				"commentCount": commentCount,
+				"likeCount": likeCount,
 			})
 		}
 	}

@@ -10,7 +10,7 @@ import FirebaseImage from "../utils/FirebaseImage.tsx";
 import ProtectedRoute from "../components/protectedRoute.tsx";
 import { SidebarTrainer } from "../components/SideBar/SidebarTrainer.tsx";
 
-type Post = {id: number, title: string, authorAlias: string, authorPhoto: string, commentCount: number};
+type Post = {id: number, title: string, authorAlias: string, authorPhoto: string, commentCount: number, likeCount: number};
 
 function postCard(post: Post) {
 	return (
@@ -24,6 +24,8 @@ function postCard(post: Post) {
 
 				<h2 className="card-title pl-4 flex-grow text-left text-2xl">{post.title}</h2>
 				Comentarios: {post.commentCount}
+				<br />
+				Likes: {post.likeCount}
 			</div>
 		</a>
 	</li>
@@ -62,6 +64,7 @@ export default function ForumPosts() {
 	const params = useParams();
 	const [forum, setForum] = useState({id: -1, topic: ""});
 	const [posts, setPosts] = useState(new Array<Post>());
+	const [sortByLikes, setSortByLikes] = useState(true);
 
 	useEffect(fetchForum, [])
 	function fetchForum() {
@@ -79,8 +82,15 @@ export default function ForumPosts() {
 		.catch(e => toast(e));
 	}
 
+	let sortfn;
+	if (sortByLikes) {
+		console.log("yas");
+		sortfn = (a:Post, b:Post) => b.likeCount - a.likeCount;
+	} else {
+		sortfn = (a:Post, b:Post) => b.id - a.id;
+	}
 
-	const postCards = posts.map(postCard);
+	const postCards = posts.toSorted(sortfn).map(postCard);
 
 	return (
 	<>
@@ -97,6 +107,13 @@ export default function ForumPosts() {
 					</ul>
 					<div className="w-1/2">
 						<PostEditor forumId={params.forumId!}/>
+
+						<div className="shadow-lg bg-slate-100 my-4 rounded-lg p-4">
+							<label>
+								Ordenar por likes ?
+								<input type="checkbox" className="checkbox bg-slate-400 checked:bg-indigo-400" onChange={ev =>setSortByLikes(ev.target.checked)}/>
+							</label>
+						</div>
 					</div>
 				</div>
 			</div>

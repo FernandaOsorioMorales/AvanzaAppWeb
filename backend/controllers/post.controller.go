@@ -111,6 +111,29 @@ func GetLike(c *fiber.Ctx) error {
 	})
 }
 
+func GetTotalLikes(c *fiber.Ctx) error {
+	isLoggedIn, _ := tools.GetCurrentUserId(c)
+	if !isLoggedIn {
+		return ApiError(c, "Not logged in", 400)
+	}
+
+	urlParams := c.AllParams()
+	postId, ok := urlParams["id"]
+	if !ok {
+		return ApiError(c, "ID not found", 404)
+	}
+
+	var post models.Post
+	postQ := db.Orm().First(&post, postId)
+	if postQ.Error != nil {
+		return ApiError(c, "DB error", 500)
+	}
+
+	likeCount := db.Orm().Model(&post).Association("Likes").Count()
+
+	return ApiSuccess(c, fiber.Map {"count": likeCount})
+}
+
 func LikePost(c *fiber.Ctx) error {
 	isLoggedIn, id := tools.GetCurrentUserId(c)
 	if !isLoggedIn {

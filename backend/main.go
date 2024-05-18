@@ -73,6 +73,7 @@ func main() {
 
 	app.Get("/post/:id/like", controllers.GetLike)
 	app.Post("/post/:id/like", controllers.LikePost)
+	//app.Get("/post/:id/likes", controllers.GetTotalLikes)
 
 	app.Post("/comment", controllers.CreateComment)
 
