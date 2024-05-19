@@ -197,7 +197,7 @@ func ShareWorkout(c *fiber.Ctx) error {
 		Select("training_plans.id AS id, training_plans.id_trainer as id_trainer").
 		Joins("JOIN user_training_plans AS utp ON utp.id_training_plan = training_plans.id").
 		Where("id_user = ? AND id_trainer = ?", user.ID, trainer.ID).
-		Find(&tp)
+		First(&tp)
 	if result.Error != nil {
 		tp.IdTrainer = uint64(trainer.ID)
 		err := controllers.CreateTrainingPlan(dbase, &tp)
