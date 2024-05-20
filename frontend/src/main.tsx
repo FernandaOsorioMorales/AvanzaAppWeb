@@ -34,6 +34,10 @@ import Specialty from "./routes/specialty";
 import CalendarAthlete from "./routes/calendarAthlete";
 
 
+import Forums from "./routes/Forums.tsx";
+import ForumPosts from "./routes/ForumPosts.tsx";
+import Post from "./routes/Post.tsx";
+
 
 const router = createBrowserRouter([
   {
@@ -93,6 +97,18 @@ const router = createBrowserRouter([
   {
     path: "/calendarTrainer",
     element: <CalendarTrainer />,
+  },
+  {
+    path: "/forum",
+	element: <Forums />,
+  },
+  {
+    path: "/forum/:forumId",
+	element: <ForumPosts />,
+  },
+  {
+    path: "/post/:postId",
+	element: <Post />,
   },
   {
     path: "/calendarAthlete",
