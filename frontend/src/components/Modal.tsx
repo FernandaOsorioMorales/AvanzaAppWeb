@@ -5,8 +5,6 @@ import { X } from 'lucide-react';
 export default function Modal(props : {children: any, open: boolean, width:string, height:string, idElement: string, z:string}){
 
     if (!props.open) return null;
-
-    // const modalSize = props.tiny ? 'w-6/12' : 'w-full';
   
     return (
         createPortal(

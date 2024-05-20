@@ -13,6 +13,7 @@ import (
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
+	"github.com/Jeffail/gabs"
 )
 
 // Returns the user contact list based on the user session.
@@ -30,13 +31,13 @@ func GetContacts(c *fiber.Ctx) error {
 	}
 
 	if !logged {
-		return controllers.ApiError(c, "I'm a teapot", 418)
+		return controllers.ApiError(c, "Must be logged in", 401)
 	}
 
 	kind := controllers.UserKind(user)
 
 	if kind == "" {
-		return controllers.ApiError(c, "Missing kind param", 400)
+		return controllers.ApiError(c, "Couldn't retrieve kind", 500)
 	}
 
 	type user_contact struct {
@@ -133,4 +134,112 @@ func ChatHandler(c *websocket.Conn) {
 	}
 
 	socket.RemoveConnection(userId)
+}
+
+// Shares a workout to a user: Creates a new training plan
+// if there isn´t any between the trainer and the user and 
+// adds the workou to the training plan.
+func ShareWorkout(c *fiber.Ctx) error {
+	dbase := db.Orm()
+	logged, id_trainer := tools.GetCurrentUserId(c)
+
+	if !logged {
+		return controllers.ApiError(c, "Must be logged in", 401)
+	}
+
+	body, parseErr := gabs.ParseJSON([]byte(c.Body()))
+	if parseErr != nil {
+		return controllers.ApiError(c, "Something went wrong when "+
+									"parsing request body", 500)
+	}
+
+	user_id, exists_id := body.Search("IdUser").Data().(float64)
+	if !exists_id {
+		log.Print(body)
+		log.Print(exists_id)
+		log.Print(user_id)
+		return controllers.ApiError(c, "Id must not be empty", 404)
+	}
+
+	userId := uint64(user_id)
+
+	var user models.BaseUser
+	result := db.Orm().Where("id = ?", userId).First(&user)
+	if result.Error != nil {
+		return controllers.ApiError(c, "Something wen wrong when retrieving user", 500)
+	}
+	
+	kind := controllers.UserKind(user)
+	log.Print(kind)
+	if kind == "" {
+		return controllers.ApiError(c, "Couldn't retrieve kind", 500)
+	} else if kind != "athlete" {
+		return controllers.ApiError(c, "IdUser kind must be 'user'", 400)
+	}
+
+	var trainer models.BaseUser
+	result = db.Orm().Where("id = ?", id_trainer).First(&trainer)
+	if result.Error != nil {
+		return controllers.ApiError(c, "Something wen wrong when retrieving trainer", 500)
+	}
+
+	kind = controllers.UserKind(trainer)
+
+	if kind == "" {
+		return controllers.ApiError(c, "Couldn't retrieve kind", 500)
+	} else if kind != "trainer" {
+		return controllers.ApiError(c, "Must be a trainer to share workouts", 403)
+	}
+
+	tp := models.TrainingPlan{}
+
+	result = dbase.Table("training_plans").
+		Select("training_plans.id AS id, training_plans.id_trainer as id_trainer").
+		Joins("JOIN user_training_plans AS utp ON utp.id_training_plan = training_plans.id").
+		Where("id_user = ? AND id_trainer = ?", user.ID, trainer.ID).
+		Find(&tp)
+	if result.Error != nil {
+		tp.IdTrainer = uint64(trainer.ID)
+		err := controllers.CreateTrainingPlan(dbase, &tp)
+		if err != nil {
+			return controllers.ApiError(c, "Something went wrong when creating tp", 500)
+		}
+		utp := models.NewUserTrainingPlan(uint64(tp.ID), uint64(user.ID))
+		err = controllers.CreateUserTrainingPlan(dbase, &utp)
+		if err != nil {
+			return controllers.ApiError(c, "Something went wrong when creating utp", 500)
+		}
+	}
+
+	controllers.DeleteTrainingPlanWkByTpId(dbase, uint64(tp.ID))
+
+	tp_workouts, arrayErr := body.Search("trainingPlanWorkout").Children()
+
+	log.Print(tp_workouts)
+
+	if arrayErr != nil {
+		log.Print("The exercise array is empty")
+		return controllers.ApiError(c, "Something went wrong when reading array", 500)
+	}
+
+	for _, tp_workout := range tp_workouts {
+		idWk, exists := tp_workout.Path("IdWorkout").Data().(float64)
+		if !exists {continue}
+		day, exists := tp_workout.Path("WeekDay").Data().(float64)
+		if !exists {continue}
+
+		newTpWk, tpErr := models.NewTrainingPlanWk(uint64(idWk), 
+											uint64(tp.ID),
+											uint8(day))
+		
+		if tpErr != nil {
+			return controllers.ApiError(c, "Invalid WeekDay", 400)
+		}
+
+		controllers.CreateTrainingPlanWk(dbase, &newTpWk)
+	}
+
+	return c.JSON(fiber.Map{
+		"success": true,
+	})
 }

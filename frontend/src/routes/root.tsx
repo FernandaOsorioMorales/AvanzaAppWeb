@@ -1,23 +1,18 @@
 import Title from "../components/landingpage/title";
 import React from "react";
-import ButtonMio from "../components/landingpage/button";
-import LoginForm from "./login";
-import RegisterForm from "./register";
 import Navbar from "../components/landingpage/navBar";
 import Carousel from "../components/landingpage/carousel";
 
 export function Root() {
     return (
-      <div>
+      <div className="flex-row h-screen overflow-hidden">
         <div>
           <Navbar />
         </div>
-        <div className="bg-blue-100 pb-11 h-full">
+        <div className="bg-blue-100 h-full">
           <Title />
           <Carousel />
         </div>
       </div>
-      
     );
-
   }

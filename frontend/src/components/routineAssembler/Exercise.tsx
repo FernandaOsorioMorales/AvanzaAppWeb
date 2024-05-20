@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Trash2, GripVertical, Pencil } from 'lucide-react';
 import Select, { MultiValue } from 'react-select'
-import Modal from './Modal';
+import Modal from '../Modal';
 import { EditParameters } from './EditParameters';
 
 // Excercise component, an exercise is a 'x' series of 'y' reps, with an order and a name.

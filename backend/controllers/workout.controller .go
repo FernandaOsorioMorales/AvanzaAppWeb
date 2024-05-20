@@ -8,7 +8,7 @@ import (
 
 // Creates a new workout in the database.
 // Returns error if an error occurs when creating
-// the exercise.
+// the workout.
 func CreateWorkout(db *gorm.DB, w *models.Workout) error {
 
 	err := db.Create(w).Error

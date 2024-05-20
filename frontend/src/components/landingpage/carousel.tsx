@@ -19,8 +19,7 @@ import pesas4 from "../../assets/pesas4.png";
                 <img src={pesas3} alt="Pesas" className="w-32 h-32"/>
                 <img src={pesas4} alt="Pesas" className="w-32 h-32"/>
             </div>
-        </div>
-        
+        </div> 
     );
   };
   

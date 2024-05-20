@@ -36,6 +36,59 @@ func connect() {
 	orm = database
 }
 
+// Creates tags and exercises.
+func populate() {
+	var exercises []models.Exercise
+	err := orm.Find(&exercises).Error
+	if err == nil {
+		exercises := []string{
+			"Press militar", "Push press", "HSPU aistida", "HSPU",
+			"HS", "Elevaciones frontales", "Elevaciones laterales",
+			"Pájaros", "Arnold press", "Planche", "Lean planche", 
+			"Press inclinado", "Press plano", "Press declinado", 
+			"Cristo", "Flexiones inclinadas", "Flexiones", "Fondos",
+			"Aperturas con polea", "Aperturas con mancuerna",
+			"Planche press", "Extensión de trícep", "Patada de trícep",
+			"Press francés", "Copa", "Rompecráneos", "V-sit", "L-sit",
+			"Front lever", "Front lever raises", "Curl de bíceps con barra",
+			"Martillo", "Curl de bíceps con polea", "Curl de bíceps invetido",
+			"Extensión de muñeca", "Flexión de muñeca", "Plancha",
+			"Plancha lateral", "Abdominales", "Abdominales en C",
+			"Abdominales en A", "Abdominales en V", "Tijeras", "Dragon flag",
+			"Abdominales laterales", "Lumbares", "Superman", "Dominadas",
+			"Jalón al pecho", "Remo con mancuerna", "Remo con polea",
+			"Face pull", "Puente de glúteo", "RDL", "Hip Thrust",
+			"Patada de glúteo", "Press de pierna", "Sentadilla frontal",
+			"Sentadilla lateral", "Sentadilla sumo", "Peso muerto", 
+			"Peso muerto sumo", "Extesnión de pierna", "Curl de femoral",
+			"Abductores con polea", "Adductores con polea", "Desplantes",
+			"Sentadilla búlgara", "Pistol squat", "Dragon squat",
+			"Hawaiian squat", "Elevaciones de gemelo", "Salto vertical", 
+			"Salto de longitud",
+		}
+	
+		for _, e := range exercises {
+			exercise := models.NewExercise(e, "") 
+			orm.Create(&exercise)
+		}
+	}
+
+	var tags []models.Tag
+	err = orm.Find(&tags).Error
+	if err == nil {
+		tags := []string{
+			"Hombro", "Trapecio", "Bíceps", "Tríceps", "Pecho", "Espalda", "Glúteo",
+			"Pierna", "Cuadríceps", "Bíceps femoral", "Gemelo", "Abdomen", "Dorsal",
+			"Lumbar", "Fuerza", "Coordinación", "Potencia", "Resistencia",
+		}
+	
+		for _, t := range tags {
+			tag := models.NewTag(t)
+			orm.Create(&tag)
+		}	
+	}
+}
+
 // Loads our ORM models into the database, creating or modifying tables as needed
 func migrate() {
 	orm.AutoMigrate(&models.BaseUser{})
@@ -49,6 +102,7 @@ func migrate() {
 	orm.AutoMigrate(&models.Request{})
 	orm.AutoMigrate(&models.TrainingPlanWk{})
 	orm.AutoMigrate(&models.TrainingPlan{})
+	orm.AutoMigrate(&models.UserTrainingPlan{})
 	orm.AutoMigrate(&models.WorkoutExercise{})
 	orm.AutoMigrate(&models.Workout{})
 	orm.AutoMigrate(&models.WorkoutTag{})
@@ -61,6 +115,7 @@ func migrate() {
 func Init() {
 	connect()
 	migrate()
+	populate()
 }
 
 // Returns access to the database connection instance.
