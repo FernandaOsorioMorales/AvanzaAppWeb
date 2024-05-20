@@ -78,20 +78,6 @@ const theme = createTheme({
             <MyStopwatch />
             <Placeholder.Paragraph />
             {rutina}
-            {exercises.map(exercise => (
-              <div key={exercise.IdExercise}>
-                <h3>{exercise.Name}</h3>
-                <p>{exercise.Description}</p>
-                <p>Sets: {exercise.Sets}</p>
-                <p>Reps: {exercise.Reps}</p>
-                <p>Ordinal:{exercise.Ordinal}</p>     
-              </div>
-            ))}
-            {tags.map(tag => (
-              <div key={tag.Id}>
-                <p>{tag.Name}</p>
-              </div>
-            ))}
           </Drawer.Body>
         </Drawer>
       </>

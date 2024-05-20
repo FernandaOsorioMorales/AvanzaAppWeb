@@ -48,7 +48,7 @@ async function getRoutineName(){
   return response.data; // Retorna directamente los datos
 }
 
-getRoutineName();
+
  
 const calendarAthlete: React.FC = () => {
   const [trainingPlans, setTrainingPlans] = useState<TrainingPlan[]>([]);
@@ -80,19 +80,26 @@ const calendarAthlete: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='flex bg-blue-50'>
+      <div>
+          <SidebarAthlete/>
+      </div>
+      <div className='flex flex-col items-center p-4'>
+        <h3 className='text-[#DC5663] text-3xl font-bold mb-4'>
+          ¡Hola! Mira cómo luce tu semana
+        </h3>
       {trainingPlans.map((trainingPlan) => (
         <div key={trainingPlan.IdTrainingPlan}>
-          <h2>Training Plan ID: {trainingPlan.IdTrainingPlan}</h2>
-          <ul>
+          <div className="flex flex-wrap">
             {trainingPlan.TrainingPlanWorkouts.map(workout => (
-              <li key={workout.Id}>
-                Day {workout.DayOfWeek}: {workout.Name}
-              </li>
+              <div key={workout.Id} className='w-1/4 p-4'>
+                <BasicCard routineName={workout.Name} dayofWeek={workout.DayOfWeek}/>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ))}
+      </div>
     </div>
   );  
   };
