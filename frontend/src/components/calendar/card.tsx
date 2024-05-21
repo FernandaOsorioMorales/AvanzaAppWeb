@@ -13,6 +13,7 @@ import MyDrawer from './drawer.tsx';
 export interface BasicCardProps {
     routineName: string;
     dayofWeek: number;
+    workoutId: number;
     
   }
 
@@ -25,7 +26,7 @@ const bull = (
     </Box>
   );
   
-const BasicCard: React.FC<BasicCardProps> = ({ routineName, dayofWeek }) => {
+const BasicCard: React.FC<BasicCardProps> = ({ routineName, dayofWeek,workoutId }) => {
     return (
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
@@ -39,7 +40,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ routineName, dayofWeek }) => {
             Duración: 1 hora
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <MyDrawer rutina='Aquí irá lo que se obtenga de get workout details'/>
+            <MyDrawer idWorkout={workoutId}/>
           </Box>
         </CardContent>
       </Card>

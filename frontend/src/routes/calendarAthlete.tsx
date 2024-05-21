@@ -93,7 +93,7 @@ const calendarAthlete: React.FC = () => {
           <div className="flex flex-wrap">
             {trainingPlan.TrainingPlanWorkouts.map(workout => (
               <div key={workout.Id} className='w-1/4 p-4'>
-                <BasicCard routineName={workout.Name} dayofWeek={workout.DayOfWeek}/>
+                <BasicCard routineName={workout.Name} dayofWeek={workout.DayOfWeek} workoutId={workout.Id}/>
               </div>
             ))}
           </div>

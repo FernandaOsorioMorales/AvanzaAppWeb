@@ -120,6 +120,7 @@ func GetWorkoutList(c *fiber.Ctx) error {
 	})
 }
 
+
 // Returns the detailed workout (exercises sets and reps).
 // Returns 401 if the user is not logged in.
 // Returns 500 HTTP Status Code if tan error occurs when
