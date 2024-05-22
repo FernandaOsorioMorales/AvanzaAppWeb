@@ -29,8 +29,6 @@ import './styles/index.css';
 import RegisterClasification from "./routes/registerClasification";
 import RegisterTrainer from "./routes/registerTrainer";
 import CalendarTrainer from "./routes/calendarTrainer";
-import CalendarUser from "./routes/calendarUser";
-import Specialty from "./routes/specialty";
 import CalendarAthlete from "./routes/calendarAthlete";
 
 

@@ -89,3 +89,4 @@ func GetTrainingPlan(c *fiber.Ctx) error {
 		"TrainingPlans": *user_training_plans,
 	})
 }
+

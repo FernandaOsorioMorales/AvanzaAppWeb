@@ -11,7 +11,10 @@ import Typography from '@mui/material/Typography';
 import MyDrawer from './drawer.tsx';
 
 export interface BasicCardProps {
-    musculo: string;
+    routineName: string;
+    dayofWeek: number;
+    workoutId: number;
+    
   }
 
 const bull = (
@@ -22,24 +25,22 @@ const bull = (
       •
     </Box>
   );
-
-
   
-  const BasicCard: React.FC<BasicCardProps> = ({ musculo }) => {
+const BasicCard: React.FC<BasicCardProps> = ({ routineName, dayofWeek,workoutId }) => {
     return (
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Rutina del día
+            Rutina del día {dayofWeek}
           </Typography>
           <Typography variant="h5" component="div">
-            {musculo}
+            {routineName}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             Duración: 1 hora
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <MyDrawer rutina='Aquí irá lo que se obtenga de get workout details'/>
+            <MyDrawer idWorkout={workoutId}/>
           </Box>
         </CardContent>
       </Card>
