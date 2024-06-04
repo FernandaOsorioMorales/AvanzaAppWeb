@@ -6,92 +6,87 @@ import qs from "qs";
 
 import FirebaseImage from "../../utils/FirebaseImage.tsx";
 
-function requestTraining(trainer_id: number) {
-	const data = {
-		trainer_id: trainer_id,
-	};
-
-	axios({
-		method: "post",
-		withCredentials: true,
-		url: "/api/requestTraining",
-		data: qs.stringify(data)
-	}).then(_ => {
-		toast("Listo !");
-	}).catch(e => {
-		let message = e?.data?.errorMessage;
-		if (message) {
-			toast(message);
-		} else {
-			toast("Hubo un problema");
-		}
-	});
-}
-
-function TrainerCard(trainer: {alias: string, description: string, id: number, photo: string, specialties: [string]}) {
-
-	const tags = trainer.specialties.map(t => (<li key={t} value={t} className="badge badge-accent mx-2">{t}</li>));
-
+function requestTraining(trainer_id) {
+	const data = { trainer_id };
+  
+	axios.post("/api/requestTraining", qs.stringify(data), { withCredentials: true })
+	  .then(() => {
+		toast("¡Listo!");
+	  })
+	  .catch(e => {
+		const message = e?.response?.data?.errorMessage || "Hubo un problema";
+		toast(message);
+	  });
+  }
+  
+  
+export function TrainerCard({ trainer }) {
+	const { alias, description, id, photo, specialties } = trainer;
+  
 	return (
-	<div key={trainer.id} className="card bg-[#DC5663] my-2">
-		<div className="card-body flex flex-row justify-between items-center p-3">
-			<FirebaseImage className="rounded-full h-[10vh] w-[10vh]" image_name={trainer.photo} />
-			<div>
-				<h4 className="card-title text-blue-50">{trainer.alias}</h4>
-				<p className="text-base">{trainer.description}</p>
-				<div className="flex flex-row flex-wrap">{ tags }</div>
-			</div>
-			<div className="card-actions justify-end">
-				<button className="btn btn-accent bg-blue-50" onClick={() => requestTraining(trainer.id)}>Solicitar</button>
-			</div>
-			
+	  <div key={id} className="card bg-rose-700 my-4 shadow-lg rounded-lg overflow-hidden">
+		<div className="card-body flex flex-col md:flex-row items-center p-6">
+		  <FirebaseImage className="rounded-full h-24 w-24 md:h-32 md:w-32 object-cover" image_name={photo} />
+		  <div className="md:ml-6 mt-4 md:mt-0 flex-1">
+			<h4 className="text-white font-bold text-2xl mb-2">{alias}</h4>
+			<p className="text-white text-base mb-4">{description}</p>
+			<ul className="flex flex-wrap mb-4">
+			  {specialties.map(t => (
+				<li key={t} className="badge bg-white text-rose-700 mx-1 mb-1 px-2 py-1 rounded-full">{t}</li>
+			  ))}
+			</ul>
+		  </div>
+		  <div className="mt-4 md:mt-0 md:ml-6 flex-shrink-0">
+			<button className="btn btn-accent bg-white text-rose-700 hover:bg-azulote hover:text-white transition-colors duration-300" onClick={() => requestTraining(id)}>
+			  Solicitar
+			</button>
+		  </div>
 		</div>
-	</div>
+	  </div>
 	);
-}
-
-export default function SearchTrainers() {
+  }
+  
+  
+  
+  export default function SearchTrainers() {
 	const [search, setSearch] = useState("");
 	const [trainers, setTrainers] = useState([]);
 	const [tags, setTags] = useState([]);
 	const [tagFilter, setTagFilter] = useState("*");
-
-function getAvailableTrainers() {
-	axios({
-		method: "get",
-		withCredentials: true,
-		url: "/api/trainers",
-	}).then(res => {
-		const data = res?.data;
-		setTrainers(data);
-
-		let specialties = data.flatMap(t => t.specialties);
-		setTags([... new Set(specialties)]);
-	}).catch()
-}
-	useEffect(getAvailableTrainers, []);
-
-	const userId = useSelector(state => state.user.id)
-
-	const cards = trainers
-		.filter(t => tagFilter == "*" ? true: t.specialties.includes(tagFilter))
-		.filter(t => t.description.includes(search) || t.alias.includes(search))
-		.map(t => TrainerCard(t));
-	
-	const selectTags = tags.map(t => (<option key={t}>{t}</option>));
-
+  
+	useEffect(() => {
+	  axios.get("/api/trainers", { withCredentials: true })
+		.then(res => {
+		  const data = res.data;
+		  setTrainers(data);
+		  const specialties = data.flatMap(t => t.specialties);
+		  setTags([...new Set(specialties)]);
+		})
+		.catch(() => {
+		  toast("Error al cargar entrenadores");
+		});
+	}, []);
+  
+	const filteredTrainers = trainers
+	  .filter(t => tagFilter === "*" || t.specialties.includes(tagFilter))
+	  .filter(t => t.description.includes(search) || t.alias.includes(search));
+  
 	return (
-		<>
-		<input 
-		  type="text" 
-		  value={search} 
-		  onChange={e => setSearch(e.target.value)} 
-		  className="input input-bordered w-full max-w-md mx-auto my-3 p-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#E9F9FF] bg-blue-50 border-blue-300" 
-		  placeholder="Prueba con su nombre..." 
-		/>
-	  
-		<ul className="flex flex-col my-2">
-		  {cards}
+	  <div className="container mx-auto p-4">
+		<div className="mb-4">
+		  <input
+			type="text"
+			value={search}
+			onChange={e => setSearch(e.target.value)}
+			className="input input-bordered w-full max-w-md mx-auto p-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-blue-50 border-blue-300"
+			placeholder="Busca por nombre"
+		  />
+		</div>
+		<ul className="flex flex-col">
+		  {filteredTrainers.map(trainer => (
+			<TrainerCard key={trainer.id} trainer={trainer} />
+		  ))}
 		</ul>
-	  </>);
-}
+	  </div>
+	);
+  }

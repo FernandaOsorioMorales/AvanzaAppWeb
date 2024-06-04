@@ -99,14 +99,6 @@ const MyDrawer: React.FC<DrawerProps> = ({idWorkout }) => {
                                     <p className='text-gray-600'>Reps: {exercise.Reps}</p>
                                 </div>
                             ))}
-                            <h3 className='text-3xl font-bold text-cyan-600 text-center my-5'>Tags</h3>
-                            <Stack direction="row" spacing={2}>
-                                {tags.map(tag => (
-                                    <Button key={tag.Id} variant="contained" style={{ backgroundColor: '#36BFBF', color: 'white' }}>
-                                        {tag.Name}
-                                    </Button>
-                                ))}
-                            </Stack>
                         </div>
                     )}
                 </Drawer.Body>

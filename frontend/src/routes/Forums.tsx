@@ -10,49 +10,11 @@ import { SidebarTrainer } from "../components/SideBar/SidebarTrainer.tsx";
 
 type forum = {id: number, topic: string};
 
-function ForumCard(f: forum) {
-	return (
-	<li key={f.id} className="card shadow-lg bg-slate-100 m-4">
-		<div className="card-body flex flex-row">
-			<h2 className="card-title pl-4">{f.topic}</h2>
-			<a href={`/forum/${f.id}`} className="btn flex-grow ">Ver</a>
-		</div>
-	</li>
-	);
-}
-
-function ForumCreator() {
-	const [forumTopic, setForumTopic] = useState({topic: ""});
-
-	function saveForum(data: {topic: string}) {
-		axios({
-			data: qs.stringify(data),
-			method:"post",
-			url: "/api/forum",
-			withCredentials: true
-		})
-		.then(_ => toast("Creado exitosamente"))
-		.catch(err => toast(`Hubo un problema: ${err}`));
-	}
-
-	return (
-		<div className="card shadow-xl p-4 my-2">
-			<h2 className="text-xl mb-4">Crea un nuevo foro</h2>
-			<Formik initialValues={forumTopic} onSubmit={saveForum}>
-				<Form>
-					<Field type="text" name="topic" className="input input-bordered mb-4" />
-					<button type="submit" className="btn glass">Crear foro!</button>
-				</Form>
-			</Formik>
-		</div>
-	);
-}
-
-// The list of all available trainer forums
 export default function Forums() {
-	const [forums, setForums] = useState(new Array<forum>());
+	const [forums, setForums] = useState([]);
 
 	useEffect(fetchForums, []);
+
 	function fetchForums() {
 		axios({
 			method: "get",
@@ -68,25 +30,90 @@ export default function Forums() {
 		})
 	}
 
-	const forumCards = forums.map(ForumCard);
-	return (
-	<>
-		<ProtectedRoute kindsAllowed={["trainer"]}/>
-		<div className="flex flex-row bg-blue-50">
-			<div><SidebarTrainer /></div>
-			<div className="flex-grow">
-				<h1 className="text-6xl text-center">Forums</h1>
+	const forumCards = forums.map(forum => <ForumCard key={forum.id} forum={forum} />);
 
-				<div className="flex flex-row">
-					<ul className="w-1/2">
-						{forumCards}
-					</ul>
-					<div className="w-1/2">
-						<ForumCreator />
-					</div>
-				</div>
-			</div>
-		</div>
-	</>
+	return (
+		<>
+			<ProtectedRoute kindsAllowed={["trainer"]} />
+			<div className="flex flex-row bg-[#E9F9FF] min-h-screen">
+    <div><SidebarTrainer /></div>
+    <div className="flex-grow p-8">
+        <h1 className="text-6xl text-center text-rose-700 font-semibold mb-8">¡Bienvenido a tus foros!</h1>
+        <div className="flex flex-row">
+            <div className="w-1/2">
+                <ul>
+                    {forumCards}
+                </ul>
+            </div>
+            <div className="w-1/2 pl-8">
+                <h2 className="text-2xl text-rose-700 font-semibold mb-4">Comienza a compartir lo que piensas</h2>
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                    <ForumCreator />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+		</>
+	);
+}
+
+function ForumCard({ forum }) {
+    return (
+        <li className="card shadow-lg bg-white m-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+            <div className="card-body flex flex-row items-center justify-between">
+                <h2 className="text-xl font-semibold text-azulF px-4">{forum.topic}</h2>
+                <a href={`/forum/${forum.id}`} className="btn bg-azulote text-white py-2 px-6 rounded-lg mr-4 hover:bg-azulote-dark">Ver</a>
+            </div>
+        </li>
+    );
+}
+
+function ForumCreator() {
+	const [forumTopic, setForumTopic] = useState("");
+
+	function saveForum(topic) {
+		axios({
+			data: qs.stringify({ topic }),
+			method:"post",
+			url: "/api/forum",
+			withCredentials: true
+		})
+		.then(_ => toast("Creado exitosamente"))
+		.catch(err => toast(`Hubo un problema: ${err}`));
+	}
+
+	return (
+		<div className="card shadow-xl p-6 my-4 bg-vainilla rounded-lg">
+    <h2 className="text-2xl font-bold mb-4 text-azulF">Crea un nuevo foro</h2>
+    <Formik
+        initialValues={{ topic: forumTopic }}
+        onSubmit={(values) => {
+            saveForum(values.topic);
+            setForumTopic("");
+        }}
+    >
+        {({ values, handleChange, handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        name="topic"
+                        className="input input-bordered w-full py-2 px-3 rounded-lg"
+                        placeholder="Ingrese el tema del foro"
+                        value={values.topic}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button
+                    type="submit"
+                    className="btn bg-azulote text-white py-2 px-6 rounded-lg"
+                >
+                    Crear foro
+                </button>
+            </form>
+        )}
+    </Formik>
+</div>
 	);
 }

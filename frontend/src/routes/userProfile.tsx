@@ -10,6 +10,7 @@ import SearchBar from "../components/profiles/SearchBar";
 import SearchTrainers from "../components/profiles/SearchTrainers";
 import { logout } from "../utils/login.ts";
 import RequestTrainer from "./requestTrainer.tsx";
+import RequestsForAthletes from "../components/profiles/RequestsForAthletes.tsx";
 
 function logOutAction() {
 	logout().catch(_ => toast("hubo un problema"));
@@ -22,12 +23,16 @@ return (
     <div className="flex flex-col h-screen bg-gradient-to-b from-blue-200 to-blue-50">
   <ProtectedRoute kindsAllowed={["athlete"]} />
   <div className="flex flex-grow">
+    <div>
     <SidebarAthlete />
+    </div>
     <div className="flex flex-col justify-center items-center flex-grow">
       <h1 className="text-5xl font-bold text-blue-900 mb-8">
         Todo comienza encontrando a tu entrenador
       </h1>
       <RequestTrainer />
+      <RequestsForAthletes />
+
 
     </div>
   </div>

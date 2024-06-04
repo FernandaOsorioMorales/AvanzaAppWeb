@@ -11,6 +11,7 @@ const SidebarContext = createContext({
     toggleExpanded: () => {}, // Placeholder para toggle function
 });
 
+
 function logOutAction() {
 	logout().catch(_ => toast("hubo un problema"));
 }
@@ -31,7 +32,7 @@ export const SidebarTrainer = () => {
                         <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" link="/calendarTrainer" />
                         <SidebarItem icon={<Layers size={20} />} text="Ensamblador de rutinas" link="/workouts"/>
                         <SidebarItem icon={<MessagesSquare size={20} />} text="Mis Foros" link="/forum"/>
-                        <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="/messages" />
+                        <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="/messagesTrainer" />
                         <hr className="my-20" />
                         <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="/editTrainerProfile"/>
                         <SidebarItem icon={<LogOut size={20} />} text="Salir" onClick={logOutAction} />

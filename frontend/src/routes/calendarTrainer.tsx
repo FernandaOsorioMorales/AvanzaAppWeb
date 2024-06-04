@@ -14,21 +14,22 @@ function logOutAction() {
 
 export default function calendarTrainer() {
   return (
-    <div className='flex bg-blue-50'>
+    <div className='flex bg-blue-50 min-h-screen'>
       <div>
         <SidebarTrainer/>
       </div>
-      <div className='flex flex-col items-center p-4'>
-        <h3 className='text-rose-700 text-3xl font-bold mb-4'>
+      <div className='flex flex-col items-center justify-center flex-1 p-8'>
+        <h3 className='text-rose-700 text-3xl font-bold mb-6'>
           ¡Hola! Mira cómo luce tu semana
         </h3>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div className="flex justify-center items-center h-96 w-96"> 
-            <DateCalendar /> 
+          <div className="rounded-lg shadow-lg bg-white p-6 w-full max-w-3xl">
+            <div className="h-96 w-96">
+              <DateCalendar />
+            </div>
           </div>
         </LocalizationProvider>
       </div>
-      
     </div>
   );
 }

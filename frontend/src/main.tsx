@@ -12,7 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';//GL
 
 // Routes
 import { Root } from './routes/root';
-import { Messages } from "./routes/messages";
+import { MessagesAthlete } from "./routes/messagesAthelete.tsx";
+import { MessagesTrainer} from './routes/messagesTrainer';
 import { Assembler } from "./routes/assembler";
 import LoginForm from "./routes/login";
 import EditTrainerProfile from "./routes/editTrainerProfile";
@@ -43,8 +44,12 @@ const router = createBrowserRouter([
     element: <Root />,
   },
   {
-    path: "/messages",
-    element: <Messages />,
+    path: "/messagesAthlete",
+    element: <MessagesAthlete />,
+  },
+  {
+    path: "/messagesTrainer",
+    element: <MessagesTrainer />,
   },
   {
     path: "/login",

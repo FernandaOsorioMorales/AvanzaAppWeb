@@ -24,11 +24,12 @@ export const SidebarAthlete = () => {
     return (
         
 
+
                 <nav className="flex-1 px-3">
                     <Sidebar>
                         <SidebarItem icon={<Home size={20} />} text="Inicio" link="/userProfile" />
                         <SidebarItem icon={<Calendar size={20} />} text="Mi agenda" link="/calendarAthlete" />
-                        <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="/messages" />
+                        <SidebarItem icon={<MessageCircle size={20} />} text="Mis chats" link="/messagesAthlete" />
                         <hr className="my-20" />
                         <SidebarItem icon={<Settings size={20} />} text="Editar mi perfil" link="/editAthleteProfile" />
                         <SidebarItem icon={<LogOut size={20} />} text="Salir" onClick={logOutAction}/>
